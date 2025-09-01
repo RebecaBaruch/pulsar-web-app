@@ -1,4 +1,12 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faFacebookF,
+  faTiktok,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -6,11 +14,12 @@ export default function HeroSection() {
       className="
         w-screen 
         p-4 
-        h-auto md:h-[80vh]
+        h-auto md:h-[80dvh]
       "
     >
       <div
         className="
+          relative
           p-6
           py-12
           lg:p-18
@@ -29,7 +38,6 @@ export default function HeroSection() {
           overflow-hidden
         "
       >
-        {/* Imagem - Mobile vem primeiro */}
         <div className="relative flex-1 w-full order-1 md:order-2 mb-6 md:mb-0">
           <img
             src="/images/hero-image-desktop.png"
@@ -38,8 +46,7 @@ export default function HeroSection() {
           />
         </div>
 
-        {/* Texto - Mobile vem depois */}
-        <div className="z-10 sm:w-full md:w-[55%] order-2 md:order-1 text-left">
+        <div className="z-10 sm:w-full md:w-[55%] order-2 md:order-1 mt-6 text-left">
           <h1 className="text-2xl font-bold text-white sm:text-4xl">
             Mais que psicologia, cuidado completo
           </h1>
@@ -50,6 +57,21 @@ export default function HeroSection() {
           <button className="mt-6 inline-block rounded-full bg-green-400 px-4 py-3 text-sm text-[#0F1417] font-semibold hover:bg-green-500">
             Comece sua jornada
           </button>
+        </div>
+
+        <div className="flex flex-row justify-end space-x-3 order-3 md:order-2 w-full fa-lg mt-12 md:absolute md:bottom-6 md:right-6">
+          <Link href={""} style={{ color: "white" }}>
+            <FontAwesomeIcon icon={faInstagram} />
+          </Link>
+          <Link href={""} style={{ color: "white" }}>
+            <FontAwesomeIcon icon={faFacebookF} />
+          </Link>
+          <Link href={""} style={{ color: "white" }}>
+            <FontAwesomeIcon icon={faTiktok} />
+          </Link>
+          <Link href={""} style={{ color: "white" }}>
+            <FontAwesomeIcon icon={faYoutube} />
+          </Link>
         </div>
       </div>
     </section>
