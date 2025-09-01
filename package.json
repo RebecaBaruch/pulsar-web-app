@@ -10,6 +10,10 @@
     "generate": "plop --plopfile .dev/plopfile.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-brands-svg-icons": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/react-fontawesome": "^3.0.2",
     "handlebars": "^4.7.8",
     "next": "15.4.6",
     "react": "19.1.0",
