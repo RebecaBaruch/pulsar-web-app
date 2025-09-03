@@ -13,7 +13,7 @@ export default function HeroSection() {
     <section
       className="
         w-screen 
-        p-4 
+        px-4 
         h-auto md:h-[80dvh]
       "
     >
