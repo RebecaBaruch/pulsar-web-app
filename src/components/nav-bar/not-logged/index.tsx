@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function NotLoggedNav() {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
-    <div className="w-screen p-7">
+    <div className="w-full p-7">
       <nav className="max-w-[1440px] mx-auto flex flex-row justify-between items-center flex-wrap">
         {/* Logo */}
         <Link href="/">

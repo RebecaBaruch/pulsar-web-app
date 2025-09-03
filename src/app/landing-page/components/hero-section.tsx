@@ -54,7 +54,7 @@ export default function HeroSection() {
             Na Pulsar, você encontra apoio emocional, físico e financeiro com
             profissionais qualificados e humanos.
           </p>
-          <button className="mt-6 inline-block rounded-full bg-green-400 px-4 py-3 text-sm text-[#0F1417] font-semibold hover:bg-green-500">
+          <button className="mt-6 inline-block rounded-full bg-green-400 px-4 py-3 text-sm text-[#0F1417] font-semibold hover:bg-green-500 cursor-pointer">
             Comece sua jornada
           </button>
         </div>
