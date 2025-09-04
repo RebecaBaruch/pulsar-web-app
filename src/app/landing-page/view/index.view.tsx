@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import HeroSection from "../components/hero-section";
+import HeroSection from "../components/HeroSection";
 import NavBar from "@/components/nav-bar";
-import Introduction from "../components/introduction";
+import Introduction from "../components/Introduction";
+import SpecServices from "../components/SpecServices";
 
 export default function LandingPageView() {
   return (
@@ -11,6 +12,7 @@ export default function LandingPageView() {
       <NavBar />
       <HeroSection />
       <Introduction />
+      <SpecServices />
     </div>
   );
 }
