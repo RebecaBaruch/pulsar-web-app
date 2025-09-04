@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/pagination";
+
 
 @theme {
   --color-blue-primary: #3852e7;
@@ -41,10 +44,31 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
   --color-blue: #3852e7;
   --color-blue-dark: #132b95;
   --color-blue-light: #daf0ff;
   --color-blue-lightest: #fbfdff;
+
+  --color-green: #38e977;
+  --color-green-dark: #144827;
+  --color-green-mid: #38e9768f;
+
+  --color-gray-darkest: #2c2c2c;
+  --color-gray-dark: #4c4c4c;
+  --color-gray: #838383;
+  --color-gray-light: #c7c7c7;
+  --color-gray-lightest: #e5e5e5;
+  --color-gray-w: #f0f0f0;
+
+  --color-black: #0f1417;
+  --color-white: #fdfdfdff;
+
+  --color-yellow: #fdb94b;
+  --color-red: #f04f4f;
+
+  --shadow-md-gray-light: 0 5px 10px -1px rgba(199, 199, 199, 0.2),
+                          0 4px 10px -1px rgba(199, 199, 199, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
