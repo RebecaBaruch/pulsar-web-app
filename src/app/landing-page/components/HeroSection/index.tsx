@@ -12,9 +12,10 @@ export default function HeroSection() {
   return (
     <section
       className="
-        w-screen 
+        w-full 
         px-4 
-        h-auto md:h-[80dvh]
+        h-auto md:h-[70dvh]
+        
       "
     >
       <div
