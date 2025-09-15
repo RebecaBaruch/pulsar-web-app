@@ -5,6 +5,7 @@ import HeroSection from "../components/HeroSection";
 import NavBar from "@/components/nav-bar";
 import Introduction from "../components/Introduction";
 import SpecServices from "../components/SpecServices";
+import ChoosePulsar from "../components/ChoosePulsar";
 
 export default function LandingPageView() {
   return (
@@ -13,6 +14,7 @@ export default function LandingPageView() {
       <HeroSection />
       <Introduction />
       <SpecServices />
+      <ChoosePulsar />
     </div>
   );
 }
