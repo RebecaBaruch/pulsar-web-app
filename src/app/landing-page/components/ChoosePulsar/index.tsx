@@ -47,7 +47,7 @@ export default function ChoosePulsar() {
           <div className="md:flex-1 min-w-0">
             <img
               src="/images/woman.svg"
-              alt="Happy family"
+              alt="Blond woman"
               className="w-full h-auto object-contain"
             />
           </div>
