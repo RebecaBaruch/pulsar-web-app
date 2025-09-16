@@ -7,6 +7,7 @@ import Introduction from "../components/Introduction";
 import SpecServices from "../components/SpecServices";
 import ChoosePulsar from "../components/ChoosePulsar";
 import About from "../components/About";
+import SocialProof from "../components/SocialProof";
 
 export default function LandingPageView() {
   return (
@@ -17,6 +18,7 @@ export default function LandingPageView() {
       <SpecServices />
       <ChoosePulsar />
       <About />
+      <SocialProof />
     </div>
   );
 }
