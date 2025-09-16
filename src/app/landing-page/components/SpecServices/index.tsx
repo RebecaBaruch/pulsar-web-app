@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SpecCarousel from "./spec-carousel";
 import BePulsarContent from "./be-pulsar";
