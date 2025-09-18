@@ -8,6 +8,7 @@ import SpecServices from "../components/SpecServices";
 import ChoosePulsar from "../components/ChoosePulsar";
 import About from "../components/About";
 import SocialProof from "../components/SocialProof";
+import { FaqSection } from "../components/Faq";
 
 export default function LandingPageView() {
   return (
@@ -19,6 +20,7 @@ export default function LandingPageView() {
       <ChoosePulsar />
       <About />
       <SocialProof />
+      <FaqSection />
     </div>
   );
 }
