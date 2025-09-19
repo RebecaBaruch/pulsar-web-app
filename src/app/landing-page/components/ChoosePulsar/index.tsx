@@ -35,7 +35,7 @@ export default function ChoosePulsar() {
       <div
         className="
           mx-auto max-w-[1440px]
-          px-6 lg:px-25 py-10
+          px-6 lg:px-25 py-20
         "
       >
         <div

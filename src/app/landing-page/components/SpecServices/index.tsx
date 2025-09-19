@@ -9,7 +9,7 @@ export default function SpecServices() {
       <div
         className="
           flex flex-col gap-15
-          mx-auto max-w-[1440px] py-20
+          mx-auto max-w-[1440px] pt-10 pb-10
         "
       >
         <div className="flex flex-col items-center text-center px-6">

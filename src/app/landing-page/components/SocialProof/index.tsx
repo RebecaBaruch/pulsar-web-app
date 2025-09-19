@@ -60,11 +60,11 @@ export default function SocialProof() {
       <div
         className="
           flex flex-col justify-center items-center
-          mx-auto max-w-[1440px] px-3 lg:px-25"
+          mx-auto max-w-[1440px] px-3 lg:px-25 pt-20 pb-10" 
       >
         <div
           className="
-            flex flex-col justify-center items-center gap-4 min-w-0 w-full py-20"
+            flex flex-col justify-center items-center gap-4 min-w-0 w-full"
         >
           <div className="flex flex-col w-full justify-center items-center text-center gap-2">
             <h2 className="text-lg lg:text-base text-white font-semibold">

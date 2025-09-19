@@ -38,7 +38,7 @@ export function FaqSection() {
   };
 
   return (
-    <section className="w-full bg-white py-12">
+    <section className="w-full bg-white py-20">
       <div
         className="
           flex flex-col justify-center items-center

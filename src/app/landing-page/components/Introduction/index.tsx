@@ -6,7 +6,7 @@ export default function Introduction() {
       <div
         className="
           mx-auto max-w-[1440px]
-          px-6 lg:px-25 py-10
+          px-6 lg:px-25 py-15
         "
       >
         <div
