@@ -2,7 +2,6 @@
 @import "swiper/css";
 @import "swiper/css/pagination";
 
-
 @theme {
   --color-blue-primary: #3852e7;
 }
@@ -67,8 +66,9 @@
   --color-yellow: #fdb94b;
   --color-red: #f04f4f;
 
-  --shadow-md-gray-light: 0 5px 10px -1px rgba(199, 199, 199, 0.2),
-                          0 4px 10px -1px rgba(199, 199, 199, 0.3);
+  --shadow-md-gray-light:
+    0 5px 10px -1px rgba(199, 199, 199, 0.2),
+    0 4px 10px -1px rgba(199, 199, 199, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,4 +84,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Work Sans", "Inter", sans-serif;
+}
+
+.swiper-pagination-bullet-active {
+  background: #38e977 !important;
+  opacity: 1;
 }
