@@ -1,9 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+
 import TestimonyCard from "./testimony-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,7 +14,7 @@ const data = [
     title: "“Acolhimento de verdade”",
     description:
       "“A Pulsar me acolheu num dos momentos mais difíceis da minha vida. A terapeuta foi essencial para meu processo de cura”",
-    profilePic: "/images/testimony1.png",
+    profilePic: "https://randomuser.me/api/portraits/women/44.jpg",
     author: "Amanda Torres",
     authorBio: "Designer Gráfica",
   },
@@ -24,7 +22,7 @@ const data = [
     title: "“Me senti ouvido e respeitado”",
     description:
       "“O atendimento foi humanizado do início ao fim. Me senti respeitado, ouvido e bem orientado. Recomendo de olhos fechados!”",
-    profilePic: "/images/testimony1.png",
+    profilePic: "https://randomuser.me/api/portraits/men/46.jpg",
     author: "Carlos Henrique",
     authorBio: "Professor de História",
   },
@@ -32,7 +30,7 @@ const data = [
     title: "“Cuidado integral que transforma”",
     description:
       "“Consegui entender melhor meus limites. A abordagem integrada com psicóloga e nutricionista fez toda a diferença pra mim.”",
-    profilePic: "/images/testimony1.png",
+    profilePic: "https://randomuser.me/api/portraits/women/65.jpg",
     author: "Renata Lopes",
     authorBio: "Empreendedora",
   },
@@ -40,7 +38,7 @@ const data = [
     title: "“Profissionais incríveis”",
     description:
       "“Cada especialista que me atendeu na Pulsar foi incrível. Senti que estavam realmente comprometidos com meu bem-estar.”",
-    profilePic: "/images/testimony1.png",
+    profilePic: "https://randomuser.me/api/portraits/men/33.jpg",
     author: "Paulo Silva",
     authorBio: "Advogado",
   },
@@ -48,7 +46,7 @@ const data = [
     title: "“Ajudou a alcançar meu sonho”",
     description:
       "“A Pulsar transformou minha vida. O suporte emocional que recebi me ajudou a superar desafios e encontrar um novo propósito.”",
-    profilePic: "/images/testimony1.png",
+    profilePic: "https://randomuser.me/api/portraits/women/48.jpg",
     author: "Mariana Costa",
     authorBio: "Psicóloga",
   },
@@ -60,7 +58,7 @@ export default function SocialProof() {
       <div
         className="
           flex flex-col justify-center items-center
-          mx-auto max-w-[1440px] px-3 lg:px-25 pt-20 pb-10" 
+          mx-auto max-w-[1440px] px-3 lg:px-25 pt-20 pb-10"
       >
         <div
           className="
