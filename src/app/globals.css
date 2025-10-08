@@ -39,6 +39,10 @@
     0 4px 10px -1px rgba(199, 199, 199, 0.3);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: full;
   overflow-x: hidden;

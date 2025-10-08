@@ -2,7 +2,7 @@ import React from "react";
 
 export default function About() {
   return (
-    <section className="flex items-center w-full">
+    <section className="flex items-center w-full" id="about-section">
       <div
         className="
           lg:flex lg:justify-center lg:items-center

@@ -13,16 +13,6 @@ export default function LandingPageSkeleton() {
             <Skeleton className="h-4 w-20" />
             <Skeleton className="h-4 w-24" />
           </div>
-          
-          <div className="hidden md:flex space-x-6">
-            <Skeleton className="h-4 w-16" />
-            <Skeleton className="h-4 w-20" />
-            <Skeleton className="h-4 w-24" />
-          </div>
-
-          <div className="md:hidden">
-            <Skeleton className="h-6 w-6 rounded-md" />
-          </div>
         </div>
       </nav>
 

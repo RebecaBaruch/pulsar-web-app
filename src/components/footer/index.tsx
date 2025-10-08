@@ -31,12 +31,12 @@ export default function Footer() {
           <h3 className="text-green font-semibold mb-3">Institucional</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="#">Sobre a Pulsar</Link>
+              <Link href="#about-section">Sobre a Pulsar</Link>
             </li>
             {/* <li><Link href="#">Política de Privacidade</Link></li> */}
             {/* <li><Link href="#">Termos de Uso</Link></li> */}
             <li>
-              <Link href="#">Seja um(a) especialista</Link>
+              <Link href="#be-pulsar-section">Seja um(a) especialista</Link>
             </li>
           </ul>
         </div>
@@ -45,7 +45,7 @@ export default function Footer() {
           <h3 className="text-green font-semibold mb-3">Cuidados e Serviços</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <a href="#">Agendar uma sessão</a>
+              <a href="https://wa.me/+5511976121123">Agendar uma sessão</a>
             </li>
           </ul>
         </div>
