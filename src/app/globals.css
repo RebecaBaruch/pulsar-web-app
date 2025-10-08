@@ -43,7 +43,6 @@ body {
   width: full;
   overflow-x: hidden;
   background: #fafafa;
-  color: var(--foreground);
   font-family: "Work Sans", "Inter", sans-serif;
 }
 
