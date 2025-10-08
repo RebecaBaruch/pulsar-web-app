@@ -71,13 +71,6 @@
     0 4px 10px -1px rgba(199, 199, 199, 0.3);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   width: full;
   overflow-x: hidden;
