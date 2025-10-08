@@ -18,15 +18,15 @@ export default function ForCompanies() {
               Leve a Pulsar para a sua empresa
             </h1>
 
-            <p className="text-black break-words text-sm md:text-xs lg:text-sm">
+            <p className="text-black break-words text-sm md:text-base">
               Invista no bem-estar dos seus colaboradores com a
-              Pulsar.Oferecemos parcerias para empresas que valorizam a saúde
+              Pulsar. Oferecemos parcerias para empresas que valorizam a saúde
               mental no ambiente corporativo. Com atendimentos online, programas
               personalizados e profissionais qualificados, ajudamos a construir
               equipes mais equilibradas, engajadas e produtivas.
             </p>
 
-            <span className="text-blue font-semibold break-words text-sm md:text-md">
+            <span className="text-blue font-semibold break-words text-sm md:text-base">
               Fale com a gente e descubra como levar esse cuidado para o seu
               time.
             </span>
