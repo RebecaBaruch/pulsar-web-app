@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/skeleton";
 export default function LandingPageSkeleton() {
   return (
     <div className="overflow-x-hidden bg-white">
-      <nav className="w-full bg-white dark:bg-gray-dark mb-6">
+      <nav className="w-full bg-white mb-6">
         <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
           <Skeleton className="h-8 w-24 rounded-md" />
 
