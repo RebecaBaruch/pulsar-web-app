@@ -61,17 +61,17 @@ export default function HeroSection() {
         </div>
 
         <div className="flex flex-row justify-end space-x-3 order-3 md:order-2 w-full fa-lg mt-12 md:absolute md:bottom-6 md:right-6">
-          <Link href={""} style={{ color: "white" }}>
-            <FontAwesomeIcon icon={faInstagram} />
+          <Link href="https://www.instagram.com/soupulsar?utm_source=ig_web_button_share_sheet&igsh=dzdkMXJ2ZTBmcDRq">
+            <FontAwesomeIcon icon={faInstagram} style={{ color: "white" }} />
           </Link>
-          <Link href={""} style={{ color: "white" }}>
-            <FontAwesomeIcon icon={faFacebookF} />
+          <Link href="https://www.facebook.com/Soupulsarr/?ref=_xav_ig_profile_page_web">
+            <FontAwesomeIcon icon={faFacebookF} style={{ color: "white" }} />
           </Link>
-          <Link href={""} style={{ color: "white" }}>
-            <FontAwesomeIcon icon={faTiktok} />
+          <Link href="https://www.tiktok.com/@soupulsar?is_from_webapp=1&sender_device=pc">
+            <FontAwesomeIcon icon={faTiktok} style={{ color: "white" }} />
           </Link>
-          <Link href={""} style={{ color: "white" }}>
-            <FontAwesomeIcon icon={faYoutube} />
+          <Link href="https://www.youtube.com/@soupulsar/shorts">
+            <FontAwesomeIcon icon={faYoutube} style={{ color: "white" }} />
           </Link>
         </div>
       </div>

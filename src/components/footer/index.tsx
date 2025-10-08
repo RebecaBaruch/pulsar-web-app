@@ -14,12 +14,16 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <img
-            src="/images/public/images/Logotipo Horizontal  Branco- Pulsar.png"
+            src="/images/logotipo-branco-azul.png"
             alt="Pulsar Logo"
             className="h-10 mb-4"
           />
           <p className="text-sm">45.978.723/0001-06</p>
-          <p className="text-sm">contato@soupulsar.com</p>
+          <p className="text-sm">
+            <Link href="mailto:contato@soupulsar.com">
+              contato@soupulsar.com
+            </Link>
+          </p>
           <p className="text-sm">+55 11 97612-1123</p>
         </div>
 
@@ -49,16 +53,16 @@ export default function Footer() {
         <div>
           <h3 className="text-green font-semibold mb-3">Conecte-se</h3>
           <div className="flex space-x-4 text-xl">
-            <a href="#">
+            <a href="https://www.instagram.com/soupulsar?utm_source=ig_web_button_share_sheet&igsh=dzdkMXJ2ZTBmcDRq">
               <FontAwesomeIcon icon={faInstagram} />
             </a>
-            <a href="#">
+            <a href="https://www.facebook.com/Soupulsarr/?ref=_xav_ig_profile_page_web">
               <FontAwesomeIcon icon={faFacebookF} />
             </a>
-            <a href="#">
+            <a href="https://www.tiktok.com/@soupulsar?is_from_webapp=1&sender_device=pc">
               <FontAwesomeIcon icon={faTiktok} />
             </a>
-            <a href="#">
+            <a href="https://www.youtube.com/@soupulsar/shorts">
               <FontAwesomeIcon icon={faYoutube} />
             </a>
           </div>
@@ -67,8 +71,8 @@ export default function Footer() {
 
       <div className="flex flex-col md:flex-row justify-center md:justify-between w-full mt-10 pt-4 text-xs text-center text-white-light">
         <p>
-          © 2025 SM PSICOLOGIA TREINAMENTO E DESENVOLVIMENTO PESSOAL LTDA. Todos
-          os direitos reservados.
+          © 2025 SM PSICOLOGIA TREINAMENTO E DESENVOLVIMENTO PESSOAL LTDA.
+          Todos os direitos reservados.
         </p>
         <p className="mt-2 md:mt-0">Desenvolvido por Lorem Ipsum</p>
       </div>
