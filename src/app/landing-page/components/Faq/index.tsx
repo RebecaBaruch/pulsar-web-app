@@ -53,18 +53,18 @@ export function FaqSection() {
           atendimentos.
         </p>
 
-        <div className="space-y-4 w-full max-w-3xl">
+        <div className="space-y-4 w-full max-w-4xl">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg shadow-sm"
+              className="rounded-lg shadow-sm"
             >
               <button
                 onClick={() => toggle(index)}
                 className="w-full flex justify-between items-center p-4 text-left font-medium text-gray-800 cursor-pointer"
               >
                 <div className="flex gap-4">
-                  <span className="font-bold">{index + 1}.</span>
+                  <span className="font-bold text-blue">{index + 1}.</span>
                   <span>{faq.question}</span>
                 </div>
                 <FontAwesomeIcon

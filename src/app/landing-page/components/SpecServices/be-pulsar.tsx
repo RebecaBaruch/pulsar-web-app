@@ -13,7 +13,7 @@ export default function BePulsarContent() {
           Faça parte da rede Pulsar
         </h1>
 
-        <p className="text-black break-words text-sm md:text-xs lg:text-sm">
+        <p className="text-black break-words text-sm md:text-md">
           Se você é um profissional comprometido com o cuidado humano e acredita
           em um atendimento acolhedor, colaborativo e integral, a Pulsar é o seu
           lugar. Junte-se a uma rede multidisciplinar que valoriza o bem-estar
@@ -22,7 +22,7 @@ export default function BePulsarContent() {
           de verdade.
         </p>
 
-        <button className="mt-6 inline-block rounded-full bg-green px-5 py-3 text-sm md:text-xs lg:text-sm text-black font-semibold hover:bg-green-mid cursor-pointer">
+        <button className="mt-6 inline-block rounded-full bg-green px-5 py-3 text-sm md:text-md  text-black font-semibold hover:bg-green-mid cursor-pointer">
           Quero ser especialista Pulsar
         </button>
       </div>

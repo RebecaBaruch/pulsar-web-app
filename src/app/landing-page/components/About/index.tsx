@@ -2,11 +2,11 @@ import React from "react";
 
 export default function About() {
   return (
-    <section className="w-full">
+    <section className="flex items-center w-full">
       <div
         className="
           lg:flex lg:justify-center lg:items-center
-          mx-auto w-full lg:rounded-lg bg-gray-lightest overflow-hidden"
+          mx-auto w-full max-w-[1440px] 2xl:rounded-xl bg-gray-lightest overflow-hidden 2xl:mb-15"
       >
         <div
           className="

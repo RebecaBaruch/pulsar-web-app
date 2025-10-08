@@ -24,10 +24,10 @@ export default function SpecCard({
         </div>
 
         <div className="mt-4 space-y-1">
-          <h1 className="text-lg lg:text-sm text-blue-dark font-semibold">
+          <h1 className="text-lg lg:text-md text-blue-dark font-semibold">
             {title}
           </h1>
-          <p className="text-sm lg:text-xs text-gray-darkest">
+          <p className="text-sm lg:text-md text-gray-darkest">
             <span className="font-medium">{introDescription}</span>{" "}
             {description}
           </p>
