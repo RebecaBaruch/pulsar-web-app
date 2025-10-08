@@ -2,13 +2,13 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCalendar, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 export default function NotLoggedNav() {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <div className="w-full p-7">
       <nav className="max-w-[1440px] mx-auto flex flex-row justify-between items-center flex-wrap">
-        {/* Logo */}
         <Link href="/">
           <img
             src="/images/horizontal-logo.png"
@@ -51,11 +51,10 @@ export default function NotLoggedNav() {
           </li>
         </ul>
 
-        {/* Botões / Ações */}
         <ul className="hidden lg:flex lg:items-center lg:space-x-6 list-none p-0 m-0">
           <li>
             <Link
-              href=""
+              href={RoutesUrls.FIND_SPECIALIST}
               className="text-blue hover:text-blue-dark flex items-center gap-2 text-base lg:text-sm"
             >
               Agendar uma consulta <FontAwesomeIcon icon={faCalendar} />

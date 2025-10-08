@@ -44,7 +44,7 @@ export function FaqSection() {
           flex flex-col justify-center items-center
           mx-auto max-w-[1440px] px-3 lg:px-25"
       >
-        <h2 className="text-center text-3xl md:text-4xl font-semibold mb-6">
+        <h2 className="text-black text-center text-3xl md:text-4xl font-semibold mb-6">
           Ainda com dúvidas?{" "}
           <span className="text-blue-600">A gente responde!</span>
         </h2>

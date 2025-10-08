@@ -15,7 +15,7 @@ export default function HeroSection() {
         w-full 
         px-4 
         h-auto md:h-[70dvh]
-        
+        bg-white
       "
     >
       <div
