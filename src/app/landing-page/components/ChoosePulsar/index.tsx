@@ -31,7 +31,7 @@ const data = [
 
 export default function ChoosePulsar() {
   return (
-    <section className="w-full">
+    <section className="w-full bg-white">
       <div
         className="
           mx-auto max-w-[1440px]
