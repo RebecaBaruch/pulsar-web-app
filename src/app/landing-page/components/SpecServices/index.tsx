@@ -2,10 +2,15 @@ import React from "react";
 
 import SpecCarousel from "./spec-carousel";
 import BePulsarContent from "./be-pulsar";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faWhatsapp,
+} from "@fortawesome/free-brands-svg-icons";
 
 export default function SpecServices() {
   return (
-    <section className="w-full bg-blue-lightest">
+    <section className="w-full bg-blue-lightest" id="specs-section">
       <div
         className="
           flex flex-col gap-15
@@ -17,9 +22,11 @@ export default function SpecServices() {
             Cada pessoa é única.{" "}
             <span className="text-blue">Nossos serviços também.</span>
           </h1>
-          <button className="mt-6 inline-block rounded-full border-2 border-blue px-4 py-3 text-sm text-blue font-semibold hover:bg-blue hover:text-white transition-colors cursor-pointer">
-            Ver todos os especialistas
-          </button>
+          <Link href={"https://wa.me/+5511976121123"}>
+            <button className="mt-6 inline-block rounded-full border-2 border-blue px-4 py-3 text-sm text-blue font-semibold hover:bg-blue hover:text-white transition-colors cursor-pointer">
+              Ver catálogo de especialistas <FontAwesomeIcon icon={faWhatsapp} />
+            </button>
+          </Link>
         </div>
 
         <SpecCarousel />

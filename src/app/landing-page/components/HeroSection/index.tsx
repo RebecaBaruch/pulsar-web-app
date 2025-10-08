@@ -5,6 +5,7 @@ import {
   faFacebookF,
   faTiktok,
   faYoutube,
+  faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
@@ -55,9 +56,12 @@ export default function HeroSection() {
             Na Pulsar, você encontra apoio emocional, físico e financeiro com
             profissionais qualificados e humanos.
           </p>
-          <button className="mt-6 inline-block rounded-full bg-green-400 px-4 py-3 text-sm text-[#0F1417] font-semibold hover:bg-green-500 cursor-pointer">
-            Comece sua jornada
-          </button>
+          <Link href={"https://wa.me/+5511976121123"}>
+            <button className="mt-6 inline-block rounded-full bg-green-400 px-4 py-3 text-sm text-[#0F1417] font-semibold hover:bg-green-500 cursor-pointer gap-6">
+              Comece sua jornada
+              <FontAwesomeIcon icon={faWhatsapp} />
+            </button>
+          </Link>
         </div>
 
         <div className="flex flex-row justify-end space-x-3 order-3 md:order-2 w-full fa-lg mt-12 md:absolute md:bottom-6 md:right-6">

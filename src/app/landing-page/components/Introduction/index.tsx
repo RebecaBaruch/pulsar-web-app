@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Introduction() {
@@ -44,9 +45,11 @@ export default function Introduction() {
               </span>
             </p>
 
-            <button className="mt-6 inline-block rounded-full bg-blue px-5 py-3 text-sm md:text-xs lg:text-sm text-white font-semibold hover:bg-blue-dark cursor-pointer">
-              Agendar com um especialista
-            </button>
+            {/* <Link href={"https://wa.me/+5511976121123"}>
+              <button className="mt-6 inline-block rounded-full bg-blue px-5 py-3 text-sm md:text-xs lg:text-sm text-white font-semibold hover:bg-blue-dark cursor-pointer">
+                Ver catálogo de especialistas
+              </button>
+            </Link> */}
           </div>
         </div>
       </div>

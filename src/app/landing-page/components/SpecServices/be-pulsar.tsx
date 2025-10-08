@@ -1,3 +1,6 @@
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import React from "react";
 
 export default function BePulsarContent() {
@@ -8,7 +11,10 @@ export default function BePulsarContent() {
             md:gap-10 gap-5 px-6 lg:px-25
           "
     >
-      <div className="md:flex-1 order-2 lg:order-1 min-w-0 text-left">
+      <div
+        className="md:flex-1 order-2 lg:order-1 min-w-0 text-left"
+        id="#be-pulsar-section"
+      >
         <h1 className="mb-2 text-lg lg:text-xl text-black font-semibold">
           Faça parte da rede Pulsar
         </h1>
@@ -22,9 +28,11 @@ export default function BePulsarContent() {
           de verdade.
         </p>
 
-        <button className="mt-6 inline-block rounded-full bg-green px-5 py-3 text-sm md:text-md  text-black font-semibold hover:bg-green-mid cursor-pointer">
-          Quero ser especialista Pulsar
-        </button>
+        <Link href={"https://wa.me/+5511976121123"}>
+          <button className="mt-6 inline-block rounded-full bg-green px-5 py-3 text-sm md:text-md  text-black font-semibold hover:bg-green-mid cursor-pointer gap-4">
+            Quero ser especialista Pulsar <FontAwesomeIcon icon={faWhatsapp} />
+          </button>
+        </Link>
       </div>
       <div className="md:flex-1 order-1 lg:order-2 min-w-0">
         <img

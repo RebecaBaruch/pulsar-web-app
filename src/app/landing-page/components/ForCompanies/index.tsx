@@ -5,7 +5,7 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function ForCompanies() {
   return (
-    <section className="w-full bg-blue-lightest py-10">
+    <section className="w-full bg-blue-lightest py-10" id="for-companies-section">
       <div
         className="
             flex flex-col justify-center items-center md:flex-row mx-auto max-w-[1440px] md:items-center gap-10
@@ -31,8 +31,7 @@ export default function ForCompanies() {
               time.
             </span>
           </div>
-
-          <Link href="/">
+          <Link href="https://wa.me/+5511976121123">
             <button className="flex flex-row gap-4 items-center mt-6 rounded-full bg-green px-4 py-3 text-sm md:text-xs lg:text-sm text-black font-semibold hover:bg-green-mid cursor-pointer">
               Quero ser especialista Pulsar
               <FontAwesomeIcon icon={faWhatsapp} />
