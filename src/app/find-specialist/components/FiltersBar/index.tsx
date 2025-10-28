@@ -56,62 +56,60 @@ export default function FiltersBar({
 
   return (
     <div className="flex flex-wrap flex-row justify-between items-center gap-6 mt-12 px-5 max-w-[1440px] mx-auto w-full">
-      <span className="text-sm text-gray-dark font-medium">
+      <span className="text-sm text-gray-dark font-medium order-2 md:order-1">
         {expertsCount} especialistas encontrados
       </span>
 
-      <div className="flex gap-4">
-        <div className="flex flex-row flex-3 justify-between items-center">
-          <Select
-            isMulti
-            placeholder="Tipo de especialista"
-            value={specialtiesOptions.filter((opt) =>
-              filters.specialties.includes(opt.value)
-            )}
-            onChange={handleSpecialtiesChange}
-            options={specialtiesOptions}
-            classNamePrefix="react-select"
-            isSearchable={false}
-            className="w-full"
-            styles={{
-              control: (base, state) => ({
-                ...base,
-                borderRadius: "9999px",
-                padding: "1px 2px",
-                borderColor: state.isFocused ? "#3b82f6" : "#d1d5db",
-                boxShadow: state.isFocused ? "0 0 0 2px #bfdbfe" : "none",
-                "&:hover": { borderColor: "#3b82f6" },
-              }),
-              multiValue: (base) => ({
-                ...base,
-                backgroundColor: "#e0f2fe",
-                borderRadius: "9999px",
-                padding: "2px 6px",
-              }),
-              multiValueLabel: (base) => ({
-                ...base,
-                color: "#1e3a8a",
-                fontWeight: 500,
-              }),
-              multiValueRemove: (base) => ({
-                ...base,
-                color: "#1e3a8a",
-                cursor: "pointer",
-                "&:hover": { backgroundColor: "#bfdbfe", color: "#1e40af" },
-              }),
-              option: (base, state) => ({
-                ...base,
-                backgroundColor: state.isSelected
-                  ? "#3b82f6"
-                  : state.isFocused
-                    ? "#dbeafe"
-                    : "white",
-                color: state.isSelected ? "white" : "#111827",
-                cursor: "pointer",
-              }),
-            }}
-          />
-        </div>
+      <div className="flex p-0 gap-3 order-1 md:order-2">
+        <Select
+          isMulti
+          placeholder="Tipo de especialista"
+          value={specialtiesOptions.filter((opt) =>
+            filters.specialties.includes(opt.value)
+          )}
+          onChange={handleSpecialtiesChange}
+          options={specialtiesOptions}
+          classNamePrefix="react-select"
+          isSearchable={false}
+          styles={{
+            control: (base, state) => ({
+              ...base,
+              borderRadius: "9999px",
+              padding: "1px 2px",
+              borderColor: state.isFocused ? "#3b82f6" : "#d1d5db",
+              boxShadow: state.isFocused ? "0 0 0 2px #bfdbfe" : "none",
+              "&:hover": { borderColor: "#3b82f6" },
+              fontSize: "0.8rem",
+            }),
+            multiValue: (base) => ({
+              ...base,
+              backgroundColor: "#e0f2fe",
+              borderRadius: "9999px",
+              padding: "2px 6px",
+            }),
+            multiValueLabel: (base) => ({
+              ...base,
+              color: "#1e3a8a",
+              fontWeight: 500,
+            }),
+            multiValueRemove: (base) => ({
+              ...base,
+              color: "#1e3a8a",
+              cursor: "pointer",
+              "&:hover": { backgroundColor: "#bfdbfe", color: "#1e40af" },
+            }),
+            option: (base, state) => ({
+              ...base,
+              backgroundColor: state.isSelected
+                ? "#3b82f6"
+                : state.isFocused
+                  ? "#dbeafe"
+                  : "white",
+              color: state.isSelected ? "white" : "#111827",
+              cursor: "pointer",
+            }),
+          }}
+        />
 
         <Select
           placeholder="Ordenar por"
@@ -128,6 +126,7 @@ export default function FiltersBar({
               borderColor: state.isFocused ? "#3b82f6" : "#d1d5db",
               boxShadow: state.isFocused ? "0 0 0 2px #bfdbfe" : "none",
               "&:hover": { borderColor: "#3b82f6" },
+              fontSize: "0.8rem",
             }),
             option: (base, state) => ({
               ...base,
