@@ -5,14 +5,33 @@ import React from "react";
 import SpecialistCard from "../components/SpecialistCard";
 import FindSpecialistSkeleton from "../components/FindSpecialistSkeleton";
 import { specialistsMock } from "../mock/mocks";
+import FiltersBar from "../components/FiltersBar";
+import { applyFiltersUtil } from "@/utils/enum/apply-filters";
+import Footer from "@/components/footer";
+
 export default function FindSpecialistView() {
   const [loading, setLoading] = React.useState(true);
+  const [specialists, setSpecialists] = React.useState(specialistsMock);
+  const [filters, setFilters] = React.useState({
+    specialties: [] as string[],
+    sort: "",
+  });
 
   React.useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
+  React.useEffect(() => {
+    if (!loading) {
+      applyFilters();
+    }
+  }, [filters, loading]);
+
+  const applyFilters = () => {
+    const filtered = applyFiltersUtil(specialistsMock, filters);
+    setSpecialists(filtered);
+  };
   return (
     <>
       {loading ? (
@@ -47,22 +66,22 @@ export default function FindSpecialistView() {
               </div>
             </div>
           </div>
-          <div className="w-full px-5 mt-8 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {specialistsMock.map((specialist, index) => (
-              <SpecialistCard
-                key={index}
-                name={specialist.name}
-                role={specialist.role}
-                crm={specialist.crm}
-                location={specialist.location}
-                rating={specialist.rating}
-                reviews={specialist.reviews}
-                price={specialist.price}
-                imgSrc={specialist.imgSrc}
-                tags={specialist.tags}
-              />
-            ))}
+
+          <FiltersBar expertsCount={specialists.length} filters={filters} setFilters={setFilters} />
+
+          <div className="w-full px-5 mt-8 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-42">
+            {loading ? (
+              <FindSpecialistSkeleton length={6} />
+            ) : specialists.length > 0 ? (
+              specialists.map((s, i) => <SpecialistCard key={i} {...s} />)
+            ) : (
+              <p className="text-gray-500 col-span-full text-center">
+                Nenhum especialista encontrado com os filtros selecionados.
+              </p>
+            )}
           </div>
+
+          <Footer />
         </>
       )}
     </>
