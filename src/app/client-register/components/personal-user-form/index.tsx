@@ -47,12 +47,21 @@ export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
           placeholder="Digite seu e-mail"
         />
 
-        <div className="flex flex-row gap-4">
-          <InputField label="CPF" type="text" placeholder="Digite seu CPF" />
-          <InputField label="Data de nascimento" type="date" />
+        <div className="flex w-full flex-row gap-4">
+          <InputField
+            className="w-full"
+            label="CPF"
+            type="text"
+            placeholder="Digite seu CPF"
+          />
+          <InputField
+            className="w-full"
+            label="Data de nascimento"
+            type="date"
+          />
         </div>
 
-        <div className="flex flex-row gap-4">
+        <div className="flex w-full flex-row gap-4">
           <CountryCodeSelect
             width="fit"
             label="Código do país"
@@ -61,6 +70,7 @@ export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
           />
 
           <InputField
+            className="w-full"
             label="Número de telefone"
             type="tel"
             placeholder="(XXX) XXX-XXXX"

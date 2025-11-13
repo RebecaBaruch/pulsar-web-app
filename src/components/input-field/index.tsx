@@ -39,7 +39,7 @@ const InputField = ({
       )}
       <input
         type={type}
-        className={`outline-none border rounded px-3 py-3 w-full text-black placeholder-gray bg-blue-lightest focus:outline-none
+        className={`w-full outline-none border rounded px-3 py-3 w-full text-black placeholder-gray bg-blue-lightest focus:outline-none
           ${
             error
               ? "border-red-500 focus:border-red-600"

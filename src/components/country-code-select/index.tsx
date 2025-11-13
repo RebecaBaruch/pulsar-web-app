@@ -29,7 +29,7 @@ export default function CountryCodeSelect({
   return (
     <div className={`relative ${widthClass} ${className || ""}`}>
       {label && (
-        <label className="text-md font-medium mb-2 text-black whitespace-nowrap">
+        <label className="block text-md font-medium mb-2 text-black whitespace-nowrap">
           {label}
         </label>
       )}
