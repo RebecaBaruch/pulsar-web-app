@@ -4,41 +4,32 @@ import NavBar from "@/components/nav-bar";
 import React from "react";
 import SpecialistCard from "../components/SpecialistCard";
 import FindSpecialistSkeleton from "../components/FindSpecialistSkeleton";
-import { specialistsMock } from "../mock/mocks";
 import FiltersBar from "../components/FiltersBar";
-import { applyFiltersUtil } from "@/utils/enum/apply-filters";
 import Footer from "@/components/footer";
 
-export default function FindSpecialistView() {
-  const [loading, setLoading] = React.useState(true);
-  const [specialists, setSpecialists] = React.useState(specialistsMock);
-  const [filters, setFilters] = React.useState({
-    specialties: [] as string[],
-    sort: "",
-  });
+type FindSpecialistViewProps = {
+  loading: boolean;
+  specialists: any[];
+  filters: { specialties: string[]; sort: string };
+  setFilters: React.Dispatch<
+    React.SetStateAction<{ specialties: string[]; sort: string }>
+  >;
+};
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  React.useEffect(() => {
-    if (!loading) {
-      applyFilters();
-    }
-  }, [filters, loading]);
-
-  const applyFilters = () => {
-    const filtered = applyFiltersUtil(specialistsMock, filters);
-    setSpecialists(filtered);
-  };
+export default function FindSpecialistView({
+  loading,
+  specialists,
+  filters,
+  setFilters,
+}: FindSpecialistViewProps) {
   return (
     <>
       {loading ? (
-        <FindSpecialistSkeleton length={specialistsMock.length} />
+        <FindSpecialistSkeleton length={specialists.length} />
       ) : (
         <>
           <NavBar />
+
           <div className="w-full px-4 mt-6 max-w-[1440px] mx-auto">
             <div className="relative w-full">
               <img
@@ -67,7 +58,11 @@ export default function FindSpecialistView() {
             </div>
           </div>
 
-          <FiltersBar expertsCount={specialists.length} filters={filters} setFilters={setFilters} />
+          <FiltersBar
+            expertsCount={specialists.length}
+            filters={filters}
+            setFilters={setFilters}
+          />
 
           <div className="w-full px-5 mt-8 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-42">
             {loading ? (
