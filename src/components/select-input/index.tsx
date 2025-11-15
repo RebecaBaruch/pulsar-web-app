@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 type SelectInputProps = {
   label?: string;
@@ -8,44 +8,76 @@ type SelectInputProps = {
   onChange?: (value: string) => void;
   error?: boolean;
   className?: string;
+  width?: "fit" | "full";
 };
 
-const SelectInput = ({
+export default function SelectInput({
   label,
   options,
   value,
-  error = false,
   isDisabled = false,
   onChange,
-  className
-}: SelectInputProps) => {
+  error = false,
+  className,
+  width = "full",
+}: SelectInputProps) {
+  const [open, setOpen] = useState(false);
+
+  const selected = options.find((option) => option.value === value);
+  const widthClass = width === "fit" ? "inline-flex flex-col w-fit" : "w-full";
+
   return (
-    <div className={`mb-4 ${className}`}>
+    <div className={`relative ${widthClass} ${className || ""}`}>
       {label && (
         <label className="block text-md font-medium mb-2 text-black">
           {label}
         </label>
       )}
-      <select
-        className={`outline-none border rounded px-3 py-3 w-full text-black bg-blue-lightest focus:outline-none
+
+      {/* Botão principal */}
+      <button
+        type="button"
+        disabled={isDisabled}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!isDisabled) setOpen((o) => !o);
+        }}
+        className={`flex items-center justify-between w-full border rounded px-3 py-3 bg-blue-lightest text-left focus:outline-none
           ${
             error
               ? "border-red-500 focus:border-red-600"
               : "border-gray-light focus:border-blue"
           }
+          ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
         `}
-        value={value}
-        disabled={isDisabled}
-        onChange={(e) => onChange?.(e.target.value)}
       >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        {selected ? (
+          <span className="text-black font-medium">{selected.label}</span>
+        ) : (
+          <span className="text-gray">Selecione uma opção</span>
+        )}
+
+        <span className="text-gray ml-2">▾</span>
+      </button>
+
+      {/* Dropdown */}
+      {open && !isDisabled && (
+        <ul className="absolute z-10 mt-1 w-full max-h-56 overflow-y-auto bg-white border border-gray-light rounded shadow-lg">
+          {options.map((option) => (
+            <li
+              key={option.value}
+              className="px-3 py-2 hover:bg-blue-lightest cursor-pointer text-black"
+              onClick={() => {
+                onChange?.(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.label}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-};
-
-export default SelectInput;
+}

@@ -31,7 +31,7 @@ const InputField = ({
   className,
 }: InputFieldProps) => {
   return (
-    <div className={`mb-4 ${className}`}>
+    <div className={`${className}`}>
       {label && (
         <label className="block text-md font-medium mb-2 text-black">
           {label}
