@@ -18,13 +18,12 @@ export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
   };
 
   return (
-    <div className="flex flex-col gap-12 px-6 pt-6">
+    <div className="flex flex-col gap-12">
       <img
         src="/images/horizontal-logo.png"
         alt="Logo da Pulsar"
         width="200px"
       />
-
       <div>
         <h1 className="text-2xl font-bold text-black">
           Cadastre-se na Pulsar!
@@ -34,49 +33,49 @@ export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
           bem-estar.
         </p>
       </div>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <InputField
-          label="Nome completo"
-          placeholder="Digite seu nome completo"
-        />
-
-        <InputField
-          label="E-mail"
-          type="email"
-          placeholder="Digite seu e-mail"
-        />
-
-        <div className="flex w-full flex-row gap-4">
+      <div className="flex flex-col gap-7">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <InputField
-            className="w-full"
-            label="CPF"
-            type="text"
-            placeholder="Digite seu CPF"
-          />
-          <InputField
-            className="w-full"
-            label="Data de nascimento"
-            type="date"
-          />
-        </div>
-
-        <div className="flex w-full flex-row gap-4">
-          <CountryCodeSelect
-            width="fit"
-            label="Código do país"
-            value={countryCode}
-            onChange={setCountryCode}
+            label="Nome completo"
+            placeholder="Digite seu nome completo"
           />
 
           <InputField
-            className="w-full"
-            label="Número de telefone"
-            type="tel"
-            placeholder="(XXX) XXX-XXXX"
+            label="E-mail"
+            type="email"
+            placeholder="Digite seu e-mail"
           />
-        </div>
 
+          <div className="flex w-full flex-row gap-4">
+            <InputField
+              className="w-full"
+              label="CPF"
+              type="text"
+              placeholder="Digite seu CPF"
+            />
+            <InputField
+              className="w-full"
+              label="Data de nascimento"
+              type="date"
+            />
+          </div>
+
+          <div className="flex w-full flex-row gap-4">
+            <CountryCodeSelect
+              width="fit"
+              label="Código do país"
+              value={countryCode}
+              onChange={setCountryCode}
+            />
+
+            <InputField
+              className="w-full"
+              label="Número de telefone"
+              type="tel"
+              placeholder="(XXX) XXX-XXXX"
+            />
+          </div>
+        </form>
         <div className="flex flex-col justify-center items-center gap-4 mt-3">
           <PrimaryButton type="submit" text="Próximo" onClick={onNext} />
           <span>
@@ -86,7 +85,7 @@ export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
             </a>
           </span>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
