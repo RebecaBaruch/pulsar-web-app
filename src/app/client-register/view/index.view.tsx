@@ -13,8 +13,8 @@ export default function ClientRegisterView({
     <section className="flex items-center w-full">
       <div
         className="
-          lg:flex lg:justify-center lg:items-center
-          mx-auto w-full max-w-[1440px] 2xl:rounded-xl 2xl:mb-15"
+          flex flex-col gap-10 lg:justify-center lg:items-center
+          mx-auto w-full max-w-[1440px] my-10 px-6 pt-6"
       >
         {stepComponent}
       </div>
