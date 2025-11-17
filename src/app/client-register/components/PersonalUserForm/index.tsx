@@ -1,6 +1,6 @@
 "use client";
 
-import PrimaryButton from "@/components/Buttons/primary-button";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import CountryCodeSelect from "@/components/CountryCodeSelect";
 import InputField from "@/components/InputField";
 import React from "react";

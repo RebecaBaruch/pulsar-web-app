@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import PrimaryButton from "@/components/Buttons/primary-button";
-import SecondaryButton from "@/components/Buttons/secondary-button";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import CountryCodeSelect from "@/components/CountryCodeSelect";
 import InputField from "@/components/InputField";
 import SelectInput from "@/components/SelectInput";

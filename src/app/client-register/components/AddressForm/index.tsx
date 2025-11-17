@@ -1,7 +1,7 @@
 "use client";
 
-import PrimaryButton from "@/components/Buttons/primary-button";
-import SecondaryButton from "@/components/Buttons/secondary-button";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import CountryCodeSelect from "@/components/CountryCodeSelect";
 import { CustomCheckbox } from "@/components/CustomCheckbox";
 import InputField from "@/components/InputField";
