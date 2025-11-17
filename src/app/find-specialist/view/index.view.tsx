@@ -1,11 +1,11 @@
 "use client";
 
-import NavBar from "@/components/nav-bar";
+import NavBar from "@/components/NavBar";
 import React from "react";
 import SpecialistCard from "../components/SpecialistCard";
 import FindSpecialistSkeleton from "../components/FindSpecialistSkeleton";
 import FiltersBar from "../components/FiltersBar";
-import Footer from "@/components/footer";
+import Footer from "@/components/Footer";
 
 type FindSpecialistViewProps = {
   loading: boolean;

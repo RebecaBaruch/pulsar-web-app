@@ -1,9 +1,10 @@
 "use client";
 
-import PrimaryButton from "@/components/buttons/primary-button";
-import SecondaryButton from "@/components/buttons/secondary-button";
-import CountryCodeSelect from "@/components/country-code-select";
-import InputField from "@/components/input-field";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
+import CountryCodeSelect from "@/components/CountryCodeSelect";
+import { CustomCheckbox } from "@/components/CustomCheckbox";
+import InputField from "@/components/InputField";
 import React from "react";
 
 type AddressFormProps = {
@@ -13,6 +14,7 @@ type AddressFormProps = {
 
 export default function AddressForm({ onNext, onBack }: AddressFormProps) {
   const [countryName, setCountryName] = React.useState("brazil");
+  const [noNumber, setNoNumber] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,19 +68,26 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
             placeholder="Digite o bairro/distrito"
           />
 
-          <div className="flex w-full flex-row gap-4">
-            <InputField
-              className="w-full"
-              label="Rua"
-              type="text"
-              placeholder="Digite a rua"
-            />
+          <div className="flex flex-col gap-3 items-end w-full">
+            <div className="flex w-full flex-row gap-4">
+              <InputField
+                className="w-full"
+                label="Rua"
+                type="text"
+                placeholder="Digite a rua"
+              />
 
-            <InputField
-              className="w-full"
-              label="N°"
-              type="number"
-              placeholder="XXX"
+              <InputField
+                className="w-full"
+                label="N°"
+                type="number"
+                placeholder="XXX"
+              />
+            </div>
+            <CustomCheckbox
+              label="Endereço sem número"
+              checked={noNumber}
+              onChange={setNoNumber}
             />
           </div>
 

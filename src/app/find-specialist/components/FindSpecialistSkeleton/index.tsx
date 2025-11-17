@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Skeleton } from "@/components/skeleton";
+import { Skeleton } from "@/components/Skeleton";
 
 export default function FindSpecialistSkeleton({ length }: { length: number }) {
   return (

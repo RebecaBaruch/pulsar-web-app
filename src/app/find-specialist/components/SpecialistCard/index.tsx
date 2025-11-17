@@ -7,7 +7,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { SpecialistCardProps } from "./type";
-import Tag from "@/components/tag";
+import Tag from "@/components/Tag";
 
 const SpecialistCard: React.FC<SpecialistCardProps> = ({
   name,

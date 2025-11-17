@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import PrimaryButton from "@/components/buttons/primary-button";
-import SecondaryButton from "@/components/buttons/secondary-button";
-import CountryCodeSelect from "@/components/country-code-select";
-import InputField from "@/components/input-field";
-import SelectInput from "@/components/select-input";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
+import CountryCodeSelect from "@/components/CountryCodeSelect";
+import InputField from "@/components/InputField";
+import SelectInput from "@/components/SelectInput";
 import { relationshipOptions } from "@/utils/relate-degree-values";
 
 type EmergencyFormProps = {
