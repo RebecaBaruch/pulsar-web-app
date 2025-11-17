@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton } from "@/components/skeleton";
+import { Skeleton } from "@/components/Skeleton";
 
 export default function LandingPageSkeleton() {
   return (
@@ -13,7 +13,7 @@ export default function LandingPageSkeleton() {
             <Skeleton className="h-4 w-20" />
             <Skeleton className="h-4 w-24" />
           </div>
-          
+
           <div className="hidden md:flex space-x-6">
             <Skeleton className="h-4 w-16" />
             <Skeleton className="h-4 w-20" />

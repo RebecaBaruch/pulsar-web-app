@@ -1,8 +1,8 @@
 "use client";
 
-import PrimaryButton from "@/components/buttons/primary-button";
-import CountryCodeSelect from "@/components/country-code-select";
-import InputField from "@/components/input-field";
+import PrimaryButton from "@/components/Buttons/primary-button";
+import CountryCodeSelect from "@/components/CountryCodeSelect";
+import InputField from "@/components/InputField";
 import React from "react";
 
 type PersonalUserFormProps = {
