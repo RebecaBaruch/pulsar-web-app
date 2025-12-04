@@ -24,11 +24,6 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
 
   return (
     <div className="flex flex-col gap-12">
-      <img
-        src="/images/horizontal-logo.png"
-        alt="Logo da Pulsar"
-        width="200px"
-      />
       <div>
         <h1 className="text-2xl font-bold text-black">Contato de emergência</h1>
         <p>
