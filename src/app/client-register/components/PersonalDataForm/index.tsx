@@ -1,15 +1,17 @@
 "use client";
 
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import CountryCodeSelect from "@/components/CountryCodeSelect";
 import InputField from "@/components/InputField";
 import React from "react";
 
-type PersonalUserFormProps = {
+type PersonalDataFormProps = {
   onNext: () => void;
+  onBack: () => void;
 };
 
-export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
+export default function PersonalDataForm({ onNext, onBack }: PersonalDataFormProps) {
   const [countryCode, setCountryCode] = React.useState("+55");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,32 +20,23 @@ export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      <img
-        src="/images/horizontal-logo.png"
-        alt="Logo da Pulsar"
-        width="200px"
-      />
+    <div className="flex flex-col gap-12 lg:gap-5 2xl:gap-12">
       <div>
-        <h1 className="text-2xl font-bold text-black">
-          Cadastre-se na Pulsar!
+        <h1 className="text-2xl lg:text-lg 2xl:text-xl font-bold text-black">
+          Dados pessoais
         </h1>
-        <p>
-          Dê o primeiro passo para uma vida com mais equilíbrio, cuidado e
-          bem-estar.
+        <p className="lg:text-xs 2xl:text-sm">
+          Insira os seus dados de identificação e contato.
         </p>
       </div>
-      <div className="flex flex-col gap-7">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <div className="flex flex-col gap-7 lg:gap-5 2xl:gap-7">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3 lg:gap-2.5 2xl:gap-5"
+        >
           <InputField
             label="Nome completo"
             placeholder="Digite seu nome completo"
-          />
-
-          <InputField
-            label="E-mail"
-            type="email"
-            placeholder="Digite seu e-mail"
           />
 
           <div className="flex w-full flex-row gap-4">
@@ -76,14 +69,9 @@ export default function PersonalUserForm({ onNext }: PersonalUserFormProps) {
             />
           </div>
         </form>
-        <div className="flex flex-col justify-center items-center gap-4 mt-3">
+        <div className="flex flex-col justify-center items-center gap-3 mt-3">
           <PrimaryButton type="submit" text="Próximo" onClick={onNext} />
-          <span>
-            Já possui uma conta?{" "}
-            <a href="/login" className="text-blue font-semibold underline">
-              Entrar
-            </a>
-          </span>
+          <SecondaryButton text="Voltar" onClick={onBack} />
         </div>
       </div>
     </div>

@@ -1,20 +1,16 @@
+// src/app/register/controller/index.controller.tsx
+
 "use client";
 
 import React, { JSX } from "react";
 import ClientRegisterView from "../view/index.view";
-import PersonalUserForm from "../components/PersonalUserForm";
+import WelcomeStep from "../components/WelcomeStep"; // << NOVO COMPONENTE
+import PersonalDataForm from "../components/PersonalDataForm"; // << AGORA STEP 2
 import EmergencyForm from "../components/EmergencyForm";
 import AddressForm from "../components/AddressForm";
 import ChoosePasswordForm from "../components/ChoosePasswordForm";
-import TermsOfUse from "../components/TermsOfUse";
 
 export default function ClientRegisterController() {
-  /**
-   * Implements internal step navigation for a multi-step form using the browser's
-   * History API. Each step transition is stored with pushState to support native
-   * browser back/forward buttons. The component listens to "popstate" events to
-   * restore the correct step without changing routes or URLs.
-   */
   const [step, setStep] = React.useState(1);
 
   React.useEffect(() => {
@@ -41,20 +37,41 @@ export default function ClientRegisterController() {
   }, []);
 
   const goToStep = (newStep: number) => {
-    setStep(newStep);
-    history.pushState({ step: newStep }, "");
+    const totalSteps = Object.keys(steps).length;
+    if (newStep >= 1 && newStep <= totalSteps) {
+      setStep(newStep);
+      history.pushState({ step: newStep }, "");
+    }
   };
 
   const handleNext = () => goToStep(step + 1);
   const handleBack = () => goToStep(step - 1);
 
   const steps: Record<number, JSX.Element> = {
-    1: <PersonalUserForm onNext={handleNext} />,
-    2: <EmergencyForm onNext={handleNext} onBack={handleBack} />,
-    3: <AddressForm onNext={handleNext} onBack={handleBack} />,
-    4: <ChoosePasswordForm onNext={handleNext} onBack={handleBack} />,
-    5: <TermsOfUse onConcludeIt={() => {}} onCancelIt={() => {}} />
+    1: <WelcomeStep onNext={handleNext} />,
+    2: <PersonalDataForm onNext={handleNext} onBack={handleBack} />,
+    3: <EmergencyForm onNext={handleNext} onBack={handleBack} />,
+    4: <AddressForm onNext={handleNext} onBack={handleBack} />,
+    5: <ChoosePasswordForm onNext={handleNext} onBack={handleBack} />,
   };
 
-  return <ClientRegisterView stepComponent={steps[step]} />;
+  const stepTitles: string[] = [
+    "Cadastro",
+    "Dados Pessoais",
+    "Contato de Emergência",
+    "Endereço",
+    "Definir Senha",
+    "Conclusão",
+  ];
+
+  const totalSteps = Object.keys(steps).length;
+
+  return (
+    <ClientRegisterView
+      stepComponent={steps[step]}
+      currentStep={step}
+      totalSteps={totalSteps}
+      stepTitles={stepTitles}
+    />
+  );
 }

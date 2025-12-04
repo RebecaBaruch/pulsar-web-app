@@ -48,7 +48,7 @@ const getPlaceholder = (mode: Mode, options: NormalizedOption[]) => {
         svg
         style={{ width: "1.5em", height: "1.5em" }}
       />
-      <span className="text-gray font-medium">
+      <span className="text-xs text-gray font-medium">
         {mode === "phone" ? first.value : first.display}
       </span>
     </div>
@@ -74,7 +74,7 @@ export default function CountryCodeSelect({
   return (
     <div className={`relative ${widthClass} ${className || ""}`}>
       {label && (
-        <label className="block text-md font-medium mb-2 text-black whitespace-nowrap">
+        <label className="block text-md font-medium mb-2 lg:text-xs 2xl:text-sm text-black whitespace-nowrap">
           {label}
         </label>
       )}
@@ -86,7 +86,7 @@ export default function CountryCodeSelect({
           e.stopPropagation();
           setOpen((o) => !o);
         }}
-        className={`flex items-center justify-between w-full border rounded px-3 py-3 bg-blue-lightest focus:outline-none ${
+        className={`flex items-center justify-between w-full border rounded p-2.5 lg:p-1 2xl:p-2.5 bg-blue-lightest focus:outline-none ${
           error
             ? "border-red-500 focus:border-red-600"
             : "border-gray-light focus:border-blue"
@@ -98,9 +98,9 @@ export default function CountryCodeSelect({
               <ReactCountryFlag
                 countryCode={selected.code}
                 svg
-                style={{ width: "1.5em", height: "1.5em" }}
+                style={{ width: "0.8em", height: "0.8em" }}
               />
-              <span className="text-black font-semibold">
+              <span className="lg:text-xs text-black font-semibold">
                 {mode === "phone" ? selected.value : selected.display}
               </span>
             </>

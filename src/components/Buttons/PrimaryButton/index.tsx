@@ -22,7 +22,7 @@ const PrimaryButton = ({
       type={type}
       onClick={onClick}
       disabled={isDisabled}
-      className={`w-full bg-${color} hover:bg-${color}-dark text-white font-semibold py-3 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-${color}-light`}
+      className={`w-full bg-${color} hover:bg-${color}-dark lg:text-sm text-white font-semibold py-3 lg:py-2 2xl:py-3 px-6 lg:px-4 xl:px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-${color}-light`}
     >
       {text}
     </button>
