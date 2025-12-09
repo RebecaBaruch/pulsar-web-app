@@ -33,7 +33,7 @@ const InputField = ({
   return (
     <div className={`${className}`}>
       {label && (
-        <label className="block text-md lg:text-xs 2xl:text-sm font-medium mb-2 text-black">
+        <label className="block text-lg lg:text-xs 2xl:text-sm font-medium mb-2 text-black">
           {label}
         </label>
       )}

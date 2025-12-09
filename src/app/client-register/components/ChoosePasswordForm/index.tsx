@@ -2,7 +2,6 @@
 
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
-import CountryCodeSelect from "@/components/CountryCodeSelect";
 import InputField from "@/components/InputField";
 import React from "react";
 
@@ -22,15 +21,15 @@ export default function ChoosePasswordForm({
 
   return (
     <div className="flex flex-col gap-12">
-      <div>
+      <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold text-black">Defina a sua senha</h1>
-        <p>
+        <p className="text-lg lg:text-xs 2xl:text-sm">
           A senha deve ter pelo menos 8 caracteres, com letras, números e um
           caractere especial.
         </p>
       </div>
-      <div className="flex flex-col gap-7">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+      <div className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <InputField
             label="Senha"
             type="password"

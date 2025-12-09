@@ -18,11 +18,11 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
 
   return (
     <div className="flex flex-col gap-15 lg:gap-5 2xl:gap-12">
-      <div>
+      <div className="flex flex-col gap-2">
         <h1 className="text-2xl lg:text-lg 2xl:text-xl font-bold text-black">
           Bem-vindo à Pulsar!
         </h1>
-        <p className="lg:text-xs 2xl:text-sm text-gray-darkest">
+        <p className="lg:text-xs 2xl:text-sm text-lg text-gray-darkest">
           Dê o primeiro passo para uma vida com mais equilíbrio, cuidado e
           bem-estar.
         </p>
@@ -52,7 +52,7 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
               da Pulsar.
             </p>
           </div>
-          <span className="lg:text-xs 2xl:text">
+          <span className="lg:text-xs 2xl:text text-lg">
             Já possui uma conta?{" "}
             <a href="/login" className="text-blue font-semibold underline">
               Entrar

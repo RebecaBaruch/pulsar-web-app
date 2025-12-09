@@ -24,15 +24,14 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
 
   return (
     <div className="flex flex-col gap-12">
-      <div>
+      <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold text-black">Contato de emergência</h1>
-        <p>
-          Em caso de emergência, entraremos em contato com alguém que você
-          confia.
+        <p className="text-lg lg:text-xs 2xl:text-sm">
+          Em caso de emergência, entraremos em contato com alguém que você confia.
         </p>
       </div>
-      <div className="flex flex-col gap-7">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+      <div className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <InputField
             label="Nome do contato de emergência"
             placeholder="Digite o nome do contato"

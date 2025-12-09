@@ -21,18 +21,18 @@ export default function PersonalDataForm({ onNext, onBack }: PersonalDataFormPro
 
   return (
     <div className="flex flex-col gap-12 lg:gap-5 2xl:gap-12">
-      <div>
+      <div className="flex flex-col gap-2">
         <h1 className="text-2xl lg:text-lg 2xl:text-xl font-bold text-black">
           Dados pessoais
         </h1>
-        <p className="lg:text-xs 2xl:text-sm">
+        <p className="text-lg lg:text-xs 2xl:text-sm">
           Insira os seus dados de identificação e contato.
         </p>
       </div>
-      <div className="flex flex-col gap-7 lg:gap-5 2xl:gap-7">
+      <div className="flex flex-col gap-6 lg:gap-5 2xl:gap-7">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-3 lg:gap-2.5 2xl:gap-5"
+          className="flex flex-col gap-6 lg:gap-5 2xl:gap-5"
         >
           <InputField
             label="Nome completo"
