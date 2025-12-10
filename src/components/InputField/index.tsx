@@ -34,6 +34,7 @@ type InputFieldProps = {
   onValidationChange?: (error: string | undefined) => void;
   className?: string;
   shouldValidate?: boolean;
+  isSuccess?: boolean;
 };
 
 const InputField = ({
@@ -49,6 +50,7 @@ const InputField = ({
   customValidator,
   onValidationChange,
   shouldValidate = false,
+  isSuccess = false,
   className,
 }: InputFieldProps) => {
   const [validationError, setValidationError] = React.useState<
@@ -112,7 +114,7 @@ const InputField = ({
     const newValue = e.target.value;
     onChange?.(newValue);
 
-    if (shouldValidate) {
+    if (isError || touched || shouldValidate) {
       validateField(newValue);
     }
   };
@@ -137,7 +139,9 @@ const InputField = ({
           ${
             isError
               ? "border-red-500 focus:border-red-600"
-              : "border-gray-light focus:border-blue"
+              : isSuccess 
+                ? "border-green-500 focus:border-green-600"
+                : "border-gray-light focus:border-blue"
           }
         `}
         placeholder={placeholder}

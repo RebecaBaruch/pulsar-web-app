@@ -7,6 +7,7 @@ import InputField from "@/components/InputField";
 import { formatCpf, formatPhone } from "@/utils/input-formatting";
 import { validateCpf, validatePhone } from "@/utils/inputs-validation";
 import React from "react";
+import { useRegister } from "../../context/RegisterContext";
 
 type PersonalDataFormProps = {
   onNext: () => void;
@@ -24,50 +25,42 @@ export default function PersonalDataForm({
   onNext,
   onBack,
 }: PersonalDataFormProps) {
-  const [name, setName] = React.useState("");
-  const [cpf, setCpf] = React.useState("");
-  const [birthdate, setBirthdate] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [countryCode, setCountryCode] = React.useState("+55");
+  const { data, updateNested } = useRegister();
 
-  const [validationErrors, setValidationErrors] = React.useState<FieldErrors>({});
-  
+  const [validationErrors, setValidationErrors] = React.useState<FieldErrors>(
+    {}
+  );
+  const formRef = React.useRef<HTMLFormElement>(null);
+
   const isFormValid = React.useMemo(() => {
-    const hasErrors = Object.values(validationErrors).some((error) => !!error);
+    const hasErrors = Object.values(validationErrors).some(Boolean);
 
     const allRequiredFieldsFilled =
-      name.trim() !== "" &&
-      cpf.trim() !== "" &&
-      birthdate.trim() !== "" &&
-      phone.trim() !== "";
+      data.personal.name.trim() !== "" &&
+      data.personal.cpf.trim() !== "" &&
+      data.personal.birthdate.trim() !== "" &&
+      data.personal.phone.trim() !== "";
 
-    return !hasErrors && allRequiredFieldsFilled; 
-  }, [validationErrors, name, cpf, birthdate, phone]);
-
+    return !hasErrors && allRequiredFieldsFilled;
+  }, [validationErrors, data]);
 
   const handleValidationChange = (
     fieldName: keyof FieldErrors,
     error: string | undefined
   ) => {
-    setValidationErrors((prevErrors) => ({
-      ...prevErrors,
+    setValidationErrors((prev) => ({
+      ...prev,
       [fieldName]: error,
     }));
   };
-  
-  const formRef = React.useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (formRef.current) {
-        formRef.current.reportValidity();
-    }
-    
+  const handleSubmit = () => {
+    if (formRef.current) formRef.current.reportValidity();
+
     if (isFormValid) {
-        onNext();
+      onNext();
     } else {
-        console.log("Formulário inválido. Erros:", validationErrors);
+      console.log("Formulário inválido. Erros:", validationErrors);
     }
   };
 
@@ -81,21 +74,20 @@ export default function PersonalDataForm({
           Insira os seus dados de identificação e contato.
         </p>
       </div>
+
       <div className="flex flex-col gap-6 lg:gap-5 2xl:gap-7">
         <form
           ref={formRef}
-          onSubmit={handleSubmit}
+          onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-6 lg:gap-5 2xl:gap-5"
         >
           <InputField
             label="Nome completo"
             placeholder="Digite seu nome completo"
-            value={name}
-            onChange={setName}
-            required={true}
-            onValidationChange={(error) =>
-              handleValidationChange("name", error)
-            }
+            value={data.personal.name}
+            onChange={(v) => updateNested("personal", { name: v })}
+            required
+            onValidationChange={(err) => handleValidationChange("name", err)}
             errorMessage={validationErrors.name}
           />
 
@@ -105,24 +97,27 @@ export default function PersonalDataForm({
               label="CPF"
               type="text"
               placeholder="Digite seu CPF"
-              value={cpf}
-              onChange={(newValue) => setCpf(formatCpf(newValue))}
-              required={true}
-              customValidator={validateCpf}
-              onValidationChange={(error) =>
-                handleValidationChange("cpf", error)
+              value={data.personal.cpf}
+              onChange={(v) =>
+                updateNested("personal", { cpf: formatCpf(v) })
               }
+              required
+              customValidator={validateCpf}
+              onValidationChange={(err) => handleValidationChange("cpf", err)}
               errorMessage={validationErrors.cpf}
             />
+
             <InputField
               className="w-full"
               label="Data de nascimento"
               type="date"
-              value={birthdate}
-              onChange={setBirthdate}
-              required={true}
-              onValidationChange={(error) =>
-                handleValidationChange("birthdate", error)
+              value={data.personal.birthdate}
+              onChange={(v) =>
+                updateNested("personal", { birthdate: v })
+              }
+              required
+              onValidationChange={(err) =>
+                handleValidationChange("birthdate", err)
               }
               errorMessage={validationErrors.birthdate}
             />
@@ -132,8 +127,10 @@ export default function PersonalDataForm({
             <CountryCodeSelect
               width="fit"
               label="Código do país"
-              value={countryCode}
-              onChange={setCountryCode}
+              value={data.personal.countryCode}
+              onChange={(v) =>
+                updateNested("personal", { countryCode: v })
+              }
             />
 
             <InputField
@@ -141,22 +138,23 @@ export default function PersonalDataForm({
               label="Número de telefone"
               type="tel"
               placeholder="(XX) XXXXX-XXXX"
-              value={phone}
-              onChange={(newValue) => setPhone(formatPhone(newValue))}
-              required={true}
-              customValidator={validatePhone}
-              onValidationChange={(error) =>
-                handleValidationChange("phone", error)
+              value={data.personal.phone}
+              onChange={(v) =>
+                updateNested("personal", { phone: formatPhone(v) })
               }
+              required
+              customValidator={validatePhone}
+              onValidationChange={(err) => handleValidationChange("phone", err)}
               errorMessage={validationErrors.phone}
             />
           </div>
         </form>
+
         <div className="flex flex-col justify-center items-center gap-3 mt-3">
           <PrimaryButton
             type="submit"
             text="Próximo"
-            onClick={() => handleSubmit}
+            onClick={handleSubmit}
             isDisabled={!isFormValid}
           />
           <SecondaryButton text="Voltar" onClick={onBack} />
