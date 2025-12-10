@@ -22,16 +22,16 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      <div>
+    <div className="flex flex-col gap-12 mb-10">
+      <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold text-black">Endereço</h1>
-        <p>
+        <p className="text-lg lg:text-xs 2xl:text-sm">
           Nos diga onde você está. Essas informações nos ajudam a oferecer um
           atendimento mais completo.
         </p>
       </div>
-      <div className="flex flex-col gap-7">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+      <div className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex w-full flex-row gap-4">
             <InputField
               className="w-full"

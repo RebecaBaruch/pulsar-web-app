@@ -74,7 +74,7 @@ export default function CountryCodeSelect({
   return (
     <div className={`relative ${widthClass} ${className || ""}`}>
       {label && (
-        <label className="block text-md font-medium mb-2 lg:text-xs 2xl:text-sm text-black whitespace-nowrap">
+        <label className="block text-md font-medium mb-2 text-lg lg:text-xs 2xl:text-sm text-black whitespace-nowrap">
           {label}
         </label>
       )}
