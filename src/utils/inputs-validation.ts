@@ -22,9 +22,22 @@ export const validateEmail: Validator = (value) => {
 };
 
 export const validatePassword: Validator = (value) => {
-  if (value && value.length < 8) {
+  if (!value) {
+    return undefined;
+  }
+
+  if (value.length < 8) {
     return "A senha deve ter no mínimo 8 caracteres.";
   }
+
+  const passwordRegex = new RegExp(
+    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()-+_])[A-Za-z\d!@#$%^&*()-+_]{8,}$/
+  );
+
+  if (!passwordRegex.test(value)) {
+    return "A senha deve conter letras, números e um caractere especial (ex: !, @, #, $).";
+  }
+
   return undefined;
 };
 
@@ -95,5 +108,23 @@ export const runValidators = (
       return error;
     }
   }
+  return undefined;
+};
+
+export const validateCEP: Validator = (value) => {
+  if (!value) {
+    return undefined;
+  }
+
+  const digits = String(value).replace(/\D/g, "");
+
+  if (digits.length < 8) {
+    return "O CEP deve ter 8 dígitos.";
+  }
+
+  if (!/^\d{5}-?\d{3}$/.test(value)) {
+    return "Formato de CEP inválido.";
+  }
+
   return undefined;
 };
