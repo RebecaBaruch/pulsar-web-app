@@ -2,18 +2,35 @@
 
 "use client";
 
+import React from "react";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import InputField from "@/components/InputField";
-import React from "react";
 
 type WelcomeStepProps = {
   onNext: () => void;
 };
 
 export default function WelcomeStep({ onNext }: WelcomeStepProps) {
+  const [email, setEmail] = React.useState("");
+  const [emailValidationError, setEmailValidationError] = React.useState<
+    string | undefined
+  >(undefined);
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const isFormValid = !emailValidationError && email.length > 0;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onNext();
+
+    setSubmitted(true);
+
+    if (isFormValid) {
+      onNext();
+    }
+  };
+
+  const handleEmailValidation = (error: string | undefined) => {
+    setEmailValidationError(error);
   };
 
   return (
@@ -35,10 +52,20 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
           label="E-mail"
           type="email"
           placeholder="Digite seu e-mail"
+          value={email}
+          onChange={setEmail}
+          required={true}
+          shouldValidate={submitted}
+          onValidationChange={handleEmailValidation}
+          errorMessage={submitted ? emailValidationError : undefined}
         />
         <div className="flex flex-col justify-center items-center gap-15 mt-3">
-          <div className='flex flex-col gap-4 w-full'>
-            <PrimaryButton type="submit" text="Próximo" onClick={onNext} />
+          <div className="flex flex-col gap-4 w-full">
+            <PrimaryButton
+              type="submit"
+              text="Próximo"
+              isDisabled={!isFormValid && submitted}
+            />
 
             <p className="text-sm lg:text-xs 2xl:text-sm text-center text-gray-dark">
               Ao fazer a inscrição, você aceita os{" "}
