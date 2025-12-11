@@ -19,7 +19,7 @@ const SecondaryButton = ({
     <button
       onClick={onClick}
       disabled={isDisabled}
-      className={`w-full border border-${color} bg-transparent hover:border-${color}-dark text-blue font-semibold py-3 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-${color}-light`}
+      className={`w-full border border-${color} bg-transparent hover:border-${color}-dark text-blue font-semibold py-3 px-6 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-${color}-light`}
     >
       {text}
     </button>

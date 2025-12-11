@@ -45,10 +45,8 @@ type OnlyObjectKeys<T> = {
 type RegisterContextType = {
   data: RegisterData;
 
-  /** update global */
   update: (patch: Partial<RegisterData>) => void;
 
-  /** update nested (somente objetos) */
   updateNested: <K extends OnlyObjectKeys<RegisterData>>(
     key: K,
     patch: Partial<RegisterData[K]>

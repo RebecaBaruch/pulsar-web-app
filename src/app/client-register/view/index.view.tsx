@@ -17,26 +17,31 @@ export default function ClientRegisterView({
   stepTitles,
 }: ClientRegisterViewProps) {
   return (
-    <section className="flex flex-row w-screen h-screen">
-      <div className="flex flex-row w-full h-full lg:p-0 lg:m-0">
-        <div className="w-full lg:w-1/2 flex justify-center px-6 lg:px-12">
-          <div className="flex flex-col items-center justify-start w-full max-w-lg pt-10 lg:max-w-md lg:p-0">
-            <StepBar
-              currentStep={currentStep}
-              totalSteps={totalSteps}
-              stepTitles={stepTitles}
+    <section className="flex flex-row w-screen min-h-screen justify-center md:items-start lg:items-center m-0 p-0 md:py-6 lg:p-0">
+      <div
+        className={`hidden ${currentStep === 1 ? "lg:block" : "lg:hidden"} lg:w-1/2 h-screen bg-blue rounded-r-2xl`}
+      ></div>
+
+      <div
+        className={`w-full h-full ${currentStep === 1 ? "lg:w-1/2" : "lg:w-1/3"} flex justify-center md:items-center md:my-6 px-6 lg:px-0`}
+      >
+        <div
+          className={`flex flex-col items-center justify-start w-full h-full max-w-lg pt-10 lg:bg-white md:rounded-xl ${currentStep === 1 ? "md:shadow-0 lg:max-w-lg" : "lg:shadow-md lg:max-w-2xl"} md:h-auto lg:p-6`}
+        >
+          <StepBar
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            stepTitles={stepTitles}
+          />
+          <div className="flex flex-col gap-15 md:gap-8 mt-10 md:mt-0 w-full">
+            <img
+              src="/images/horizontal-logo.png"
+              alt="Logo da Pulsar"
+              className="lg:w-[150px] w-[150px]"
             />
-            <div className="flex flex-col gap-15 mt-10">
-              <img
-                src="/images/horizontal-logo.png"
-                alt="Logo da Pulsar"
-                className="lg:w-[150px] w-[150px]"
-              />
-              {stepComponent}
-            </div>
+            {stepComponent}
           </div>
         </div>
-        <div className="flex flex-row hidden lg:block w-full max-w-1/2 lg:h-full"></div>
       </div>
     </section>
   );
