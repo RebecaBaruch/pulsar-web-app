@@ -35,6 +35,9 @@ type InputFieldProps = {
   className?: string;
   shouldValidate?: boolean;
   isSuccess?: boolean;
+
+  /** NOVO: permite desligar validação automática por tipo */
+  skipTypeValidation?: boolean;
 };
 
 const InputField = ({
@@ -52,6 +55,7 @@ const InputField = ({
   shouldValidate = false,
   isSuccess = false,
   className,
+  skipTypeValidation = false, // ← ADICIONADO
 }: InputFieldProps) => {
   const [validationError, setValidationError] = React.useState<
     string | undefined
@@ -61,31 +65,41 @@ const InputField = ({
 
   const defaultValidators = React.useMemo(() => {
     const validators: Validator[] = [];
+
     if (required) {
       validators.push(isRequired);
     }
-    switch (type) {
-      case "email":
-        validators.push(validateEmail);
-        break;
-      case "password":
-        validators.push(validatePassword);
-        break;
-      case "number":
-        validators.push(validateNumber);
-        break;
-      case "cpf":
-        validators.push(validateCpf);
-        break;
-      case "tel":
-        validators.push(validatePhone);
-        break;
+
+    /** 
+     * AQUI ESTÁ A MUDANÇA:
+     * Se skipTypeValidation === true, NÃO adiciona validatePassword automaticamente
+     */
+    if (!skipTypeValidation) {
+      switch (type) {
+        case "email":
+          validators.push(validateEmail);
+          break;
+        case "password":
+          validators.push(validatePassword);
+          break;
+        case "number":
+          validators.push(validateNumber);
+          break;
+        case "cpf":
+          validators.push(validateCpf);
+          break;
+        case "tel":
+          validators.push(validatePhone);
+          break;
+      }
     }
+
     if (customValidator) {
       validators.push(customValidator);
     }
+
     return validators;
-  }, [type, required, customValidator]);
+  }, [type, required, customValidator, skipTypeValidation]);
 
   const validateField = React.useCallback(
     (currentValue: string | undefined) => {
@@ -139,7 +153,7 @@ const InputField = ({
           ${
             isError
               ? "border-red-500 focus:border-red-600"
-              : isSuccess 
+              : isSuccess
                 ? "border-green-500 focus:border-green-600"
                 : "border-gray-light focus:border-blue"
           }
