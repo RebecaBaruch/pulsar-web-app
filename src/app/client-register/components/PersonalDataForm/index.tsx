@@ -67,10 +67,10 @@ export default function PersonalDataForm({
   return (
     <div className="flex flex-col gap-12 lg:gap-5 2xl:gap-12">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl lg:text-lg 2xl:text-xl font-bold text-black">
+        <h1 className="text-2xl md:text-xl lg:text-2xl font-bold text-black">
           Dados pessoais
         </h1>
-        <p className="text-lg lg:text-xs 2xl:text-sm">
+        <p className="text-lg md:text-base lg:text-md">
           Insira os seus dados de identificação e contato.
         </p>
       </div>

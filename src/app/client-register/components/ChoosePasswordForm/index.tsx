@@ -58,7 +58,6 @@ export default function ChoosePasswordForm({
       const error = isRequired(value);
       handleValidationChange("password", error);
 
-      // Quando a senha muda, revalidar o confirm
       if (confirmPassword) {
         const confirmError = validatePasswordMatch(value, confirmPassword);
         handleValidationChange("confirmPassword", confirmError);
@@ -95,8 +94,8 @@ export default function ChoosePasswordForm({
   return (
     <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold text-black">Defina a sua senha</h1>
-        <p className="text-lg lg:text-xs 2xl:text-sm">
+        <h1 className="text-2xl md:text-xl lg:text-2xl font-bold text-black">Defina a sua senha</h1>
+        <p className="text-lg md:text-base lg:text-md">
           A senha deve ter pelo menos 8 caracteres, com letras, números e um
           caractere especial.
         </p>
