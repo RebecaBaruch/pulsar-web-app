@@ -42,5 +42,8 @@
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.12",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@fortawesome/fontawesome-common-types": "6.5.2"
   }
 }
