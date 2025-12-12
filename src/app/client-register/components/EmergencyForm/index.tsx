@@ -63,8 +63,10 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
   return (
     <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold text-black">Contato de emergência</h1>
-        <p className="text-lg lg:text-xs 2xl:text-sm">
+        <h1 className="text-2xl md:text-xl lg:text-2xl font-bold text-black">
+          Contato de emergência
+        </h1>
+        <p className="text-lg md:text-base lg:text-md">
           Em caso de emergência, entraremos em contato com alguém que você
           confia.
         </p>

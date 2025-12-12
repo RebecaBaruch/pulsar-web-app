@@ -79,23 +79,20 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
 
   return (
     <div className="flex flex-col gap-12 mb-10">
-      {/* Cabeçalho */}
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold text-black">Endereço</h1>
-        <p className="text-lg lg:text-xs 2xl:text-sm">
+        <h1 className="text-2xl md:text-xl lg:text-2xl font-bold text-black">Endereço</h1>
+        <p className="text-lg md:text-base lg:text-md">
           Nos diga onde você está. Essas informações nos ajudam a oferecer um
           atendimento mais completo.
         </p>
       </div>
 
-      {/* Formulário */}
       <div className="flex flex-col gap-6">
         <form
           ref={formRef}
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-6"
         >
-          {/* CEP + País */}
           <div className="flex w-full flex-row gap-4">
             <InputField
               className="w-full"
@@ -122,7 +119,6 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
             />
           </div>
 
-          {/* Estado */}
           <InputField
             label="Estado/Província"
             placeholder="Digite o estado/província"
@@ -133,7 +129,6 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
             errorMessage={validationErrors.state}
           />
 
-          {/* Cidade */}
           <InputField
             label="Cidade"
             type="text"
@@ -145,7 +140,6 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
             errorMessage={validationErrors.city}
           />
 
-          {/* Distrito */}
           <InputField
             label="Bairro/Distrito"
             type="text"
