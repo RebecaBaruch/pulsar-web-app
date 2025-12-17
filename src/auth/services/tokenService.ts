@@ -1,19 +1,22 @@
 export const tokenService = {
-  saveTokens(access: string, refresh: string) {
-    sessionStorage.setItem("access_token", access);
-    sessionStorage.setItem("refresh_token", refresh);
+  save(session: {
+    token: string;
+    user: any;
+  }) {
+    sessionStorage.setItem("auth_session", JSON.stringify(session));
   },
 
-  getAccess() {
-    return sessionStorage.getItem("access_token");
-  },
-
-  getRefresh() {
-    return sessionStorage.getItem("refresh_token");
+  get() {
+    const raw = sessionStorage.getItem("auth_session");
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
   },
 
   clear() {
-    sessionStorage.removeItem("access_token");
-    sessionStorage.removeItem("refresh_token");
-  }
+    sessionStorage.removeItem("auth_session");
+  },
 };

@@ -1,63 +1,63 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AuthContext } from "./context";
-import { AuthUser } from "./types";
-import { saveToken, getToken, clearToken } from "./storage";
+import { AuthUser, AuthContextType } from "./authTypes";
+import { tokenService } from "./services/tokenService";
 
-export default function AuthProvider({
-  children,
-}: {
+interface AuthProviderProps {
   children: React.ReactNode;
-}) {
-  const [user, setUser] = React.useState<AuthUser | null>(null);
-  const [loading, setLoading] = React.useState(true);
+}
 
-  React.useEffect(() => {
-    const token = getToken();
+export default function AuthProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const refreshUser = async () => {
+    const token = tokenService.get();
 
     if (!token) {
+      setUser(null);
       setLoading(false);
       return;
     }
 
-    // Em produção: chamar endpoint /me
-    setUser({
-      id: "1",
-      name: "Usuário",
-      type: "client",
-    });
+    try {
+      const res = await fetch("/api/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-    setLoading(false);
-  }, []);
+      if (!res.ok) {
+        setUser(null);
+        return;
+      }
 
-  const login = async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
-    // Em produção: request ao backend
-    const fakeToken = "token-123";
-
-    saveToken(fakeToken);
-
-    setUser({
-      id: "1",
-      name: username,
-      type: sessionStorage.getItem("login_user_type") as any,
-    });
+      const data = await res.json();
+      setUser(data.user);
+    } catch {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const logout = () => {
-    clearToken();
+  const logout = async () => {
+    tokenService.clear();
     setUser(null);
   };
 
-  return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  useEffect(() => {
+    refreshUser();
+  }, []);
+
+  const contextValue: AuthContextType = {
+    user,
+    loading,
+    isAuthenticated: !!user,
+    logout,
+    refreshUser,
+    setUser,
+  };
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

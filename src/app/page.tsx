@@ -1,7 +1,5 @@
-import LandingPageController from "./landing-page/page";
+import LandingPageController from "./(public)/landing-page/page";
 
 export default function Home() {
-  return (
-    <LandingPageController />
-  );
+  return <LandingPageController />;
 }
