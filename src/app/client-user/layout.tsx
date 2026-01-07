@@ -1,32 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import LoggedNavBar from "@/components/NavBar/LoggedNavBar";
 import { useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
+import { useAuth } from "@/auth/useAuth";
 
 export default function ClientLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const { user, loading } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    async function fetchUser() {
-      const res = await fetch("/api/me");
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data.user);
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    }
-    fetchUser();
-  }, []);
 
   useEffect(() => {
     if (!loading && (!user || user.role !== "CLIENT")) {
