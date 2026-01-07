@@ -55,7 +55,7 @@ export default function FiltersBar({
   };
 
   return (
-    <div className="flex flex-wrap flex-row justify-between items-center gap-6 mt-12 px-5 max-w-[1440px] mx-auto w-full">
+    <div className="flex flex-wrap flex-row justify-between items-center gap-6 mx-auto w-full ">
       <span className="text-sm text-gray-dark font-medium order-2 md:order-1">
         {expertsCount} especialistas encontrados
       </span>
@@ -80,6 +80,7 @@ export default function FiltersBar({
               boxShadow: state.isFocused ? "0 0 0 2px #bfdbfe" : "none",
               "&:hover": { borderColor: "#3b82f6" },
               fontSize: "0.8rem",
+              cursor: "pointer",
             }),
             multiValue: (base) => ({
               ...base,
@@ -127,6 +128,7 @@ export default function FiltersBar({
               boxShadow: state.isFocused ? "0 0 0 2px #bfdbfe" : "none",
               "&:hover": { borderColor: "#3b82f6" },
               fontSize: "0.8rem",
+              cursor: "pointer",
             }),
             option: (base, state) => ({
               ...base,

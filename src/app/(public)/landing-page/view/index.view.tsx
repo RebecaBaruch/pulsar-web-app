@@ -2,7 +2,6 @@
 
 import React from "react";
 import HeroSection from "../components/HeroSection";
-import NavBar from "@/components/NavBar";
 import Introduction from "../components/Introduction";
 import SpecServices from "../components/SpecServices";
 import ChoosePulsar from "../components/ChoosePulsar";
@@ -10,7 +9,6 @@ import About from "../components/About";
 import SocialProof from "../components/SocialProof";
 import { FaqSection } from "../components/Faq";
 import ForCompanies from "../components/ForCompanies";
-import Footer from "@/components/Footer";
 import LandingPageSkeleton from "../components/LandingPageSkeleton";
 
 export default function LandingPageView() {
@@ -27,7 +25,6 @@ export default function LandingPageView() {
         <LandingPageSkeleton />
       ) : (
         <>
-          <NavBar />
           <HeroSection />
           <Introduction />
           <SpecServices />
@@ -36,7 +33,6 @@ export default function LandingPageView() {
           <SocialProof />
           <FaqSection />
           <ForCompanies />
-          <Footer />
         </>
       )}
     </div>

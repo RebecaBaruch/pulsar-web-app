@@ -5,31 +5,16 @@ import { Skeleton } from "@/components/Skeleton";
 
 export default function FindSpecialistSkeleton({ length }: { length: number }) {
   return (
-    <>
-      <nav className="w-full bg-white dark:bg-gray-900 mb-6">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
-          <Skeleton className="h-8 w-24 rounded-md" />
-
-          <div className="hidden md:flex space-x-6">
-            <Skeleton className="h-4 w-16" />
-            <Skeleton className="h-4 w-20" />
-            <Skeleton className="h-4 w-24" />
-          </div>
-
-          <div className="hidden md:flex space-x-6">
-            <Skeleton className="h-4 w-16" />
-            <Skeleton className="h-4 w-20" />
-            <Skeleton className="h-4 w-24" />
-          </div>
-
-          <div className="md:hidden">
-            <Skeleton className="h-6 w-6 rounded-md" />
+    <div className="flex flex-col justify-start gap-2 w-screen max-w-5xl mx-auto px-5 md:px-8 lg:px-12">
+      <div className="flex flex-col justify-start items-start w-full p-10 gap-4">
+        <Skeleton className="w-[30%] h-8 rounded-xl" />
+        <div className="flex flex-row justify-between w-full">
+          <Skeleton className="w-[15%] h-4 rounded-xl" />
+          <div className="flex flex-row justify-between w-[25%] gap-4">
+            <Skeleton className="w-1/2 h-8 rounded-xl" />
+            <Skeleton className="w-1/2 h-8 rounded-xl" />
           </div>
         </div>
-      </nav>
-
-      <div className="flex items-center w-full px-10">
-        <Skeleton className="w-full h-38 md:h-38 lg:h-60 rounded-xl" />
       </div>
 
       <div className="w-full px-10 mt-8 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -37,6 +22,6 @@ export default function FindSpecialistSkeleton({ length }: { length: number }) {
           <Skeleton key={i} className="w-full h-64" />
         ))}
       </div>
-    </>
+    </div>
   );
 }

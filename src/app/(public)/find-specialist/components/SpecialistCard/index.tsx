@@ -8,8 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { SpecialistCardProps } from "./type";
 import Tag from "@/components/Tag";
+import { useRouter } from "next/navigation";
+import { RoutesUrls } from "@/utils/enum/routes-url";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
 
-const SpecialistCard: React.FC<SpecialistCardProps> = ({
+const SpecialistCard: React.FC<SpecialistCardProps & { index?: number }> = ({
   name,
   role,
   crm,
@@ -19,11 +22,21 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({
   tags,
   price,
   imgSrc,
+  index,
 }) => {
   const MAX_VISIBLE_TAGS = 3;
+  const router = useRouter();
+
+  const handleScheduleClick = () => {
+    // Navigate to specialist details page using the index
+    router.push(`${RoutesUrls.SPECIALIST_DETAILS}/${index}`);
+  };
 
   return (
-    <div className="w-full bg-white shadow-md rounded-2xl p-5 flex flex-col gap-6">
+    <div
+      className="w-full bg-white shadow-md rounded-2xl p-5 flex flex-col gap-6 hover:shadow-lg transition-shadow"
+      onClick={handleScheduleClick}
+    >
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <img
@@ -32,7 +45,7 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({
             className="w-10 h-10 rounded-full object-cover"
           />
           <div>
-            <h3 className="text-lg font-semibold">{name}</h3>
+            <h3 className="text-md font-semibold">{name}</h3>
             <p className="text-xs text-gray-600">
               {role} • {crm}
             </p>
@@ -42,29 +55,32 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-xs">
-          <div className="flex items-center gap-1 bg-blue-dark text-white px-2 py-1 rounded-full">
-            <FontAwesomeIcon icon={faStar} className="text-yellow" />
-            <span className="font-medium">{rating.toFixed(1)}</span>
-          </div>
-          <div className="flex items-center gap-2 bg-gray-w text-gray-dark px-2 py-1 rounded-full">
-            <FontAwesomeIcon icon={faUsers} />
-            <span>{reviews} atendimentos</span>
-          </div>
-        </div>
-
         <div className="flex flex-wrap gap-2">
           {tags.slice(0, MAX_VISIBLE_TAGS).map((tag, index) => (
             <Tag
               key={index}
               label={tag.label}
-              variant={index === 0 ? "green" : "blue"}
+              variant={index === 0 ? "blue" : "gray"}
             />
           ))}
 
           {tags.length > MAX_VISIBLE_TAGS && (
-            <Tag label={`+${tags.length - MAX_VISIBLE_TAGS}`} variant="gray" />
+            <Tag
+              label={`+${tags.length - MAX_VISIBLE_TAGS}`}
+              variant="grayOutline"
+            />
           )}
+        </div>
+      </div>
+
+      <div className="w-full flex justify-start items-center gap-6 text-xs border-b border-gray-200 pb-6">
+        <div className="flex items-center gap-1 text-gray-darkest">
+          <FontAwesomeIcon icon={faStar} className="text-yellow" />
+          <span className="font-medium">{rating.toFixed(1)}</span>
+        </div>
+        <div className="flex items-center gap-2 text-gray-darkest">
+          <FontAwesomeIcon icon={faUsers} />
+          <span>{reviews} atendimentos</span>
         </div>
       </div>
 
@@ -73,9 +89,14 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({
           <p className="text-xs text-gray-600">Sessão online</p>
           <p className="text-lg font-semibold">{price}</p>
         </div>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg">
-          Agendar sessão
-        </button>
+        <div className="w-fit">
+          <PrimaryButton
+            text={"Agendar sessão"}
+            onClick={() => {
+              handleScheduleClick();
+            }}
+          />
+        </div>
       </div>
     </div>
   );
