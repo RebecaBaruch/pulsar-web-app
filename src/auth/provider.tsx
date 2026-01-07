@@ -16,24 +16,22 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const refreshUser = async () => {
     const token = tokenService.get();
 
-    if (!token) {
-      setUser(null);
-      setLoading(false);
-      return;
-    }
-
     try {
+      const headers: HeadersInit = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       const res = await fetch("/api/me", {
-        headers: { Authorization: `Bearer ${token}` },
+        headers,
       });
 
       if (!res.ok) {
         setUser(null);
-        return;
+      } else {
+        const data = await res.json();
+        setUser(data.user);
       }
-
-      const data = await res.json();
-      setUser(data.user);
     } catch {
       setUser(null);
     } finally {
@@ -44,6 +42,13 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const logout = async () => {
     tokenService.clear();
     setUser(null);
+
+    // Call server endpoint to clear httpOnly cookie
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch (error) {
+      console.error("Error clearing session cookie:", error);
+    }
   };
 
   useEffect(() => {
@@ -59,5 +64,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     setUser,
   };
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 }

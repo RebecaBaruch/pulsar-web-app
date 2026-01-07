@@ -34,7 +34,12 @@ export async function POST(req: Request) {
       });
 
       console.log("Signin route - mock login successful");
-      return NextResponse.json({ ok: true, tokenType: authData.tokenType });
+      return NextResponse.json({
+        ok: true,
+        tokenType: authData.tokenType,
+        accessToken: authData.accessToken,
+        user: authData.user,
+      });
     }
 
     return NextResponse.json(
@@ -88,7 +93,12 @@ export async function POST(req: Request) {
       maxAge: authData.expiresIn || 3600,
     });
 
-    return NextResponse.json({ ok: true, tokenType: authData.tokenType });
+    return NextResponse.json({
+      ok: true,
+      tokenType: authData.tokenType,
+      accessToken: authData.token || authData.accessToken,
+      user: enrichedAuthData.user,
+    });
   } catch (error) {
     console.error("Signin route error:", error);
     return NextResponse.json(
@@ -97,33 +107,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
-// import { NextResponse } from "next/server";
-// import { cookies } from "next/headers";
-// import { mockUser } from "@/auth/mocks/user";
-
-// export async function POST(req: Request) {
-//   const { email, password } = await req.json();
-
-//   // Usuário de teste
-//   if (email === "teste@exemplo.com" && password === "SenhaForte123") {
-//     const tokenPayload = {
-//       accessToken: "mocked-access-token",
-//       tokenType: "Bearer",
-//       subject: mockUser.id,
-//       issuedAt: new Date().toISOString(),
-//       expiresIn: 3600,
-//       user: mockUser,
-//     };
-
-//     (await cookies()).set("auth_session", JSON.stringify(tokenPayload), {
-//       httpOnly: true,
-//       path: "/",
-//       sameSite: "lax",
-//     });
-
-//     return NextResponse.json({ ok: true, tokenType: tokenPayload.tokenType });
-//   }
-
-//   return NextResponse.json({ error: "Credenciais inválidas" }, { status: 401 });
-// }

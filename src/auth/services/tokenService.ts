@@ -1,8 +1,5 @@
 export const tokenService = {
-  save(session: {
-    token: string;
-    user: any;
-  }) {
+  save(session: { token: string; user: any }) {
     sessionStorage.setItem("auth_session", JSON.stringify(session));
   },
 
@@ -10,7 +7,8 @@ export const tokenService = {
     const raw = sessionStorage.getItem("auth_session");
     if (!raw) return null;
     try {
-      return JSON.parse(raw);
+      const session = JSON.parse(raw);
+      return session.token;
     } catch {
       return null;
     }
