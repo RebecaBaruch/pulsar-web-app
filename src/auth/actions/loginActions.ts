@@ -7,11 +7,8 @@ import { AuthCredentials } from "../authTypes";
 export async function loginAction(credentials: AuthCredentials) {
   const response = await authService.login(credentials);
 
-  setSession({
-    token: response.token,
-    type: response.type,
-    user: response.user,
-  });
+  // Pass the server auth response directly to the session setter
+  await setSession(response);
 
   return { ok: true };
 }

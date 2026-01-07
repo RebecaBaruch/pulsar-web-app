@@ -25,7 +25,7 @@ export default function LoginFormView({
 }: Props) {
   return (
     <section className="flex w-screen min-h-screen justify-center lg:items-center pt-20 lg:p-4">
-      <div className="flex flex-col w-full p-6 md:p-15 lg:py-10 lg:px-6 lg:max-w-lg gap-15 md:gap-8 lg:gap-10 lg:bg-white md:rounded-xl lg:shadow-md">
+      <div className="container mx-auto flex flex-col p-6 md:p-15 lg:py-10 lg:px-6 lg:max-w-lg gap-15 md:gap-8 lg:gap-10 lg:bg-white md:rounded-xl lg:shadow-md">
         <img
           src="/images/horizontal-logo.png"
           alt="Logo da Pulsar"

@@ -20,8 +20,8 @@ export default function HomeView({
   }
 
   return (
-    <section className="flex w-screen overflow-x-hidden min-h-screen justify-center lg:items-center pt-16 pb-10">
-      <div className="flex flex-col gap-12 w-full max-w-5xl mx-auto px-5 md:px-8 lg:px-12">
+    <section className="flex overflow-x-hidden min-h-screen justify-center lg:items-center pt-16 pb-10">
+      <div className="container mx-auto px-5 md:px-8 lg:px-12 flex flex-col gap-12">
         <div className="flex flex-col gap-6 w-full">
           <span>
             <h1 className="text-3xl text-black font-bold">

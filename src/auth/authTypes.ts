@@ -19,6 +19,9 @@ export interface AuthResponse {
   user: AuthUser;
 }
 
+// Alias for the session object stored in cookies
+export type AuthSession = AuthResponse;
+
 // authTypes.ts
 export interface AuthContextType {
   user: AuthUser | null;
