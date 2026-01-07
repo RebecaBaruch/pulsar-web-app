@@ -1,36 +1,32 @@
+// authService.ts
 import { AuthCredentials, AuthResponse } from "../authTypes";
-import { AuthError } from "../errors/AuthError";
 
 export const authService = {
   async login(credentials: AuthCredentials): Promise<AuthResponse> {
-    //  if (credentials.username !== "teste" || credentials.password !== "123") {
-    //   throw new AuthError("Credenciais inválidas", 401);
-    // }
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"; // Update with your backend URL
+    const endpoint = `${apiUrl}/api/auth/login`;
 
-    // return {
-    //   token: "mock-token-123",
-    //   type: credentials.userType,
-    //   user: {
-    //     id: "1",
-    //     name: "Usuário Mock",
-    //     email: "mock@teste.com",
-    //     type: credentials.userType,
-    //   },
-    // };
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials),
-      });
+    console.log("authService.login - calling backend:", endpoint);
+    console.log("authService.login - credentials:", {
+      email: credentials.email,
+    });
 
-      if (!res.ok) {
-        throw new AuthError("Credenciais inválidas", res.status);
-      }
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    });
 
-      return res.json();
-    } catch (e: any) {
-      throw new AuthError(e.message);
+    console.log("authService.login - response status:", res.status);
+
+    if (!res.ok) {
+      const errorData = await res.text();
+      console.error("authService.login - error response:", errorData);
+      throw new Error("Credenciais inválidas");
     }
+
+    const data = await res.json();
+    console.log("authService.login - response data:", data);
+    return data;
   },
 };

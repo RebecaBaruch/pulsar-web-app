@@ -50,3 +50,35 @@ body {
   background: #38e977 !important;
   opacity: 1;
 }
+
+/* Accessible skip link */
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #000;
+  color: #fff;
+  border-radius: 0.25rem;
+  transform: translateY(-150%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 3px solid var(--color-blue, #3852e7);
+  outline-offset: 2px;
+}
+
+/* Ensure visible focus for interactive elements */
+:where(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]
+):focus-visible {
+  outline: 3px solid var(--color-blue, #3852e7);
+  outline-offset: 2px;
+}

@@ -1,31 +1,33 @@
-export type LoginUserType = "client" | "specialist";
-
-export interface AuthCredentials {
-  username: string;
-  password: string;
-  userType: LoginUserType;
+// authTypes.ts
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "CLIENT" | "SPECIALIST";
 }
-
-export interface AuthSession {
-  token: string;
-  type: LoginUserType;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    type: LoginUserType;
-  };
+export interface AuthCredentials {
+  email: string;
+  password: string;
 }
 
 export interface AuthResponse {
-  token: string;
-  refreshToken?: string;
-  type: LoginUserType;
+  accessToken: string;
+  tokenType: string;
+  subject: string;
+  issuedAt: string;
+  expiresIn: number;
+  user: AuthUser;
+}
 
-  user?: {
-    id: string;
-    name: string;
-    email: string;
-    type: LoginUserType;
-  };
+// Alias for the session object stored in cookies
+export type AuthSession = AuthResponse;
+
+// authTypes.ts
+export interface AuthContextType {
+  user: AuthUser | null;
+  loading: boolean;
+  isAuthenticated: boolean;
+  logout: () => void;
+  refreshUser: () => Promise<void>;
+  setUser: React.Dispatch<React.SetStateAction<AuthUser | null>>; // ← adicionado
 }

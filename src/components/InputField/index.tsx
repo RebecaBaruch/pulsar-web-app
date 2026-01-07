@@ -1,4 +1,5 @@
 import React from "react";
+import { useId } from "react";
 import {
   Validator,
   validateEmail,
@@ -70,10 +71,6 @@ const InputField = ({
       validators.push(isRequired);
     }
 
-    /** 
-     * AQUI ESTÁ A MUDANÇA:
-     * Se skipTypeValidation === true, NÃO adiciona validatePassword automaticamente
-     */
     if (!skipTypeValidation) {
       switch (type) {
         case "email":
@@ -139,17 +136,27 @@ const InputField = ({
     }
   }, [shouldValidate, validateField, value, touched]);
 
+  const fieldId = useId();
+  const inputId = `input-${fieldId}`;
+  const labelId = `label-${fieldId}`;
+  const errorId = `error-${fieldId}`;
+
   return (
     <div className={`${className}`}>
       {label && (
-        <label className="block text-lg lg:text-xs 2xl:text-sm font-medium mb-2 text-black">
+        <label
+          id={labelId}
+          htmlFor={inputId}
+          className="block text-lg lg:text-xs 2xl:text-sm font-medium mb-2 text-black"
+        >
           {label}
         </label>
       )}
 
       <input
+        id={inputId}
         type={type}
-        className={`w-full outline-none border rounded p-2.5 lg:p-2 xl:p-2.5 w-full text-black text-lg lg:text-xs 2xl:text-sm placeholder-gray bg-blue-lightest focus:outline-none
+        className={`w-full outline-none border rounded p-2.5 lg:p-2 xl:p-2.5 text-black text-lg lg:text-xs 2xl:text-sm placeholder-gray bg-blue-lightest focus:outline-none
           ${
             isError
               ? "border-red-500 focus:border-red-600"
@@ -163,10 +170,21 @@ const InputField = ({
         disabled={isDisabled}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={required}
+        aria-required={required || undefined}
+        aria-invalid={isError || undefined}
+        aria-describedby={finalErrorMsg ? errorId : undefined}
+        aria-labelledby={label ? labelId : undefined}
       />
 
       {finalErrorMsg && (
-        <p className="text-red-500 text-sm mt-1">{finalErrorMsg}</p>
+        <p
+          id={errorId}
+          aria-live="polite"
+          className="text-red-500 text-sm mt-1"
+        >
+          {finalErrorMsg}
+        </p>
       )}
     </div>
   );

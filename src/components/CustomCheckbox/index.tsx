@@ -37,6 +37,7 @@ export function CustomCheckbox({
           border-gray-400
           peer-checked:border-blue-600
           peer-checked:bg-blue-600
+          peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-blue-600
         `}
       >
         <svg

@@ -25,15 +25,15 @@ export default function SpecialistsSection() {
   return (
     <section className="flex flex-col items-start w-full">
       <header className="flex flex-col w-full md:flex-row justify-between items-start mb-6">
-        <h2 className="font-semibold text-lg md:text-xl">
-          Encontre o que você precisa
-        </h2>
+        <h2 className="font-semibold text-lg">Encontre o que você precisa</h2>
         <a
           href="/"
-          className="flex flex-row gap-2 items-center text-base text-primary text-blue font-bold hover:underline hidden md:block"
+          className="hidden md:flex flex-row gap-2 justify-center items-center text-sm text-primary text-blue font-medium hover:underline"
         >
-          Todos os especialistas
-          <FontAwesomeIcon icon={faChevronRight} className="w-20" />
+          <span className="w-fit whitespace-nowrap">
+            Todos os especialistas
+          </span>
+          <FontAwesomeIcon icon={faChevronRight} className="w-16" />
         </a>
       </header>
 
@@ -44,10 +44,10 @@ export default function SpecialistsSection() {
       </div>
       <a
         href="/"
-        className="flex flex-row gap-2 items-center text-base text-primary text-blue font-bold hover:underline md:hidden mt-4"
+        className="flex md:hidden flex-row gap-2 h-fit justify-center items-center text-sm text-primary text-blue font-medium hover:underline mt-4"
       >
-        Todos os especialistas
-        <FontAwesomeIcon icon={faChevronRight} className="w-20" />
+        <span className="w-fit whitespace-nowrap">Todos os especialistas</span>
+        <FontAwesomeIcon icon={faChevronRight} className="w-16" />
       </a>
 
       <div className="hidden lg:grid lg:grid-cols-5 gap-4">

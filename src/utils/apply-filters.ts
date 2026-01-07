@@ -1,4 +1,4 @@
-import { SpecialistCardProps } from "@/app/find-specialist/components/SpecialistCard/type";
+import { SpecialistCardProps } from "@/app/(public)/find-specialist/components/SpecialistCard/type";
 
 export type Filters = {
   specialties: string[];

@@ -4,14 +4,30 @@ import React from "react";
 import NextSessionHeader from "../components/NextSessionHeader";
 import MySessions from "../components/MySessions";
 import SpecialistsSection from "../components/SpecialistsSection";
+import HomeSkeleton from "../components/HomeSkeleton";
 
-export default function HomeView() {
+interface HomeViewProps {
+  loading?: boolean;
+  userName?: string;
+}
+
+export default function HomeView({
+  loading = false,
+  userName = "Usuário",
+}: HomeViewProps) {
+  if (loading) {
+    return <HomeSkeleton />;
+  }
+
   return (
-    <section className="flex w-screen overflow-x-hidden min-h-screen justify-center lg:items-center pt-20 lg:p-4 pb-10">
-      <div className="flex flex-col gap-20 w-full p-6 md:p-15">
-        <div className="flex flex-col gap-10 w-full">
+    <section className="flex overflow-x-hidden min-h-screen justify-center lg:items-center pt-16 pb-10">
+      <div className="container mx-auto px-5 md:px-8 lg:px-12 flex flex-col gap-12">
+        <div className="flex flex-col gap-6 w-full">
           <span>
-            <h1 className="text-5xl text-black font-bold"> Olá, Ana 👋 </h1>
+            <h1 className="text-3xl text-black font-bold">
+              {" "}
+              Olá, {userName} 👋{" "}
+            </h1>
           </span>
           <NextSessionHeader />
           <MySessions />

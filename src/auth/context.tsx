@@ -1,5 +1,8 @@
 "use client";
-import { createContext } from "react";
-import { AuthContextType } from "./types";
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import { createContext } from "react";
+import { AuthContextType } from "./authTypes";
+
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);

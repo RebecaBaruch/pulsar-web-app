@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import ReactCountryFlag from "react-country-flag";
 import { phoneCountryCodes, countryNames } from "@/utils/phone-country-codes";
 
@@ -65,6 +65,10 @@ export default function CountryCodeSelect({
   mode = "phone",
 }: CountryCodeSelectProps) {
   const [open, setOpen] = React.useState(false);
+  const uid = useId();
+  const buttonId = `ccs-btn-${uid}`;
+  const listboxId = `ccs-list-${uid}`;
+  const labelId = `ccs-lbl-${uid}`;
 
   const options = normalizeOptions(mode);
   const selected = options.find((c) => c.value === value);
@@ -74,7 +78,10 @@ export default function CountryCodeSelect({
   return (
     <div className={`relative ${widthClass} ${className || ""}`}>
       {label && (
-        <label className="block text-md font-medium mb-2 text-lg lg:text-xs 2xl:text-sm text-black whitespace-nowrap">
+        <label
+          id={labelId}
+          className="block text-md font-medium mb-2 text-lg lg:text-xs 2xl:text-sm text-black whitespace-nowrap"
+        >
           {label}
         </label>
       )}
@@ -86,11 +93,26 @@ export default function CountryCodeSelect({
           e.stopPropagation();
           setOpen((o) => !o);
         }}
+        id={buttonId}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listboxId}
+        aria-labelledby={label ? `${labelId} ${buttonId}` : undefined}
+        aria-invalid={error || undefined}
         className={`flex items-center justify-between w-full border rounded p-2.5 lg:p-1 2xl:p-2.5 bg-blue-lightest focus:outline-none ${
           error
             ? "border-red-500 focus:border-red-600"
             : "border-gray-light focus:border-blue"
         }`}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen(true);
+          }
+          if (e.key === "Escape") {
+            setOpen(false);
+          }
+        }}
       >
         <div className="flex items-center gap-2">
           {selected ? (
@@ -112,14 +134,31 @@ export default function CountryCodeSelect({
       </button>
 
       {open && (
-        <ul className="absolute z-10 mt-1 w-full max-h-56 overflow-y-auto bg-white border border-gray-light rounded shadow-lg">
+        <ul
+          id={listboxId}
+          role="listbox"
+          aria-labelledby={label ? labelId : undefined}
+          className="absolute z-10 mt-1 w-full max-h-56 overflow-y-auto bg-white border border-gray-light rounded shadow-lg"
+        >
           {options.map((option) => (
             <li
               key={option.value}
-              className="flex items-center gap-2 px-3 py-2 hover:bg-blue-lightest cursor-pointer"
+              role="option"
+              aria-selected={option.value === value}
+              tabIndex={0}
+              className="flex items-center gap-2 px-3 py-2 hover:bg-blue-lightest focus:bg-blue-lightest cursor-pointer"
               onClick={() => {
                 onChange?.(option.value);
                 setOpen(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onChange?.(option.value);
+                  setOpen(false);
+                } else if (e.key === "Escape") {
+                  setOpen(false);
+                }
               }}
             >
               <ReactCountryFlag

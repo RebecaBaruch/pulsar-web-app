@@ -1,63 +1,70 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AuthContext } from "./context";
-import { AuthUser } from "./types";
-import { saveToken, getToken, clearToken } from "./storage";
+import { AuthUser, AuthContextType } from "./authTypes";
+import { tokenService } from "./services/tokenService";
 
-export default function AuthProvider({
-  children,
-}: {
+interface AuthProviderProps {
   children: React.ReactNode;
-}) {
-  const [user, setUser] = React.useState<AuthUser | null>(null);
-  const [loading, setLoading] = React.useState(true);
+}
 
-  React.useEffect(() => {
-    const token = getToken();
+export default function AuthProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
 
-    if (!token) {
+  const refreshUser = async () => {
+    const token = tokenService.get();
+
+    try {
+      const headers: HeadersInit = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const res = await fetch("/api/me", {
+        headers,
+      });
+
+      if (!res.ok) {
+        setUser(null);
+      } else {
+        const data = await res.json();
+        setUser(data.user);
+      }
+    } catch {
+      setUser(null);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    // Em produção: chamar endpoint /me
-    setUser({
-      id: "1",
-      name: "Usuário",
-      type: "client",
-    });
-
-    setLoading(false);
-  }, []);
-
-  const login = async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
-    // Em produção: request ao backend
-    const fakeToken = "token-123";
-
-    saveToken(fakeToken);
-
-    setUser({
-      id: "1",
-      name: username,
-      type: sessionStorage.getItem("login_user_type") as any,
-    });
   };
 
-  const logout = () => {
-    clearToken();
+  const logout = async () => {
+    tokenService.clear();
     setUser(null);
+
+    // Call server endpoint to clear httpOnly cookie
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch (error) {
+      console.error("Error clearing session cookie:", error);
+    }
+  };
+
+  useEffect(() => {
+    refreshUser();
+  }, []);
+
+  const contextValue: AuthContextType = {
+    user,
+    loading,
+    isAuthenticated: !!user,
+    logout,
+    refreshUser,
+    setUser,
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 }
