@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,8 +9,23 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import FooterSkeleton from "./FooterSkeleton";
 
 export default function Footer() {
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <FooterSkeleton />;
+  }
+
   return (
     <footer className="bg-blue-dark text-white px-6 py-10 mt-15">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -71,8 +88,8 @@ export default function Footer() {
 
       <div className="flex flex-col md:flex-row justify-center md:justify-between w-full mt-10 pt-4 text-xs text-center text-white-light">
         <p>
-          © 2025 SM PSICOLOGIA TREINAMENTO E DESENVOLVIMENTO PESSOAL LTDA.
-          Todos os direitos reservados.
+          © 2025 SM PSICOLOGIA TREINAMENTO E DESENVOLVIMENTO PESSOAL LTDA. Todos
+          os direitos reservados.
         </p>
         <p className="mt-2 md:mt-0">Desenvolvido por Lorem Ipsum</p>
       </div>

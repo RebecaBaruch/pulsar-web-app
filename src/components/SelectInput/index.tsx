@@ -1,4 +1,5 @@
 import React from "react";
+import { useId } from "react";
 type ValidatorType = (value: string | undefined) => string | undefined;
 
 type SelectInputProps = {
@@ -43,6 +44,10 @@ export default function SelectInput({
   const [validationError, setValidationError] = React.useState<
     string | undefined
   >(undefined);
+  const uid = useId();
+  const buttonId = `selectbtn-${uid}`;
+  const listboxId = `listbox-${uid}`;
+  const labelId = `label-${uid}`;
 
   const selected = options.find((option) => option.value === value);
   const widthClass = width === "fit" ? "inline-flex flex-col w-fit" : "w-full";
@@ -60,16 +65,16 @@ export default function SelectInput({
     onValidationChange?.(error);
   };
 
-  React.useEffect(() => {
+  return (
     if (touched) {
       validateField(value !== undefined ? String(value) : undefined);
     }
   }, [value, touched, required, customValidator]);
-
-  const finalErrorMsg = errorMessage || (touched ? validationError : undefined);
-  const hasError = !!finalErrorMsg;
-
-  // const handleBlur = () => {
+      {label && (
+        <label id={labelId} className="block text-md font-medium mb-2 text-black">
+          {label}
+        </label>
+      )}
   //   if (open) return;
 
   //   if (!touched) {
@@ -79,6 +84,12 @@ export default function SelectInput({
   // };
 
   const handleSelect = (selectedValue: string) => {
+        id={buttonId}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listboxId}
+        aria-labelledby={label ? `${labelId} ${buttonId}` : undefined}
+        aria-invalid={hasError || undefined}
     onChange?.(selectedValue);
     setOpen(false);
     setTouched(true);
@@ -87,6 +98,16 @@ export default function SelectInput({
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
+        onKeyDown={(e) => {
+          if (isDisabled) return;
+          if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen(true);
+          }
+          if (e.key === "Escape") {
+            setOpen(false);
+          }
+        }}
         selectRef.current &&
         !selectRef.current.contains(event.target as Node)
       ) {
@@ -97,22 +118,38 @@ export default function SelectInput({
         }
       }
     };
-
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [open, value, required, customValidator]);
-
-  return (
-    <div
-      ref={selectRef}
+      {open && !isDisabled && (
+        <ul
+          id={listboxId}
+          role="listbox"
+          aria-labelledby={label ? labelId : undefined}
+          className="absolute z-20 mt-1 w-full max-h-56 overflow-y-auto bg-white border border-gray-light rounded shadow-lg"
+        >
+          {options.map((option) => (
+            <li
+              key={option.value}
+              role="option"
+              aria-selected={option.value === value}
+              tabIndex={0}
+              className="px-3 py-2 hover:bg-blue-lightest cursor-pointer text-black focus:bg-blue-lightest"
+              onClick={() => handleSelect(option.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleSelect(option.value);
+                } else if (e.key === "Escape") {
+                  setOpen(false);
+                }
+              }}
+            >
+              {option.label}
+            </li>
+          ))}
+        </ul>
+      )}
       className={`relative ${widthClass} ${className || ""}`}
     >
-      {label && (
+        <p className="mt-1 text-sm text-red-500" aria-live="polite">{finalErrorMsg}</p>
         <label className="block text-md font-medium mb-2 text-black">
           {label}
         </label>

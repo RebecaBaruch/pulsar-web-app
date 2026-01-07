@@ -1,4 +1,4 @@
-type TagVariant = "green" | "blue" | "gray";
+type TagVariant = "green" | "blue" | "gray" | "grayOutline";
 
 interface TagProps {
   label: string;
@@ -7,8 +7,9 @@ interface TagProps {
 
 const variantMap: Record<TagVariant, string> = {
   green: "bg-green text-green-dark",
-  blue: "bg-blue-light text-blue-dark",
-  gray: "text-gray border border-gray-00",
+  blue: "bg-blue-light text-gray-darkest",
+  gray: "bg-gray-lightest text-gray-dark",
+  grayOutline: "text-gray border border-gray-00",
 };
 
 const Tag: React.FC<TagProps> = ({ label, variant = "blue" }) => {

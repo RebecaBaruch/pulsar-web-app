@@ -1,14 +1,34 @@
+"use client";
+
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCalendar, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { RoutesUrls } from "@/utils/enum/routes-url";
+import NotLoggedNavBarSkeleton from "./NotLoggedNavBarSkeletion";
 
 export default function NotLoggedNav() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <NotLoggedNavBarSkeleton />;
+  }
+
   return (
     <div className="w-full p-7">
-      <nav className="max-w-[1440px] mx-auto flex flex-row justify-between items-center flex-wrap">
+      <nav
+        className="max-w-[1440px] mx-auto flex flex-row justify-between items-center flex-wrap"
+        aria-label="Barra de navegação principal"
+      >
         <Link href="/">
           <img
             src="/images/horizontal-logo.png"
@@ -20,6 +40,9 @@ export default function NotLoggedNav() {
         <button
           className="lg:hidden text-blue text-2xl"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+          aria-controls="mobile-menu"
+          aria-expanded={isOpen}
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
@@ -62,7 +85,7 @@ export default function NotLoggedNav() {
           </li>
           <li>
             <Link
-              href="/"
+              href={RoutesUrls.CLIENT_REGISTER}
               className="bg-blue p-3 lg:p-2 rounded-md text-white hover:bg-blue-dark text-base lg:text-sm"
             >
               Criar uma conta
@@ -70,7 +93,7 @@ export default function NotLoggedNav() {
           </li>
           <li>
             <Link
-              href="/"
+              href={RoutesUrls.USER_TYPE}
               className="text-blue hover:text-blue-dark text-base lg:text-sm"
             >
               Entrar
@@ -85,6 +108,11 @@ export default function NotLoggedNav() {
             transition duration-300 ease-in-out
             ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-5 pointer-events-none"}
           `}
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!isOpen}
+        aria-label="Menu de navegação móvel"
       >
         <div className="flex justify-between items-center p-7 border-b border-gray-200">
           <Link href="/">
@@ -97,6 +125,7 @@ export default function NotLoggedNav() {
           <button
             onClick={() => setIsOpen(false)}
             className="text-2xl text-blue"
+            aria-label="Fechar menu"
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
@@ -114,13 +143,13 @@ export default function NotLoggedNav() {
           </Link>
           <hr className="w-full border-gray-300" />
           <Link
-            href="/"
+            href={RoutesUrls.CLIENT_REGISTER}
             className="w-full bg-blue p-2 rounded-md text-white text-center hover:bg-blue-dark"
           >
             Criar uma conta
           </Link>
           <Link
-            href="/"
+            href={RoutesUrls.USER_TYPE}
             className="w-full border border-blue p-2 rounded-md text-blue text-center hover:bg-blue-light"
           >
             Entrar

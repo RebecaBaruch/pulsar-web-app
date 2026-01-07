@@ -1,5 +1,5 @@
-import LandingPageController from "./(public)/landing-page/page";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <LandingPageController />;
+  redirect("/landing-page");
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/auth/provider";
+import A11yDevChecks from "@/components/A11yDevChecks";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="utf-8">
+    <html lang="pt-BR">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,7 +42,15 @@ export default function RootLayout({
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <a href="#main-content" className="skip-link">
+          Pular para conteúdo principal
+        </a>
+        <AuthProvider>
+          <A11yDevChecks />
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

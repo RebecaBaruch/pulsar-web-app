@@ -7,6 +7,7 @@ import Link from "next/link";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
+import { useAuth } from "@/auth/useAuth";
 import LoggedNavBarSkeleton from "./LoggedNavBarSkeleton";
 
 export default function LoggedNavBar() {
@@ -15,6 +16,7 @@ export default function LoggedNavBar() {
   const [loading, setLoading] = React.useState(true);
   const pathname = usePathname();
   const router = useRouter();
+  const { logout } = useAuth();
   const userMenuRef = React.useRef<HTMLLIElement>(null);
 
   React.useEffect(() => {
@@ -46,14 +48,16 @@ export default function LoggedNavBar() {
     };
   }, [userMenuOpen]);
 
-  const handleSignOut = () => {
-    // Clear session cookie (client-side)
-    document.cookie = "auth_session=; path=/; max-age=0";
+  const handleSignOut = async () => {
+    await logout();
+    // Navigate to home after logout completes
     router.push(RoutesUrls.BASE_URL);
   };
 
   const isActive = (path: string) => {
-    return pathname === path ? "text-blue font-semibold" : "text-gray-dark hover:text-blue";
+    return pathname === path
+      ? "text-blue font-semibold"
+      : "text-gray-dark hover:text-blue";
   };
 
   if (loading) {
@@ -63,7 +67,10 @@ export default function LoggedNavBar() {
   return (
     <>
       <div className="w-screen p-7 border-b border-gray-300">
-        <nav className="w-full max-w-[1440px] mx-auto px-10 flex flex-row justify-between items-center flex-wrap">
+        <nav
+          className="w-full max-w-[1440px] md:mx-auto md:px-10 flex flex-row justify-between items-center flex-wrap"
+          aria-label="Barra de navegação do usuário logado"
+        >
           <Link href="/">
             <img
               src="/images/horizontal-logo.png"
@@ -75,6 +82,9 @@ export default function LoggedNavBar() {
           <button
             className="lg:hidden text-blue text-2xl"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+            aria-controls="mobile-menu-logged"
+            aria-expanded={isOpen}
           >
             <FontAwesomeIcon icon={faBars} />
           </button>
@@ -85,6 +95,9 @@ export default function LoggedNavBar() {
               <Link
                 href={RoutesUrls.CLIENT_HOME}
                 className={`${isActive(RoutesUrls.CLIENT_HOME)} text-base lg:text-sm`}
+                aria-current={
+                  pathname === RoutesUrls.CLIENT_HOME ? "page" : undefined
+                }
               >
                 Home
               </Link>
@@ -93,6 +106,9 @@ export default function LoggedNavBar() {
               <Link
                 href={RoutesUrls.FIND_SPECIALIST}
                 className={`${isActive(RoutesUrls.FIND_SPECIALIST)} text-base lg:text-sm`}
+                aria-current={
+                  pathname === RoutesUrls.FIND_SPECIALIST ? "page" : undefined
+                }
               >
                 Especialistas
               </Link>
@@ -101,6 +117,7 @@ export default function LoggedNavBar() {
               <Link
                 href="/"
                 className={`${isActive("/sessions")} text-base lg:text-sm`}
+                aria-current={pathname === "/sessions" ? "page" : undefined}
               >
                 Sessões
               </Link>
@@ -109,24 +126,37 @@ export default function LoggedNavBar() {
 
           <ul className="hidden lg:flex lg:items-center lg:space-x-6 list-none p-0 m-0">
             <li>
-              <FontAwesomeIcon
-                icon={faBell}
-                className="text-blue text-lg hover:cursor-pointer"
-              />
+              <button
+                aria-label="Notificações"
+                className="text-blue text-lg"
+                onClick={() => {}}
+              >
+                <FontAwesomeIcon icon={faBell} />
+              </button>
             </li>
             <li className="relative" ref={userMenuRef}>
-              <FontAwesomeIcon
-                icon={faUser}
-                className="text-blue text-lg hover:cursor-pointer"
+              <button
+                aria-label="Abrir menu do usuário"
+                aria-controls="user-menu"
+                aria-expanded={userMenuOpen}
+                className="text-blue text-lg"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-              />
+              >
+                <FontAwesomeIcon icon={faUser} />
+              </button>
               {userMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                <div
+                  id="user-menu"
+                  role="menu"
+                  aria-label="Menu do usuário"
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
+                >
                   <button
                     onClick={() => {
                       setUserMenuOpen(false);
                       router.push("/profile");
                     }}
+                    role="menuitem"
                     className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100"
                   >
                     My Profile
@@ -136,6 +166,7 @@ export default function LoggedNavBar() {
                       setUserMenuOpen(false);
                       handleSignOut();
                     }}
+                    role="menuitem"
                     className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100"
                   >
                     Sign out
@@ -148,13 +179,21 @@ export default function LoggedNavBar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden mt-4">
+          <div
+            id="mobile-menu-logged"
+            className="lg:hidden mt-4"
+            role="region"
+            aria-label="Menu móvel"
+          >
             <ul className="flex flex-col space-y-4 list-none p-0 m-0">
               <li>
                 <Link
                   href={RoutesUrls.CLIENT_HOME}
                   className={`${isActive(RoutesUrls.CLIENT_HOME)} text-base block`}
                   onClick={() => setIsOpen(false)}
+                  aria-current={
+                    pathname === RoutesUrls.CLIENT_HOME ? "page" : undefined
+                  }
                 >
                   Home
                 </Link>
@@ -164,6 +203,9 @@ export default function LoggedNavBar() {
                   href={RoutesUrls.FIND_SPECIALIST}
                   className={`${isActive(RoutesUrls.FIND_SPECIALIST)} text-base block`}
                   onClick={() => setIsOpen(false)}
+                  aria-current={
+                    pathname === RoutesUrls.FIND_SPECIALIST ? "page" : undefined
+                  }
                 >
                   Especialistas
                 </Link>
@@ -173,6 +215,7 @@ export default function LoggedNavBar() {
                   href="/"
                   className={`${isActive("/sessions")} text-base block`}
                   onClick={() => setIsOpen(false)}
+                  aria-current={pathname === "/sessions" ? "page" : undefined}
                 >
                   Sessões
                 </Link>
