@@ -2,18 +2,21 @@
 
 import React from "react";
 import Home from "../view/index.view";
+import { useAuth } from "@/auth/useAuth";
+import { useRouter } from "next/navigation";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 export default function HomeController() {
-  const [loading, setLoading] = React.useState(true);
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
   React.useEffect(() => {
-    // Simulate loading data
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    if (!loading && !user) {
+      router.replace(RoutesUrls.LOGIN);
+    }
+  }, [loading, user, router]);
 
-    return () => clearTimeout(timer);
-  }, []);
+  if (loading) return <Home loading={true} />;
 
-  return <Home loading={loading} />;
+  return <Home userName={user?.name} />;
 }
