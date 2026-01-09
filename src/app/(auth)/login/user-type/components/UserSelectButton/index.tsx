@@ -18,11 +18,11 @@ export default function UserSelectButton({
   onClick
 }: UserSelectButtonProps) {
   return (
-    <button className="flex flex-row justify-start items-center h-fit border border-gray rounded-lg p-6 gap-8 cursor-pointer hover:bg-gray-100 transition-shadow w-full" onClick={onClick}>
-      <FontAwesomeIcon icon={icon} size="2xl" className="text-black" />
+    <button className="flex flex-row justify-start items-center h-fit border border-gray rounded-lg p-4 gap-4 cursor-pointer hover:bg-gray-100 transition-shadow w-full" onClick={onClick}>
+      <FontAwesomeIcon icon={icon} size="lg" className="text-black" />
       <div className="flex flex-col text-left">
-        <h2 className="text-lg font-semibold text-black">{title}</h2>
-        <p className="text-md text-gray-darkest">{description}</p>
+        <h2 className="text-md font-semibold text-black">{title}</h2>
+        <p className="text-xs text-gray-darkest">{description}</p>
       </div>
     </button>
   );

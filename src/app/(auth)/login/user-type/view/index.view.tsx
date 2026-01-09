@@ -15,7 +15,7 @@ export default function UserTypeView({
   onSelect,
 }: UserTypeViewProps) {
   return (
-    <section className="w-screen min-h-screen flex justify-center md:items-start lg:items-start m-0 px-6 py-18 md:py-30 lg:pt-20">
+    <section className="w-screen min-h-screen flex justify-center md:items-start lg:items-start m-0 px-6 py-18 md:py-20">
       {isLoading ? (
         <LoginUserTypeSkeleton />
       ) : (

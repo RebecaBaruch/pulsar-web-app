@@ -1,5 +1,4 @@
 // const API_URL = "https://reqres.in/api";
-
 const MOCK_URL = "https://password-mock.free.beeceptor.com";
 
 export const passwordService = {

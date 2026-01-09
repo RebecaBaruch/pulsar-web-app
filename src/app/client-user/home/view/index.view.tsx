@@ -20,13 +20,12 @@ export default function HomeView({
   }
 
   return (
-    <section className="flex overflow-x-hidden min-h-screen justify-center lg:items-center pt-16 pb-10">
-      <div className="container mx-auto px-5 md:px-8 lg:px-12 flex flex-col gap-12">
+    <section className="flex w-full overflow-x-hidden min-h-screen justify-center pt-10 pb-10">
+      <div className="flex flex-col gap-12 w-full max-w-[768px] mx-auto">
         <div className="flex flex-col gap-6 w-full">
           <span>
             <h1 className="text-3xl text-black font-bold">
-              {" "}
-              Olá, {userName} 👋{" "}
+              Olá, {userName} 👋
             </h1>
           </span>
           <NextSessionHeader />
