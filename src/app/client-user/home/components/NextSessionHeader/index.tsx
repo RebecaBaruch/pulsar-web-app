@@ -9,6 +9,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import LinkButton from "@/components/LinkButton";
 
 export default function NextSessionHeader() {
   return (
@@ -42,9 +43,7 @@ export default function NextSessionHeader() {
             <div className="flex flex-row items-center justify-between md:gap-4 w-full md:h-full rounded p-2 md:px-4 bg-blue-dark text-white">
               <div className="flex items-center gap-2 w-fit">
                 <FontAwesomeIcon icon={faCalendar} size="xs" />
-                <span className="text-xs font-medium">
-                  22 de Julho
-                </span>
+                <span className="text-xs font-medium">22 de Julho</span>
               </div>
               <span>|</span>
               <div className="flex items-center gap-2 w-fit">
@@ -56,13 +55,12 @@ export default function NextSessionHeader() {
         </div>
 
         <div className="hidden md:flex flex-row items-start lg:items-center gap-1 text-white">
-          <FontAwesomeIcon icon={faWhatsapp} size="sm" />
-          <a
+          <LinkButton
             href="/"
-            className="text-xs font-medium underline hover:text-[#ffffffe2]"
-          >
-            Fazer contato por Whatsapp
-          </a>
+            text="Fazer contato por Whatsapp"
+            icon={faWhatsapp}
+            iconFirst
+          />
         </div>
 
         <div className="w-full md:hidden">
