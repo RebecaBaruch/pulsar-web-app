@@ -15,7 +15,7 @@ const variantMap: Record<TagVariant, string> = {
 const Tag: React.FC<TagProps> = ({ label, variant = "blue" }) => {
   return (
     <span
-      className={`rounded-full px-2 py-1 text-xs font-medium ${variantMap[variant]}`}
+      className={`rounded-full px-2 py-1 text-xs ${variantMap[variant]}`}
     >
       {label}
     </span>

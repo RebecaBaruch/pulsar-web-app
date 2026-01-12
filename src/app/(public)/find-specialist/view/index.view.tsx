@@ -25,8 +25,8 @@ export default function FindSpecialistView({
       {loading ? (
         <FindSpecialistSkeleton length={specialists.length} />
       ) : (
-        <section className="flex w-screen overflow-x-hidden min-h-screen justify-center lg:items-center pt-16 pb-12">
-          <div className="flex flex-col gap-2 w-full max-w-5xl mx-auto px-5 md:px-8 lg:px-12">
+        <section className="flex w-full overflow-x-hidden min-h-screen justify-center items-center pt-16">
+          <div className="flex flex-col gap-2 w-full max-w-[940px] mx-auto px-5 md:px-8 lg:px-0">
             <h1 className="w-full mx-auto text-2xl text-black font-semibold">
               Encontre seu profissional ideal
             </h1>
