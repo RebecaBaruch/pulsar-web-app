@@ -1,4 +1,4 @@
-import { SpecialistCardProps } from "@/app/(public)/find-specialist/components/SpecialistCard/type";
+import { SpecialistType } from "@/app/(public)/find-specialist/components/SpecialistCard/type";
 
 export type Filters = {
   specialties: string[];
@@ -12,9 +12,9 @@ export type Filters = {
  * @returns Nova lista filtrada e ordenada
  */
 export function applyFiltersUtil(
-  specialists: SpecialistCardProps[],
+  specialists: SpecialistType[],
   filters: Filters
-): SpecialistCardProps[] {
+): SpecialistType[] {
   let filtered = [...specialists];
 
   // 🔹 Filtro por especialidade (com base no role)
