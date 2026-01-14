@@ -2,8 +2,12 @@
 
 import React from "react";
 import SpecialistDetailsView from "../view/index.view";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/auth/useAuth";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 import { useParams } from "next/navigation";
 import { specialistsMock } from "@/app/(public)/find-specialist/mock/mocks";
+import {reviewsMock} from "../mock/reviews";
 import {
   fetchAvailableDates,
   fetchAvailableTimes,
@@ -20,6 +24,23 @@ export default function SpecialistDetailsController() {
   const [availableDates, setAvailableDates] = React.useState<string[]>([]);
   const [timeSlots, setTimeSlots] = React.useState<string[]>([]);
   const [timeLoading, setTimeLoading] = React.useState(false);
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const handleSchedule = () => {
+    if (!isAuthenticated) {
+      sessionStorage.setItem("redirectAfterLogin", window.location.pathname);
+      router.push(RoutesUrls.LOGIN);
+    } else {
+      if (selectedDate && selectedTime) {
+        alert(
+          `Agendamento realizado para ${selectedDate.toLocaleDateString()} às ${selectedTime}`
+        );
+      } else {
+        alert("Por favor, selecione uma data e horário");
+      }
+    }
+  };
 
   // Find specialist by id (using index for now from mock data)
   const specialist = React.useMemo(() => {
@@ -63,14 +84,19 @@ export default function SpecialistDetailsController() {
     <SpecialistDetailsView
       loading={loading}
       specialist={specialist}
-      selectedDate={selectedDate}
-      setSelectedDate={setSelectedDate}
-      selectedTime={selectedTime}
-      setSelectedTime={setSelectedTime}
-      availableDates={availableDates}
-      onMonthChange={setCurrentMonth}
-      timeSlots={timeSlots}
-      timeLoading={timeLoading}
+      bookingCard={{
+        selectedDate,
+        setSelectedDate,
+        selectedTime,
+        setSelectedTime,
+        availableDates,
+        onMonthChange: setCurrentMonth,
+        timeSlots,
+        timeLoading,
+        isAuthenticated,
+        onSchedule: handleSchedule,
+      }}
+      reviews={reviewsMock}
     />
   );
 }
