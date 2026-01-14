@@ -95,7 +95,11 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
             label="Parentesco do contato de emergência"
             value={emergency.relationship}
             options={relationshipOptions}
-            onChange={(v) => updateNested("emergency", { relationship: v })}
+            onChange={(v) =>
+              updateNested("emergency", {
+                relationship: Array.isArray(v) ? v[0] : v,
+              })
+            }
             required
             customValidator={isRequired}
             onValidationChange={(err) =>
