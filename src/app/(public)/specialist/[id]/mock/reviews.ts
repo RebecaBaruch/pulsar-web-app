@@ -8,7 +8,7 @@ export const reviewsMock: Review[] = [
     rating: 5.0,
     date: "Há 2 semanas",
     comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac tincidunt odio. In dapibus cursus nibh et tincidunt.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac tincidunt odio.",
   },
   {
     id: "2",

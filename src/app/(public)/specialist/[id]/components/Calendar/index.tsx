@@ -105,7 +105,7 @@ export default function Calendar({
           onClick={() => !isDisabled && onSelectDate(date)}
           disabled={isDisabled}
           className={`
-            aspect-square rounded-full flex items-center justify-center text-sm font-medium transition-all
+            aspect-square rounded-full flex items-center justify-center text-xs font-medium transition-all
             ${isDisabled ? "text-gray-300 cursor-not-allowed" : "hover:bg-blue-100 cursor-pointer"}
             ${isSelected ? "bg-blue-600 text-white hover:bg-blue-700" : ""}
             ${isToday && !isSelected ? "border-2 border-blue-600 text-blue-600" : ""}
@@ -135,33 +135,33 @@ export default function Calendar({
   };
 
   return (
-    <div className="bg-white rounded-lg p-4 md:p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold">
+    <div className="w-full md:w-fit flex flex-col items-center gap-2 bg-white rounded-lg">
+      <div className="w-full flex items-center justify-between">
+        <h3 className="text-xs text-gray-darkest font-semibold">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </h3>
-        <div className="flex gap-2">
+        <div className="flex gap-4">
           <button
             onClick={prevMonth}
             disabled={!canGoPrev()}
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-2 h-2 rounded-full flex items-center justify-center hover:bg-gray-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed "
           >
-            <FontAwesomeIcon icon={faChevronLeft} className="text-sm" />
+            <FontAwesomeIcon icon={faChevronLeft} className="text-xs" />
           </button>
           <button
             onClick={nextMonth}
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100"
+            className="w-2 h-2 rounded-full flex items-center cursor-pointer justify-center hover:bg-gray-100"
           >
-            <FontAwesomeIcon icon={faChevronRight} className="text-sm" />
+            <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-1 md:gap-2">
+      <div className="w-full grid grid-cols-7 gap-1">
         {dayNames.map((day) => (
           <div
             key={day}
-            className="aspect-square flex items-center justify-center text-xs font-medium text-gray-500"
+            className="aspect-square flex items-center justify-center text-[10px] font-medium text-gray-500"
           >
             {day}
           </div>

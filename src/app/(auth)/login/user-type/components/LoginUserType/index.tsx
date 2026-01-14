@@ -12,23 +12,23 @@ type Props = {
 
 export default function LoginUserType({ onSelect }: Props) {
   return (
-    <div className="flex flex-col w-full md:w-3/4 lg:w-fit gap-15 md:gap-8 lg:gap-10 xl:gap-12">
+    <div className="flex flex-col w-full md:w-3/4 lg:w-fit gap-8">
       <img
         src="/images/horizontal-logo.png"
         alt="Logo da Pulsar"
-        className="lg:w-[150px] w-[150px]"
+        className="w-[100px]"
       />
 
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl md:text-3xl lg:text-2xl font-bold text-black">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-xl md:text-md font-bold text-black">
           Acesso personalizado
         </h1>
-        <p className="text-lg md:text-md lg:text-md text-gray-darkest">
+        <p className="text-sm md:text-sm text-gray-darkest">
           Escolha seu perfil para continuar
         </p>
       </div>
 
-      <div className="flex flex-col gap-6 w-full">
+      <div className="flex flex-col gap-4 w-full">
         <UserSelectButton
           title="Cliente"
           description="Entre na sua conta e agende uma sessão"

@@ -3,30 +3,35 @@
 import React from "react";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LinkButton from "@/components/LinkButton";
 
 export default function MySessions() {
   return (
-    <div className="flex flex-col md:flex-row md:justify-between gap-2 p-4 rounded-xl border border-gray-light lg:py-5 lg:px-15">
-      <div className="flex flex-row gap-2 lg:gap-10 w-full items-center">
-        <div className="w-full md:w-fit">
-          <h1 className="text-lg font-bold text-black">Minhas sessões</h1>
-          <p className="text-sm lg:whitespace-nowrap">
-            Veja seu histórico ou sessões marcadas
-          </p>
-        </div>
+    <section className="w-full h-fit bg-white rounded-xl border border-gray-light p-2 md:px-6 flex flex-row items-center justify-between gap-4">
+      <div className="flex items-center h-full">
         <img
           src="/images/schedule-2.svg"
           alt="Ícone de agendamento"
-          className="w-2/5 lg:w-1/5"
+          className="h-full"
         />
       </div>
-      <a
-        href="/"
-        className="flex flex-row items-center gap-2 w-fit text-sm md:text-md text-blue font-bold hover:underline"
-      >
-        <span className="w-fit whitespace-nowrap">Todas as sessões</span>
-        <FontAwesomeIcon icon={faChevronRight} size="sm" />
-      </a>
-    </div>
+
+      <div className="flex flex-col md:flex-row gap-2 w-70% md:w-full justify-between items-start md:items-center">
+        <div className="w-full">
+          <h1 className="text-sm md:text-base font-semibold text-black">
+            Minhas sessões
+          </h1>
+          <p className="text-xs lg:text-sm text-gray mt-1 w-full">
+            Veja seu histórico ou sessões marcadas
+          </p>
+        </div>
+
+        <LinkButton
+          href="/"
+          text="Ver todas as sessões"
+          icon={faChevronRight}
+        />
+      </div>
+    </section>
   );
 }

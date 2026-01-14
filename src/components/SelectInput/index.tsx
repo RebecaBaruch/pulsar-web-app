@@ -1,15 +1,24 @@
 "use client";
 
 import React, { useEffect, useId, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronDown,
+  IconDefinition,
+} from "@fortawesome/free-solid-svg-icons";
 
 type Option = { value: string; label: string };
 
 type SelectInputProps = {
   label?: string;
+  icon?: IconDefinition;
+  placeholder?: string;
+  showResult?: boolean;
   options: Option[];
-  value?: string;
+  value?: string | string[];
+  isMulti?: boolean;
   isDisabled?: boolean;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | string[]) => void;
   className?: string;
   width?: "fit" | "full";
   required?: boolean;
@@ -20,8 +29,12 @@ type SelectInputProps = {
 
 export default function SelectInput({
   label,
+  icon,
+  placeholder = "Selecione uma opção",
+  showResult = true,
   options,
   value,
+  isMulti = false,
   isDisabled = false,
   onChange,
   className,
@@ -39,7 +52,10 @@ export default function SelectInput({
   const btnId = `select-btn-${uid}`;
   const listId = `select-list-${uid}`;
 
-  const selected = options.find((o) => o.value === value);
+  const selected =
+    isMulti && Array.isArray(value)
+      ? options.filter((o) => value.includes(o.value))
+      : options.find((o) => o.value === value);
   const widthClass = width === "fit" ? "w-fit" : "w-full";
 
   const validateField = (current?: string) => {
@@ -55,7 +71,12 @@ export default function SelectInput({
   };
 
   useEffect(() => {
-    if (touched) validateField(value);
+    if (touched)
+      validateField(
+        Array.isArray(value)
+          ? (value as string[]).join(",")
+          : (value as string | undefined)
+      );
   }, [value, touched]);
 
   useEffect(() => {
@@ -69,6 +90,19 @@ export default function SelectInput({
   }, []);
 
   const handleSelect = (v: string) => {
+    if (isMulti) {
+      const current = Array.isArray(value) ? [...value] : [];
+      const exists = current.includes(v);
+      const next = exists ? current.filter((c) => c !== v) : [...current, v];
+      onChange?.(next);
+      setTouched(true);
+      validateField(
+        Array.isArray(next) ? (next as any).join(",") : (next as any)
+      );
+      // keep dropdown open for multi-select
+      return;
+    }
+
     onChange?.(v);
     setOpen(false);
     setTouched(true);
@@ -100,12 +134,27 @@ export default function SelectInput({
         className={`flex items-center justify-between w-full border rounded px-3 py-2 bg-white text-left focus:outline-none
           ${error ? "border-red-500" : "border-gray-light"} ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
       >
-        {selected ? (
-          <span className="text-black">{selected.label}</span>
+        {isMulti ? (
+          Array.isArray(selected) && selected.length > 0 && showResult ? (
+            <span className="text-gray-dark text-sm">
+              {selected.map((s) => s.label).join(", ")}
+            </span>
+          ) : (
+            <span className="text-gray-dark text-sm">{placeholder}</span>
+          )
+        ) : selected && showResult ? (
+          <span className="text-gray-dark text-sm">
+            {(selected as any).label}
+          </span>
         ) : (
-          <span className="text-gray">Selecione uma opção</span>
+          <span className="text-gray-dark text-sm">{placeholder}</span>
         )}
-        <span className="ml-2">▾</span>
+
+        {icon ? (
+          <FontAwesomeIcon icon={icon} className="ml-2 text-sm" />
+        ) : (
+          <FontAwesomeIcon icon={faChevronDown} className="ml-2 text-sm" />
+        )}
       </button>
 
       {open && !isDisabled && (
@@ -115,26 +164,39 @@ export default function SelectInput({
           aria-labelledby={label ? btnId : undefined}
           className="absolute z-20 mt-1 w-full max-h-56 overflow-y-auto bg-white border border-gray-light rounded shadow-lg"
         >
-          {options.map((opt) => (
-            <li
-              key={opt.value}
-              role="option"
-              aria-selected={opt.value === value}
-              tabIndex={0}
-              className="px-3 py-2 hover:bg-blue-lightest cursor-pointer text-black"
-              onClick={() => handleSelect(opt.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleSelect(opt.value);
-                } else if (e.key === "Escape") {
-                  setOpen(false);
-                }
-              }}
-            >
-              {opt.label}
-            </li>
-          ))}
+          {options.map((opt) => {
+            const isSelected = isMulti
+              ? Array.isArray(value) && value.includes(opt.value)
+              : opt.value === value;
+            return (
+              <li
+                key={opt.value}
+                role="option"
+                aria-selected={isSelected}
+                tabIndex={0}
+                className="px-3 py-2 hover:bg-blue-lightest cursor-pointer text-gray-dark text-xs flex items-center gap-2"
+                onClick={() => handleSelect(opt.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSelect(opt.value);
+                  } else if (e.key === "Escape") {
+                    setOpen(false);
+                  }
+                }}
+              >
+                {isMulti && (
+                  <input
+                    type="checkbox"
+                    readOnly
+                    checked={!!isSelected}
+                    className="w-4 h-4"
+                  />
+                )}
+                <span>{opt.label}</span>
+              </li>
+            );
+          })}
         </ul>
       )}
 

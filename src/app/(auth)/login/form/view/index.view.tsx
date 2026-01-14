@@ -24,19 +24,19 @@ export default function LoginFormView({
   isDisabled,
 }: Props) {
   return (
-    <section className="flex w-screen min-h-screen justify-center lg:items-center pt-20 lg:p-4">
-      <div className="container mx-auto flex flex-col p-6 md:p-15 lg:py-10 lg:px-6 lg:max-w-lg gap-15 md:gap-8 lg:gap-10 lg:bg-white md:rounded-xl lg:shadow-md">
+    <section className="flex w-screen min-h-screen justify-center lg:items-start pt-8">
+      <div className="mx-auto flex flex-col p-4 lg:py-10 lg:max-w-[350px] gap-8">
         <img
           src="/images/horizontal-logo.png"
           alt="Logo da Pulsar"
-          className="lg:w-[150px] w-[150px]"
+          className="w-[100px]"
         />
 
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl md:text-3xl lg:text-2xl font-bold text-black">
+          <h1 className="text-2xl md:text-3xl lg:text-xl font-bold text-black">
             Bem-vindo de volta!
           </h1>
-          <p className="text-lg md:text-md lg:text-md text-gray-darkest">
+          <p className="text-sm md:text-xs text-gray-darkest">
             Acesse sua conta para continuar cuidando do que realmente importa:
             você.
           </p>
@@ -47,7 +47,7 @@ export default function LoginFormView({
             onSubmit={onSubmit}
             className="flex flex-col items-center gap-6"
           >
-            <div className="flex flex-col gap-6 w-full">
+            <div className="flex flex-col gap-4 w-full">
               <InputField
                 label="CPF, e-mail ou telefone"
                 type="text"
@@ -59,7 +59,7 @@ export default function LoginFormView({
                 error={!!errors.email}
               />
 
-              <div className="flex flex-col gap-3 items-end">
+              <div className="flex flex-col gap-2 items-end">
                 <InputField
                   className="w-full"
                   label="Senha"
@@ -72,10 +72,7 @@ export default function LoginFormView({
                   error={!!errors.password}
                 />
 
-                <a
-                  href="/"
-                  className="text-blue lg:text-xs font-semibold underline"
-                >
+                <a href="/" className="text-blue text-xs font-medium underline">
                   Esqueci minha senha
                 </a>
               </div>
@@ -86,9 +83,9 @@ export default function LoginFormView({
               text="Próximo"
               isDisabled={isDisabled}
             />
-            <span className="text-center lg:text-base 2xl:text text-lg">
+            <span className="text-center text-xs">
               Ainda não possui uma conta?{" "}
-              <a href="/login" className="text-blue font-semibold underline">
+              <a href="/login" className="text-blue font-medium underline">
                 Cadastre-se
               </a>
             </span>

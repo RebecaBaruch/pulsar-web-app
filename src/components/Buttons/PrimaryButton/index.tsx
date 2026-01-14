@@ -1,9 +1,12 @@
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-type ColorOption = "blue" | "green" | "red";
+type ColorOption = "blue" | "green" | "red" | "white";
 
 type PrimaryButtonProps = {
   type?: "button" | "submit" | "reset";
+  icon?: IconDefinition;
   text: string;
   onClick?: () => void;
   isDisabled?: boolean;
@@ -12,6 +15,7 @@ type PrimaryButtonProps = {
 
 const PrimaryButton = ({
   type = "button",
+  icon,
   text,
   onClick,
   isDisabled,
@@ -23,8 +27,9 @@ const PrimaryButton = ({
       onClick={onClick}
       disabled={isDisabled}
       aria-disabled={isDisabled}
-      className={`w-full bg-${color} hover:bg-${color}-dark text-sm lg:text-md text-white font-semibold py-3 lg:py-2 2xl:py-3 px-6 lg:px-4 xl:px-6 rounded disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed disabled:hover:bg-${color}-light`}
+      className={`w-full flex items-center justify-center gap-2 bg-${color} hover:bg-${color}-dark text-xs ${color === "white" ? "text-blue" : "text-white"} font-semibold p-2 lg:p-3 rounded disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed disabled:hover:bg-${color}-light`}
     >
+      {icon && <FontAwesomeIcon icon={icon} />}
       {text}
     </button>
   );
