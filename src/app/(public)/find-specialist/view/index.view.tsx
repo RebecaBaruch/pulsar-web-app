@@ -3,7 +3,7 @@
 import React from "react";
 import SpecialistCard from "../components/SpecialistCard";
 import FindSpecialistSkeleton from "../components/FindSpecialistSkeleton";
-import FiltersBar from "../components/FiltersBar";
+import FiltersHeader from "../components/FiltersHeader";
 
 type FindSpecialistViewProps = {
   loading: boolean;
@@ -25,19 +25,21 @@ export default function FindSpecialistView({
       {loading ? (
         <FindSpecialistSkeleton length={specialists.length} />
       ) : (
-        <section className="flex w-full overflow-x-hidden min-h-screen justify-center items-center pt-16">
-          <div className="flex flex-col gap-2 w-full max-w-[940px] mx-auto px-5 md:px-8 lg:px-0">
-            <h1 className="w-full mx-auto text-2xl text-black font-semibold">
-              Encontre seu profissional ideal
-            </h1>
+        <section className="flex w-full overflow-x-hidden min-h-screen justify-center items-start pt-8">
+          <div className="flex flex-col gap-12 w-full max-w-[1150px] mx-auto">
+            <div className="flex flex-col gap-4">
+              <h1 className="w-full mx-auto text-xl lg:text-2xl text-black font-semibold">
+                Encontre o profissional ideal para você
+              </h1>
 
-            <FiltersBar
-              expertsCount={specialists.length}
-              filters={filters}
-              setFilters={setFilters}
-            />
+              <FiltersHeader
+                expertsCount={specialists.length}
+                filters={filters}
+                setFilters={setFilters}
+              />
+            </div>
 
-            <div className="w-full mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {loading ? (
                 <FindSpecialistSkeleton length={6} />
               ) : specialists.length > 0 ? (

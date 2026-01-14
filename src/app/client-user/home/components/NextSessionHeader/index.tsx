@@ -56,6 +56,7 @@ export default function NextSessionHeader() {
 
         <div className="hidden md:flex flex-row items-start lg:items-center gap-1 text-white">
           <LinkButton
+            color="white"
             href="/"
             text="Fazer contato por Whatsapp"
             icon={faWhatsapp}
