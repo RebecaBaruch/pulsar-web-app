@@ -135,7 +135,7 @@ export default function Calendar({
   };
 
   return (
-    <div className="w-full md:w-fit flex flex-col items-center gap-2 bg-white rounded-lg">
+    <div className="w-full h-45 md:w-fit flex flex-col items-center gap-2 bg-white rounded-lg border border-gray-200 p-2">
       <div className="w-full flex items-center justify-between">
         <h3 className="text-xs text-gray-darkest font-semibold">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}

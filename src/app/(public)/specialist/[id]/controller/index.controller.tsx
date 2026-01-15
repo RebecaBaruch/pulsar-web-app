@@ -2,12 +2,10 @@
 
 import React from "react";
 import SpecialistDetailsView from "../view/index.view";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/auth/useAuth";
-import { RoutesUrls } from "@/utils/enum/routes-url";
 import { useParams } from "next/navigation";
 import { specialistsMock } from "@/app/(public)/find-specialist/mock/mocks";
-import {reviewsMock} from "../mock/reviews";
+import { reviewsMock } from "../mock/reviews";
 import {
   fetchAvailableDates,
   fetchAvailableTimes,
@@ -25,20 +23,20 @@ export default function SpecialistDetailsController() {
   const [timeSlots, setTimeSlots] = React.useState<string[]>([]);
   const [timeLoading, setTimeLoading] = React.useState(false);
   const { isAuthenticated } = useAuth();
-  const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const closeLoginModal = () => setOpen(false);
 
   const handleSchedule = () => {
     if (!isAuthenticated) {
-      sessionStorage.setItem("redirectAfterLogin", window.location.pathname);
-      router.push(RoutesUrls.LOGIN);
+      setOpen(true);
+      return;
+    }
+    if (selectedDate && selectedTime && isAuthenticated) {
+      alert(
+        `Agendamento realizado para ${selectedDate.toLocaleDateString()} às ${selectedTime}`
+      );
     } else {
-      if (selectedDate && selectedTime) {
-        alert(
-          `Agendamento realizado para ${selectedDate.toLocaleDateString()} às ${selectedTime}`
-        );
-      } else {
-        alert("Por favor, selecione uma data e horário");
-      }
+      alert("Por favor, selecione uma data e horário");
     }
   };
 
@@ -97,6 +95,8 @@ export default function SpecialistDetailsController() {
         onSchedule: handleSchedule,
       }}
       reviews={reviewsMock}
+      showLoginModal={open}
+      onCloseLoginModal={closeLoginModal}
     />
   );
 }

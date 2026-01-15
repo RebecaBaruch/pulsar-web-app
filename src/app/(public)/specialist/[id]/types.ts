@@ -47,4 +47,6 @@ export interface SpecialistDetailsViewProps {
   specialist: SpecialistType | null;
   bookingCard: BookingCardProps;
   reviews: Review[];
+  showLoginModal: boolean;
+  onCloseLoginModal: () => void;
 }
