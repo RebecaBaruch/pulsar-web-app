@@ -23,8 +23,7 @@ export default function HeroSection() {
           p-6
           py-12
           lg:p-18
-          h-full
-          max-w-[1440px] mx-auto
+          w-full h-full mx-auto
           bg-cover
           bg-center
           bg-no-repeat
