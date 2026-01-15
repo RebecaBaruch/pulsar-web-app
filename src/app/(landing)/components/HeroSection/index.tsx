@@ -13,7 +13,6 @@ export default function HeroSection() {
     <section
       className="
         w-full 
-        px-4 
         h-auto md:h-[70dvh]
         bg-white
       "

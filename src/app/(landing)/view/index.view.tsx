@@ -10,6 +10,8 @@ import SocialProof from "../components/SocialProof";
 import { FaqSection } from "../components/Faq";
 import ForCompanies from "../components/ForCompanies";
 import LandingPageSkeleton from "../components/LandingPageSkeleton";
+import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar";
 
 export default function LandingPageView() {
   const [loading, setLoading] = React.useState(true);
@@ -24,16 +26,20 @@ export default function LandingPageView() {
       {loading ? (
         <LandingPageSkeleton />
       ) : (
-        <>
-          <HeroSection />
-          <Introduction />
-          <SpecServices />
-          <ChoosePulsar />
+        <div className="min-h-screen flex flex-col">
+          <NavBar />
+          <div className="mx-auto px-4 lg:px-10 py-10">
+            <HeroSection />
+            <Introduction />
+            <SpecServices />
+            <ChoosePulsar />
+          </div>
           <About />
           <SocialProof />
           <FaqSection />
           <ForCompanies />
-        </>
+          <Footer />
+        </div>
       )}
     </div>
   );

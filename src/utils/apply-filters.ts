@@ -17,7 +17,6 @@ export function applyFiltersUtil(
 ): SpecialistType[] {
   let filtered = [...specialists];
 
-  // 🔹 Filtro por especialidade (com base no role)
   if (filters.specialties.length > 0) {
     filtered = filtered.filter((s) =>
       filters.specialties.some((sp) =>
@@ -26,7 +25,6 @@ export function applyFiltersUtil(
     );
   }
 
-  // 🔹 Ordenação (tratando price como string “R$100”)
   if (filters.sort === "Maior nota") {
     filtered.sort((a, b) => b.rating - a.rating);
   } else if (filters.sort === "Menor preço") {
