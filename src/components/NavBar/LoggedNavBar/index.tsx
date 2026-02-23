@@ -153,10 +153,10 @@ export default function LoggedNavBar() {
                     className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
                       setUserMenuOpen(false);
-                      router.push("/profile");
+                      router.push(RoutesUrls.USER_PROFILE);
                     }}
                   >
-                    My Profile
+                    Perfil
                   </li>
                   <li
                     role="menuitem"

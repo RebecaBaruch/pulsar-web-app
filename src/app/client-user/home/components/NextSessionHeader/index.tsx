@@ -9,9 +9,14 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import LinkButton from "@/components/LinkButton";
 
 export default function NextSessionHeader() {
+  const handleContactWhatsapp = () => {
+    const phoneNumber = "5511999999999";
+    const message = "Olá, gostaria de entrar em contato sobre minha próxima sessão.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+  }
   return (
     <section className="w-full">
       <div className="text-base lg:text-sm text-black font-bold mb-3 flex items-center gap-2">
@@ -20,7 +25,7 @@ export default function NextSessionHeader() {
       </div>
 
       <div className="flex flex-col md:flex-row md:justify-between items-center w-full gap-4 md:gap-8 p-3 bg-blue rounded-lg">
-        <div className="flex flex-col md:flex-row md:items-center w-full md:w-fit gap-4 md:gap-2">
+        <div className="flex flex-col md:flex-row md:items-center w-full md:w-fit gap-4">
           <div className="flex items-center md:items-start lg:items-center gap-4 bg-[#4C63E9] w-full lg:w-fit rounded p-2 md:px-4">
             <div className="flex justify-center items-center w-8 h-8 flex-shrink-0 bg-white rounded-sm">
               <img
@@ -40,7 +45,7 @@ export default function NextSessionHeader() {
           </div>
 
           <div className="flex-1 md:flex-none text-white md:self-stretch">
-            <div className="flex flex-row items-center justify-between md:gap-4 w-full md:h-full rounded p-2 md:px-4 bg-blue-dark text-white">
+            <div className="flex flex-row items-center justify-between md:gap-4 w-full md:h-full rounded p-2 md:px-6 bg-blue-dark text-white">
               <div className="flex items-center gap-2 w-fit">
                 <FontAwesomeIcon icon={faCalendar} size="xs" />
                 <span className="text-xs font-medium">22 de Julho</span>
@@ -55,12 +60,11 @@ export default function NextSessionHeader() {
         </div>
 
         <div className="hidden md:flex flex-row items-start lg:items-center gap-1 text-white">
-          <LinkButton
+          <PrimaryButton
             color="white"
-            href="/"
-            text="Fazer contato por Whatsapp"
+            onClick={handleContactWhatsapp}
+            text={`Conversar com ${`Alex`}`}
             icon={faWhatsapp}
-            iconFirst
           />
         </div>
 
@@ -68,7 +72,7 @@ export default function NextSessionHeader() {
           <PrimaryButton
             color="white"
             icon={faWhatsapp}
-            text={`Fazer contato por Whatsapp`}
+            text={`Conversar com ${`Alex`}`}
           />
         </div>
       </div>
