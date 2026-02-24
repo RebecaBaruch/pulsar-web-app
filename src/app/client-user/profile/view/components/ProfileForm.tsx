@@ -5,11 +5,12 @@ import { useAuth } from "@/auth/useAuth";
 import InputField from "@/components/InputField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faPhone, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faLocationDot, faKey } from "@fortawesome/free-solid-svg-icons";
 
 import BenefitCard from "./BenefitCard";
 import SaveStatus from "./SaveStatus";
 import { useAutoSaveProfileForm } from "../../hooks/useAutoSaveProfileForm";
+import LinkButton from "@/components/LinkButton";
 
 export default function ProfileForm() {
   const { user, setUser } = useAuth();
@@ -22,60 +23,63 @@ export default function ProfileForm() {
 
   return (
     <div className="flex flex-col gap-16 text-gray-darkest">
-      <section>
-        <div className="flex flex-row items-center gap-2 mb-4">
-          <FontAwesomeIcon icon={faUser} size="xs" />
-          <h2 className="font-medium">Dados pessoais</h2>
+      <section className="flex flex-col items-end gap-6">
+        <div className="w-full">
+          <div className="flex flex-row items-center gap-2 mb-4">
+            <FontAwesomeIcon icon={faUser} size="xs" />
+            <h2 className="font-medium">Dados pessoais</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="md:col-span-2">
+              <InputField
+                label="Nome"
+                value={form.name ?? ""}
+                onChange={(v) => handleChange("name", v)}
+                onValidationChange={() => {}}
+                onBlur={handleBlur}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <InputField
+                label="CPF"
+                type="cpf"
+                value={form.cpf ?? ""}
+                onChange={(v) => handleChange("cpf", v)}
+                shouldValidate={false}
+                onBlur={handleBlur}
+                className="w-full"
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <InputField
+                label="Email"
+                type="email"
+                value={form.email ?? ""}
+                onChange={(v) => handleChange("email", v)}
+                onBlur={handleBlur}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <InputField
+                label="Telefone"
+                type="tel"
+                value={form.phone ?? ""}
+                onChange={(v) => handleChange("phone", v)}
+                onBlur={handleBlur}
+                className="w-full"
+              />
+            </div>
+          </div>
+
+          <SaveStatus saving={saving} saved={saved} />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="md:col-span-2">
-            <InputField
-              label="Nome"
-              value={form.name ?? ""}
-              onChange={(v) => handleChange("name", v)}
-              onValidationChange={() => {}}
-              onBlur={handleBlur}
-              className="w-full"
-            />
-          </div>
-
-          <div>
-            <InputField
-              label="CPF"
-              type="cpf"
-              value={form.cpf ?? ""}
-              onChange={(v) => handleChange("cpf", v)}
-              shouldValidate={false}
-              onBlur={handleBlur}
-              className="w-full"
-            />
-          </div>
-
-          <div className="md:col-span-2">
-            <InputField
-              label="Email"
-              type="email"
-              value={form.email ?? ""}
-              onChange={(v) => handleChange("email", v)}
-              onBlur={handleBlur}
-              className="w-full"
-            />
-          </div>
-
-          <div>
-            <InputField
-              label="Telefone"
-              type="tel"
-              value={form.phone ?? ""}
-              onChange={(v) => handleChange("phone", v)}
-              onBlur={handleBlur}
-              className="w-full"
-            />
-          </div>
-        </div>
-
-        <SaveStatus saving={saving} saved={saved} />
+        <LinkButton text="Alterar senha" href="" icon={faKey} />
       </section>
 
       <BenefitCard />

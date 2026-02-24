@@ -115,9 +115,11 @@ export default function LoggedNavBar() {
             </li>
             <li>
               <Link
-                href="/"
-                className={`${isActive("/sessions")} text-base lg:text-sm`}
-                aria-current={pathname === "/sessions" ? "page" : undefined}
+                href={RoutesUrls.CLIENT_SESSIONS}
+                className={`${isActive(RoutesUrls.CLIENT_SESSIONS)} text-base lg:text-sm`}
+                aria-current={
+                  pathname === RoutesUrls.CLIENT_SESSIONS ? "page" : undefined
+                }
               >
                 Sessões
               </Link>
@@ -156,7 +158,7 @@ export default function LoggedNavBar() {
                       router.push(RoutesUrls.USER_PROFILE);
                     }}
                   >
-                    Perfil
+                    Meu perfil
                   </li>
                   <li
                     role="menuitem"
@@ -209,10 +211,12 @@ export default function LoggedNavBar() {
               </li>
               <li>
                 <Link
-                  href="/"
-                  className={`${isActive("/sessions")} text-base block`}
+                  href={RoutesUrls.CLIENT_SESSIONS}
+                  className={`${isActive(RoutesUrls.CLIENT_SESSIONS)} text-base block`}
                   onClick={() => setIsOpen(false)}
-                  aria-current={pathname === "/sessions" ? "page" : undefined}
+                  aria-current={
+                    pathname === RoutesUrls.CLIENT_SESSIONS ? "page" : undefined
+                  }
                 >
                   Sessões
                 </Link>
@@ -221,11 +225,11 @@ export default function LoggedNavBar() {
                 <button
                   onClick={() => {
                     setIsOpen(false);
-                    router.push("/profile");
+                    router.push(RoutesUrls.USER_PROFILE);
                   }}
                   className="text-gray-dark hover:text-blue text-base block w-full text-left"
                 >
-                  My Profile
+                  Meu perfil
                 </button>
               </li>
               <li>

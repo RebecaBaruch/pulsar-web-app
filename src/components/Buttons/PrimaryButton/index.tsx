@@ -2,7 +2,7 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-type ColorOption = "blue" | "green" | "red" | "white";
+type ColorOption = "blue" | "green" | "red" | "white" | "dark" | "gray";
 
 type PrimaryButtonProps = {
   type?: "button" | "submit" | "reset";
@@ -36,7 +36,19 @@ const colorStyles: Record<ColorOption, string> = {
     bg-white
     hover:bg-blue-100
     text-blue-600
-    disabled:hover:bg-white
+    disabled:hover:bg-gray-100
+  `,
+  dark: `
+    bg-gray-darkest
+    hover:bg-gray-dark
+    text-white
+    disabled:hover:bg-gray-darkest-300
+  `,
+  gray: `
+    bg-gray-lightest
+    hover:bg-gray-light
+    text-gray-darkest
+    disabled:hover:bg-gray-300
   `,
 };
 

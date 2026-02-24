@@ -14,7 +14,7 @@ export default function BenefitCard() {
   // const { user } = useAuth();
   const user = {
     benefit: {
-      active: false,
+      active: true,
       code: "BENEFIT123",
       title: "Benefício Compass UOL",
       description:

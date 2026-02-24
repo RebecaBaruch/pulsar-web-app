@@ -6,6 +6,7 @@ export enum RoutesUrls {
   LOGIN = "/login/form",
   CLIENT_REGISTER = "/client-register",
   CLIENT_HOME = "/client-user/home",
+  CLIENT_SESSIONS = "/client-user/sessions",
   USER_PROFILE = "/client-user/profile",
   SPECIALIST_HOME = "/specialist-user/home",
   AUTH_SIGNIN = "/api/auth/signin",
@@ -20,5 +21,6 @@ export type RouteUrl =
   | RoutesUrls.LOGIN
   | RoutesUrls.CLIENT_REGISTER
   | RoutesUrls.CLIENT_HOME
+  | RoutesUrls.CLIENT_SESSIONS
   | RoutesUrls.SPECIALIST_HOME
   | RoutesUrls.AUTH_SIGNIN;
