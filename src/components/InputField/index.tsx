@@ -28,6 +28,7 @@ type InputFieldProps = {
   value?: string;
   isDisabled?: boolean;
   onChange?: (value: string) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: boolean;
   errorMessage?: string;
   customValidator?: Validator;
@@ -57,6 +58,7 @@ const InputField = ({
   isSuccess = false,
   className,
   skipTypeValidation = false,
+  onBlur,
 }: InputFieldProps) => {
   const [validationError, setValidationError] = React.useState<
     string | undefined
@@ -119,6 +121,7 @@ const InputField = ({
       setTouched(true);
     }
     validateField(e.target.value);
+    onBlur?.(e);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -156,7 +159,7 @@ const InputField = ({
       <input
         id={inputId}
         type={type}
-        className={`w-full outline-none border rounded p-2.5 lg:p-2 xl:p-2.5 text-black text-sm placeholder-gray bg-blue-lightest focus:outline-none
+        className={`w-full outline-none border rounded p-2.5 lg:p-2 xl:p-2.5 text-black text-xs placeholder-gray bg-blue-lightest focus:outline-none
           ${
             isError
               ? "border-red-500 focus:border-red-600"

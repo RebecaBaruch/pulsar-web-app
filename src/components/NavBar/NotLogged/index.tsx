@@ -24,16 +24,16 @@ export default function NotLoggedNav() {
   }
 
   return (
-    <div className="w-full p-7">
+    <div className="w-screen bg-white shadow-gray-100 shadow-md sticky top-0 z-50">
       <nav
-        className="max-w-[1440px] mx-auto flex flex-row justify-between items-center flex-wrap"
+        className="w-full max-w-[1200px] md:mx-auto p-4 md:p-5 flex flex-row justify-between items-center flex-wrap"
         aria-label="Barra de navegação principal"
       >
         <Link href="/">
           <img
             src="/images/horizontal-logo.png"
             alt="Pulsar logo"
-            className="w-28"
+            className="w-20"
           />
         </Link>
 

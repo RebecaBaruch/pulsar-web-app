@@ -56,8 +56,8 @@ export default function LoggedNavBar() {
 
   const isActive = (path: string) => {
     return pathname === path
-      ? "text-blue font-semibold"
-      : "text-gray-dark hover:text-blue";
+      ? "text-blue font-medium"
+      : "text-gray-dark hover:text-blue hover:underline hover:underline-offset-4";
   };
 
   if (loading) {
@@ -66,16 +66,16 @@ export default function LoggedNavBar() {
 
   return (
     <>
-      <div className="w-screen p-7 border-b border-gray-300">
+      <div className="w-screen bg-white shadow-gray-100 shadow-md sticky top-0 z-50">
         <nav
-          className="w-full max-w-[1440px] md:mx-auto md:px-10 flex flex-row justify-between items-center flex-wrap"
+          className="w-full max-w-[1200px] md:mx-auto p-4 md:p-5 flex flex-row justify-between items-center flex-wrap"
           aria-label="Barra de navegação do usuário logado"
         >
           <Link href="/">
             <img
               src="/images/horizontal-logo.png"
               alt="Pulsar logo"
-              className="w-28"
+              className="w-24"
             />
           </Link>
 
@@ -115,9 +115,11 @@ export default function LoggedNavBar() {
             </li>
             <li>
               <Link
-                href="/"
-                className={`${isActive("/sessions")} text-base lg:text-sm`}
-                aria-current={pathname === "/sessions" ? "page" : undefined}
+                href={RoutesUrls.CLIENT_SESSIONS}
+                className={`${isActive(RoutesUrls.CLIENT_SESSIONS)} text-base lg:text-sm`}
+                aria-current={
+                  pathname === RoutesUrls.CLIENT_SESSIONS ? "page" : undefined
+                }
               >
                 Sessões
               </Link>
@@ -125,53 +127,50 @@ export default function LoggedNavBar() {
           </ul>
 
           <ul className="hidden lg:flex lg:items-center lg:space-x-6 list-none p-0 m-0">
-            <li>
-              <button
-                aria-label="Notificações"
-                className="text-blue text-lg"
-                onClick={() => {}}
-              >
-                <FontAwesomeIcon icon={faBell} />
-              </button>
+            <li
+              aria-label="Notificações"
+              className="text-blue text-lg cursor-pointer"
+              onClick={() => {}}
+            >
+              <FontAwesomeIcon icon={faBell} />
             </li>
-            <li className="relative" ref={userMenuRef}>
-              <button
-                aria-label="Abrir menu do usuário"
-                aria-controls="user-menu"
-                aria-expanded={userMenuOpen}
-                className="text-blue text-lg"
-                onClick={() => setUserMenuOpen(!userMenuOpen)}
-              >
-                <FontAwesomeIcon icon={faUser} />
-              </button>
+            <li
+              className="relative text-blue text-lg cursor-pointer"
+              ref={userMenuRef}
+              aria-label="Abrir menu do usuário"
+              aria-controls="user-menu"
+              aria-expanded={userMenuOpen}
+              onClick={() => setUserMenuOpen(!userMenuOpen)}
+            >
+              <FontAwesomeIcon icon={faUser} />
               {userMenuOpen && (
-                <div
+                <ul
                   id="user-menu"
                   role="menu"
                   aria-label="Menu do usuário"
                   className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
                 >
-                  <button
+                  <li
+                    role="menuitem"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
                       setUserMenuOpen(false);
-                      router.push("/profile");
+                      router.push(RoutesUrls.USER_PROFILE);
                     }}
-                    role="menuitem"
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100"
                   >
-                    My Profile
-                  </button>
-                  <button
+                    Meu perfil
+                  </li>
+                  <li
+                    role="menuitem"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
                       setUserMenuOpen(false);
                       handleSignOut();
                     }}
-                    role="menuitem"
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100"
                   >
                     Sign out
-                  </button>
-                </div>
+                  </li>
+                </ul>
               )}
             </li>
           </ul>
@@ -181,11 +180,11 @@ export default function LoggedNavBar() {
         {isOpen && (
           <div
             id="mobile-menu-logged"
-            className="lg:hidden mt-4"
+            className="lg:hidden"
             role="region"
             aria-label="Menu móvel"
           >
-            <ul className="flex flex-col space-y-4 list-none p-0 m-0">
+            <ul className="flex flex-col space-y-4 list-none p-4">
               <li>
                 <Link
                   href={RoutesUrls.CLIENT_HOME}
@@ -212,10 +211,12 @@ export default function LoggedNavBar() {
               </li>
               <li>
                 <Link
-                  href="/"
-                  className={`${isActive("/sessions")} text-base block`}
+                  href={RoutesUrls.CLIENT_SESSIONS}
+                  className={`${isActive(RoutesUrls.CLIENT_SESSIONS)} text-base block`}
                   onClick={() => setIsOpen(false)}
-                  aria-current={pathname === "/sessions" ? "page" : undefined}
+                  aria-current={
+                    pathname === RoutesUrls.CLIENT_SESSIONS ? "page" : undefined
+                  }
                 >
                   Sessões
                 </Link>
@@ -224,11 +225,11 @@ export default function LoggedNavBar() {
                 <button
                   onClick={() => {
                     setIsOpen(false);
-                    router.push("/profile");
+                    router.push(RoutesUrls.USER_PROFILE);
                   }}
                   className="text-gray-dark hover:text-blue text-base block w-full text-left"
                 >
-                  My Profile
+                  Meu perfil
                 </button>
               </li>
               <li>

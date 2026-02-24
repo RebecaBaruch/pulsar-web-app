@@ -12,7 +12,7 @@ export default function SpecServices() {
           mx-auto max-w-[1440px] pt-10 pb-10
         "
       >
-        <div className="flex flex-col items-center text-center px-6">
+        <div className="flex flex-col items-center text-center">
           <h1 className="text-3xl lg:text-4xl font-semibold text-black text-center">
             Cada pessoa é única.{" "}
             <span className="text-blue">Nossos serviços também.</span>

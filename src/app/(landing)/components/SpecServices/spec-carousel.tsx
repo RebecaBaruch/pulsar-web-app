@@ -58,7 +58,7 @@ export default function SpecCarousel() {
   return (
     <>
       <div className="block md:hidden overflow-visible">
-        <div className="pl-6">
+        <div className="">
           <Swiper
             modules={[Pagination]}
             slidesPerView={1.15}

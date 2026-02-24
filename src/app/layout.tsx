@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/auth/provider";
 import A11yDevChecks from "@/components/A11yDevChecks";
 
+
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],

@@ -5,6 +5,7 @@ import LoggedNavBar from "@/components/NavBar/LoggedNavBar";
 import { useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
 import { useAuth } from "@/auth/useAuth";
+import { Toaster } from "sonner";
 
 export default function ClientLayout({
   children,
@@ -26,6 +27,7 @@ export default function ClientLayout({
     <>
       <LoggedNavBar />
       <div className="container mx-auto px-4 md:px-8 lg:px-12">{children}</div>
+      <Toaster position="top-center" richColors />
     </>
   );
 }

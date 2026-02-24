@@ -1,4 +1,9 @@
-import { faCertificate, faCircleNodes, faHeartPulse, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCertificate,
+  faCircleNodes,
+  faHeartPulse,
+  faShieldHalved,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
@@ -34,8 +39,7 @@ export default function ChoosePulsar() {
     <section className="w-full bg-white">
       <div
         className="
-          mx-auto max-w-[1440px]
-          px-6 lg:px-25 py-20
+          mx-auto max-w-[1440px] lg:px-25 py-20
         "
       >
         <div
@@ -72,9 +76,7 @@ export default function ChoosePulsar() {
                     <h1 className="text-base text-black font-semibold">
                       {item.title}
                     </h1>
-                    <p className="text-sm text-gray-dark">
-                      {item.description}
-                    </p>
+                    <p className="text-sm text-gray-dark">{item.description}</p>
                   </div>
                 </div>
               ))}

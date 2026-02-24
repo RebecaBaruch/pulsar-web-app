@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import SelectDateTapume from "./SelectDateTapume";
 
 interface TimeSlotSelectorProps {
   selectedDate: Date | null;
@@ -18,11 +19,7 @@ export default function TimeSlotSelector({
 }: TimeSlotSelectorProps) {
   if (!selectedDate) {
     return (
-      <div className="bg-white rounded-lg p-4 md:p-6">
-        <p className="text-xs text-gray-500 text-center">
-          Selecione uma data para ver os horários disponíveis
-        </p>
-      </div>
+      <SelectDateTapume />
     );
   }
 

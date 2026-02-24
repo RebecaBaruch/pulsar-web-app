@@ -23,9 +23,11 @@
     "react-loader-spinner": "^8.0.0",
     "react-select": "^5.10.2",
     "sass": "^1.91.0",
+    "sonner": "^2.0.7",
     "swiper": "^11.2.10"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.11.0",
     "@eslint/eslintrc": "^3",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",

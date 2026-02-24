@@ -80,7 +80,7 @@ export default function LoginFormView({
 
             <PrimaryButton
               type="submit"
-              text="Próximo"
+              text="Login"
               isDisabled={isDisabled}
             />
             <span className="text-center text-xs">

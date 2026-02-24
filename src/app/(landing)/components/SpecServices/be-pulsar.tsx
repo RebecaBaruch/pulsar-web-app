@@ -5,7 +5,7 @@ export default function BePulsarContent() {
     <div
       className="
             flex flex-col md:flex-row md:items-center gap-10
-            md:gap-10 gap-5 px-6 lg:px-25
+            md:gap-10 gap-5 lg:px-25
           "
     >
       <div className="md:flex-1 order-2 lg:order-1 min-w-0 text-left">

@@ -6,45 +6,52 @@ import BookingCard from "../components/BookingCard";
 import { SpecialistDetailsViewProps } from "../types";
 import ReviewSection from "../components/ReviewSection";
 import InfoDetailsSection from "../components/InfoDetailsSection";
+import LoginModal from "@/components/LoginModal";
+import SpecialistDetailsSkeleton from "../components/SpecialistDetailsSkeleton";
 
 export default function SpecialistDetailsView({
   loading,
   specialist,
   bookingCard,
   reviews,
+  showLoginModal,
+  onCloseLoginModal,
 }: SpecialistDetailsViewProps) {
   if (loading || !specialist) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>Carregando...</p>
+        <SpecialistDetailsSkeleton />
       </div>
     );
   }
 
   return (
-    <section className="flex w-full overflow-x-hidden min-h-screen justify-center items-start pt-8">
-      <div className="flex flex-col gap-12 w-full max-w-[1000px] mx-auto">
-        <div className="w-full flex flex-col md:flex-row items-start lg:items-center justify-between gap-10">
-          {/* Left Column - Profile Info */}
-          <div className="md:flex-1/2 lg:flex-3/5">
-            <SpecialistInfo specialist={specialist} />
+    <>
+      {showLoginModal && <LoginModal onClose={onCloseLoginModal} />}
+      <section className="flex w-full overflow-x-hidden min-h-screen justify-center items-start pt-8">
+        <div className="flex flex-col gap-12 w-full max-w-[1000px] mx-auto">
+          <div className="w-full flex flex-col md:flex-row items-start justify-between gap-16">
+            {/* Left Column - Profile Info */}
+            <div className="md:flex-1/2 lg:flex-3/5">
+              <SpecialistInfo specialist={specialist} />
+            </div>
+
+            {/* Right Column - Booking Card */}
+            <div className="md:flex-1/2 lg:flex-2/5 w-full md:h-full flex flex-col justify-between gap-6 bg-white md:shadow-md rounded-md md:p-4">
+              <BookingCard {...bookingCard} />
+            </div>
           </div>
 
-          {/* Right Column - Booking Card */}
-          <div className="md:flex-1/2 lg:flex-2/5 w-full md:h-full flex flex-col justify-between gap-6 bg-white md:shadow-md rounded-md md:p-4">
-            <BookingCard {...bookingCard} />
+          {/* Reviews Section */}
+          <div className="w-full">
+            <ReviewSection reviews={reviews} />
           </div>
-        </div>
 
-        {/* Reviews Section */}
-        <div className="w-full">
-          <ReviewSection reviews={reviews} />
+          {/* InfoDetailsSection */}
+          <InfoDetailsSection {...specialist} />
         </div>
-
-        {/* InfoDetailsSection */}
-        <InfoDetailsSection {...specialist} />
-      </div>
-      {/* Footer is provided by (public)/layout */}
-    </section>
+        {/* Footer is provided by (public)/layout */}
+      </section>
+    </>
   );
 }
