@@ -5,11 +5,13 @@ import SessionsHeader, { ActiveTab } from "../components/SessionsHeader";
 import NextSessionsList from "../components/NextSessionsList";
 import HistorySessionsList from "../components/HistorySessionsList";
 import SessionsSkeleton from "../components/SessionsSkeleton";
+import { NextSessionCardProps } from "../components/NextSessionsList/NextSessionCard";
+import { HistorySessionCardProps } from "../components/HistorySessionsList/HistorySessionCard";
 
 interface SessionsViewProps {
   loading: boolean;
-  nextSessions: any[];
-  historySessions: any[];
+  nextSessions: NextSessionCardProps[];
+  historySessions: HistorySessionCardProps[];
 }
 
 export default function SessionsView({
