@@ -21,23 +21,25 @@ export default function LinkButton({
   iconColor,
   iconFirst = false,
 }: LinkButtonProps) {
-  const resolvedIconColor = iconColor ?? color;
+  const colorClass = `text-${color}`;
+  const hoverClass = `hover:text-${color}-dark`;
+  const iconClass = `${colorClass} ${hoverClass}`;
 
   return (
     <a
       href={href}
-      className={`flex flex-row items-center gap-1 text-xs md:text-sm hover:underline`}
+      className={`flex flex-row items-center gap-1 text-xs md:text-sm hover:underline ${colorClass} ${hoverClass}`}
     >
       {iconFirst && icon && (
-        <FontAwesomeIcon icon={icon} size="sm" color={resolvedIconColor} />
+        <FontAwesomeIcon icon={icon} size="sm" className={iconClass} />
       )}
       <span
-        className={`w-fit text-xs md:text-sm font-medium underline whitespace-nowrap text-${color} hover:text-${color}-dark`}
+        className={`w-fit text-xs md:text-sm font-medium underline whitespace-nowrap`}
       >
         {text}
       </span>
       {icon && !iconFirst && (
-        <FontAwesomeIcon icon={icon} size="sm" color={resolvedIconColor} />
+        <FontAwesomeIcon icon={icon} size="sm" className={iconClass} />
       )}
     </a>
   );
