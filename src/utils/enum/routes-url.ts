@@ -5,6 +5,7 @@ export enum RoutesUrls {
   USER_TYPE = "/login/user-type",
   LOGIN = "/login/form",
   CLIENT_REGISTER = "/client-register",
+  RESET_PASSWORD = "/reset-password",
   CLIENT_HOME = "/client-user/home",
   CLIENT_SESSIONS = "/client-user/sessions",
   USER_PROFILE = "/client-user/profile",
@@ -20,6 +21,7 @@ export type RouteUrl =
   | RoutesUrls.USER_TYPE
   | RoutesUrls.LOGIN
   | RoutesUrls.CLIENT_REGISTER
+  | RoutesUrls.RESET_PASSWORD
   | RoutesUrls.CLIENT_HOME
   | RoutesUrls.CLIENT_SESSIONS
   | RoutesUrls.SPECIALIST_HOME

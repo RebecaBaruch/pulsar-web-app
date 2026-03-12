@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AuthProvider from "@/auth/provider";
 import A11yDevChecks from "@/components/A11yDevChecks";
+import { BookingProvider } from "@/context/BookingContext";
 
 
 // const geistSans = Geist({
@@ -47,10 +48,12 @@ export default function RootLayout({
           Pular para conteúdo principal
         </a>
         <AuthProvider>
-          <A11yDevChecks />
-          <main id="main-content" tabIndex={-1}>
-            {children}
-          </main>
+          <BookingProvider>
+            <A11yDevChecks />
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
+          </BookingProvider>
         </AuthProvider>
       </body>
     </html>

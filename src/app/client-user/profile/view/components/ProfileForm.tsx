@@ -5,15 +5,20 @@ import { useAuth } from "@/auth/useAuth";
 import InputField from "@/components/InputField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faPhone, faLocationDot, faKey } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPhone,
+  faLocationDot,
+  faKey,
+} from "@fortawesome/free-solid-svg-icons";
 
 import BenefitCard from "./BenefitCard";
 import SaveStatus from "./SaveStatus";
 import { useAutoSaveProfileForm } from "../../hooks/useAutoSaveProfileForm";
 import LinkButton from "@/components/LinkButton";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 export default function ProfileForm() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, isAuthenticated } = useAuth();
 
   const { form, saving, saved, handleChange, handleBlur } =
     useAutoSaveProfileForm({
@@ -79,7 +84,13 @@ export default function ProfileForm() {
 
           <SaveStatus saving={saving} saved={saved} />
         </div>
-        <LinkButton text="Alterar senha" href="" icon={faKey} />
+        {isAuthenticated && user ? (
+          <LinkButton
+            text="Alterar senha"
+            href={RoutesUrls.RESET_PASSWORD + `?userId=${user.id}`}
+            icon={faKey}
+          />
+        ) : null}
       </section>
 
       <BenefitCard />

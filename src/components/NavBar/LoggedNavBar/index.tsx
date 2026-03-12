@@ -1,6 +1,11 @@
 "use client";
 
-import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faClose,
+  faSignOutAlt,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -80,13 +85,22 @@ export default function LoggedNavBar() {
           </Link>
 
           <button
-            className="lg:hidden text-blue text-2xl"
+            className="lg:hidden text-blue text-2xl relative w-8 h-8"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
             aria-controls="mobile-menu-logged"
             aria-expanded={isOpen}
           >
-            <FontAwesomeIcon icon={faBars} />
+            <span
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+            >
+              <FontAwesomeIcon icon={faClose} />
+            </span>
+            <span
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isOpen ? "opacity-0" : "opacity-100"}`}
+            >
+              <FontAwesomeIcon icon={faBars} />
+            </span>
           </button>
 
           {/* Desktop Menu */}
@@ -162,13 +176,17 @@ export default function LoggedNavBar() {
                   </li>
                   <li
                     role="menuitem"
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100 cursor-pointer"
+                    className="block w-full text-left px-4 py-2 text-sm text-red hover:bg-gray-100 border-t border-gray-200 cursor-pointer"
                     onClick={() => {
                       setUserMenuOpen(false);
                       handleSignOut();
                     }}
                   >
                     Sign out
+                    <FontAwesomeIcon
+                      icon={faSignOutAlt}
+                      className="text-red ml-2"
+                    />
                   </li>
                 </ul>
               )}
@@ -227,7 +245,7 @@ export default function LoggedNavBar() {
                     setIsOpen(false);
                     router.push(RoutesUrls.USER_PROFILE);
                   }}
-                  className="text-gray-dark hover:text-blue text-base block w-full text-left"
+                  className="text-gray-dark text-base block w-full text-left"
                 >
                   Meu perfil
                 </button>
@@ -238,9 +256,13 @@ export default function LoggedNavBar() {
                     setIsOpen(false);
                     handleSignOut();
                   }}
-                  className="text-gray-dark hover:text-blue text-base block w-full text-left"
+                  className="text-red text-base block w-full text-left border-t border-gray-200 pt-4"
                 >
                   Sign out
+                  <FontAwesomeIcon
+                    icon={faSignOutAlt}
+                    className="text-red ml-2"
+                  />
                 </button>
               </li>
             </ul>

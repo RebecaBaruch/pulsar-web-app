@@ -15,6 +15,7 @@ type ResetPasswordViewProps = {
   onConfirmPasswordChange: (value: string) => void;
   onSubmit: () => void;
   isDisabled: boolean;
+  error?: string;
 };
 
 export default function ResetPasswordView({
@@ -25,6 +26,7 @@ export default function ResetPasswordView({
   onConfirmPasswordChange,
   isDisabled,
   onSubmit,
+  error,
 }: ResetPasswordViewProps) {
   return (
     <section className="flex w-screen min-h-screen justify-center pt-15">
@@ -46,6 +48,11 @@ export default function ResetPasswordView({
         </div>
 
         <div className="flex flex-col gap-6">
+          {error && (
+            <div className="text-red-600 text-center text-sm font-medium">
+              {error}
+            </div>
+          )}
           <form onSubmit={onSubmit} className="flex flex-col gap-6">
             <InputField
               label="Senha"
@@ -75,7 +82,12 @@ export default function ResetPasswordView({
             />
 
             <div className="flex flex-col justify-center items-center gap-4">
-              <PrimaryButton type="submit" text="Redefinir senha" onClick={onSubmit} isDisabled={isDisabled}/>
+              <PrimaryButton
+                type="submit"
+                text="Redefinir senha"
+                onClick={onSubmit}
+                isDisabled={isDisabled}
+              />
             </div>
           </form>
         </div>
