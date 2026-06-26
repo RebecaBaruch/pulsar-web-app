@@ -29,11 +29,22 @@ export function useLogin(options?: UseLoginOptions) {
         body: JSON.stringify({ email, password }),
       });
 
-      if (!res.ok) throw new Error("Invalid credentials");
-
+      console.log("Login response status:", res.status);
       const data = await res.json();
+      console.log("Login response data:", data);
+
+      if (!res.ok) {
+        console.error(
+          "Login failed with status:",
+          res.status,
+          "Error:",
+          data?.error,
+        );
+        throw new Error(`${data?.error || "Invalid credentials"}`);
+      }
 
       if (!data?.ok || !data?.accessToken) {
+        console.error("Invalid response structure:", data);
         throw new Error("Invalid response");
       }
 
@@ -50,9 +61,16 @@ export function useLogin(options?: UseLoginOptions) {
       }
 
       if (options?.redirectOnSuccess !== false) {
-        const redirectUrl =
-          sessionStorage.getItem("redirectAfterLogin") ??
-          RoutesUrls.CLIENT_HOME;
+        let redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+
+        // Se não houver URL armazenada, redireciona baseado no role do usuário
+        if (!redirectUrl) {
+          if (data.user?.role === "SPECIALIST") {
+            redirectUrl = RoutesUrls.SPECIALIST_HOME;
+          } else {
+            redirectUrl = RoutesUrls.CLIENT_HOME;
+          }
+        }
 
         sessionStorage.removeItem("redirectAfterLogin");
         router.replace(redirectUrl);
