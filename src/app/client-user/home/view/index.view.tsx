@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import NextSessionHeader from "../components/NextSessionHeader";
+import NextSessionHeader from "../../../../components/NextSessionHeader";
 import MySessions from "../components/MySessions";
 import SpecialistsSection from "../components/SpecialistsSection";
 import HomeSkeleton from "../components/HomeSkeleton";
@@ -12,8 +12,8 @@ interface HomeViewProps {
 }
 
 export default function HomeView({
-  loading = false,
-  userName = "Usuário",
+  loading,
+  userName,
 }: HomeViewProps) {
   if (loading) {
     return <HomeSkeleton />;

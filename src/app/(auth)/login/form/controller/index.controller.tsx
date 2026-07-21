@@ -9,6 +9,7 @@ export default function LoginFormController() {
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const userType = (sessionStorage.getItem("userType") as "CLIENT" | "SPECIALIST");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,6 +24,7 @@ export default function LoginFormController() {
       onEmailChange={setEmail}
       onPasswordChange={setPassword}
       onSubmit={handleSubmit}
+      userType={userType}
       isDisabled={loading}
     />
   );

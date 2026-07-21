@@ -74,7 +74,7 @@ const PrimaryButton = ({
         gap-2
         text-xs
         font-semibold
-        p-2 lg:p-3
+        p-3 lg:p-4
         rounded
         cursor-pointer
         disabled:opacity-50

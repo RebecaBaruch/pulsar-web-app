@@ -11,6 +11,7 @@ type Props = {
   onEmailChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
+  userType: "CLIENT" | "SPECIALIST";
   isDisabled: boolean;
 };
 
@@ -21,6 +22,7 @@ export default function LoginFormView({
   onEmailChange,
   onPasswordChange,
   onSubmit,
+  userType,
   isDisabled,
 }: Props) {
   return (
@@ -78,17 +80,15 @@ export default function LoginFormView({
               </div>
             </div>
 
-            <PrimaryButton
-              type="submit"
-              text="Login"
-              isDisabled={isDisabled}
-            />
-            <span className="text-center text-xs">
-              Ainda não possui uma conta?{" "}
-              <a href="/login" className="text-blue font-medium underline">
-                Cadastre-se
-              </a>
-            </span>
+            <PrimaryButton type="submit" text="Login" isDisabled={isDisabled} />
+            {userType === "CLIENT" && (
+              <div className="text-center text-xs">
+                Ainda não possui uma conta?{" "}
+                <a href="/login" className="text-blue font-medium underline">
+                  Cadastre-se
+                </a>
+              </div>
+            )}
           </form>
         </div>
       </div>

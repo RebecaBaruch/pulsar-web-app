@@ -2,41 +2,70 @@
 @import "swiper/css";
 @import "swiper/css/pagination";
 
-@theme {
-  --color-blue-primary: #3852e7;
-}
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-
+  
+  /* Blue Palette */
+  --color-blue-primary: #3852e7;
   --color-blue: #3852e7;
+  --color-blue-100: #edf0ff;
+  --color-blue-300: #b1baf5;
+  --color-blue-500: #3852e7;
+  --color-blue-700: #25379c;
+  --color-blue-800: #132b95;
+  --color-blue-900: #121a4a;
   --color-blue-dark: #132b95;
-  --color-blue-light: #daf0ff;
+  --color-blue-darkest: #121a4a;
+  --color-blue-light: #b1baf5;
   --color-blue-lightest: #fbfdff;
 
+  /* Green Palette */
   --color-green: #38e977;
-  --color-green-dark: #144827;
-  --color-green-mid: #38e9768f;
+  --color-green-100: #ebfdf1;
+  --color-green-300: #9cf4bb;
+  --color-green-500: #38e977;
+  --color-green-700: #2dba5f;
+  --color-green-900: #165d30;
+  --color-green-dark: #165d30;
 
-  --color-gray-darkest: #2c2c2c;
-  --color-gray-dark: #4c4c4c;
-  --color-gray: #838383;
-  --color-gray-light: #c7c7c7;
-  --color-gray-lightest: #e5e5e5;
+  /* Gray Palette */
+  --color-gray: #6c7a85;
+  --color-gray-0: #ffffff;
+  --color-gray-100: #f1f3f4;
+  --color-gray-300: #d1d7db;
+  --color-gray-500: #6c7a85;
+  --color-gray-700: #3a464e;
+  --color-gray-900: #0f1417;
+  --color-gray-dark: #0f1417;
+  --color-gray-darkest: #0f1417;
+  --color-gray-light: #f1f3f4;
+  --color-gray-lightest: #ffffff;
   --color-gray-w: #f0f0f0;
 
+  /* Base Colors */
   --color-black: #0f1417;
   --color-white: #fdfdfdff;
 
-  --color-yellow: #fdb94b;
-  --color-red: #f04f4f;
+  /* Yellow Palette */
+  --color-yellow: #facc15;
+  --color-yellow-100: #fef9c3;
+  --color-yellow-500: #facc15;
+  --color-yellow-700: #ca8a04;
 
+  /* Red Palette */
+  --color-red: #ef4444;
+  --color-red-100: #fee2e2;
+  --color-red-500: #ef4444;
+  --color-red-700: #7f1d1d;
+
+  /* Box Shadow */
   --shadow-md-gray-light:
-    0 5px 10px -1px rgba(199, 199, 199, 0.2),
-    0 4px 10px -1px rgba(199, 199, 199, 0.3);
+    0 4px 6px -1px rgba(199, 199, 199, 0.4),
+    0 2px 4px -1px rgba(199, 199, 199, 0.2);
 }
 
 body {

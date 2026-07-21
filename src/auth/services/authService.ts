@@ -3,7 +3,7 @@ import { AuthCredentials, AuthResponse } from "../authTypes";
 
 export const authService = {
   async login(credentials: AuthCredentials): Promise<AuthResponse> {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const endpoint = `${apiUrl}/api/auth/login`;
 
     const res = await fetch(endpoint, {

@@ -3,28 +3,21 @@
 import React from "react";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendar,
-  faClock,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { BiInfoCircle } from 'react-icons/bi';
+import { contactWahtsappUtil } from "@/utils/contact-whatsapp";
 
 export default function NextSessionHeader() {
-  const handleContactWhatsapp = () => {
-    const phoneNumber = "5511999999999";
-    const message = "Olá, gostaria de entrar em contato sobre minha próxima sessão.";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
-  }
+  const phoneNumber = "5511999999999";
   return (
     <section className="w-full">
-      <div className="text-base lg:text-sm text-black font-bold mb-3 flex items-center gap-2">
-        <FontAwesomeIcon icon={faInfoCircle} size="sm" className="text-blue" />
+      <div className="text-xs md:text-sm text-blue font-semibold mb-6 flex items-top gap-4 bg-blue-100 p-4 rounded-lg">
+        <BiInfoCircle className="text-lg" />
         <span>Sua próxima sessão · em 2 dias</span>
       </div>
 
-      <div className="flex flex-col md:flex-row md:justify-between items-center w-full gap-4 md:gap-8 p-3 bg-blue rounded-lg">
+      <div className="flex flex-col md:flex-row md:justify-between items-center w-full gap-4 md:gap-8 p-4 md:p-8 bg-blue rounded-lg">
         <div className="flex flex-col md:flex-row md:items-center w-full md:w-fit gap-4">
           <div className="flex items-center md:items-start lg:items-center gap-4 bg-[#4C63E9] w-full lg:w-fit rounded p-2 md:px-4">
             <div className="flex justify-center items-center w-8 h-8 flex-shrink-0 bg-white rounded-sm">
@@ -62,7 +55,7 @@ export default function NextSessionHeader() {
         <div className="hidden md:flex flex-row items-start lg:items-center gap-1 text-white">
           <PrimaryButton
             color="white"
-            onClick={handleContactWhatsapp}
+            onClick={() => contactWahtsappUtil(phoneNumber, "Olá, podemos conversar sobre a próxima sessão?")}
             text={`Conversar com ${`Alex`}`}
             icon={faWhatsapp}
           />
