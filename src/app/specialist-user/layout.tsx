@@ -8,16 +8,16 @@ export default function SpecialistLayout({
 }) {
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-gray-50 overflow-hidden">
-      <div className="flex flex-row lg:flex-col justify-between items-center w-full lg:w-64 bg-white shadow-sm lg:shadow-none flex-shrink-0">
+      <div className="flex flex-row lg:flex-col justify-between items-center w-full lg:w-52 bg-white shadow-sm lg:shadow-none flex-shrink-0">
         <SpecialistSidebar />
-        <div className="lg:hidden px-4">
+        <div className="lg:hidden px-3">
           <NotificationBell />
         </div>
       </div>
       
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
-        <main className="flex-1 overflow-auto bg-white p-6 lg:p-16">
-          {children} {/* APENAS ISSO vai alternar e carregar de forma nativa */}
+        <main className="flex-1 overflow-auto bg-white p-3 lg:p-8">
+          {children}
         </main>
       </div>
     </div>
