@@ -1,99 +1,84 @@
 "use client";
 
 import React, { JSX } from "react";
-import {
-  startOfWeek,
-  addDays,
-  subWeeks,
-  addWeeks,
-  subDays,
-  addDays as addSingleDay,
-} from "date-fns";
 import { ScheduleView } from "../view/index.view";
-import { AppointmentData, CalendarViewMode } from "../types";
+import { useCalendar } from "../hooks/useCalendar";
+import { timeSlots } from "@/utils/time-slots";
+import { AppointmentData } from "../types";
 import { mockAppointments as MOCK_APPOINTMENTS } from "../mock/mockAppointments";
+import { ScheduleSkeleton } from "../components/ScheduleSkeleton";
+import { useCancelAppointment } from "../hooks/useCancelAppointment";
+import { useRescheduleAppointment } from "../hooks/useRescheduleAppointment";
 
 export default function HomeController(): JSX.Element {
-  const [currentDate, setCurrentDate] = React.useState<Date>(() => new Date());
-  const [viewMode, setViewMode] = React.useState<CalendarViewMode>("semana");
+  const [isLoading, setIsLoading] = React.useState(true);
+
   const [selectedAppointment, setSelectedAppointment] =
     React.useState<AppointmentData | null>(null);
+  const [isRescheduleModalOpen, setIsRescheduleModalOpen] =
+    React.useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = React.useState(false);
 
-  // Calcula os dias da semana dinamicamente com base no dia atual (currentDate)
-  const visibleDays = React.useMemo(() => {
-    if (viewMode === "dia") {
-      return [currentDate];
-    }
-    // Inicia no Domingo da semana atual da data selecionada
-    const start = startOfWeek(currentDate, { weekStartsOn: 0 });
-    return Array.from({ length: 7 }).map((_, index) => addDays(start, index));
-  }, [currentDate, viewMode]);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
 
-  const handleNext = () => {
-    setCurrentDate((prev) =>
-      viewMode === "semana" ? addWeeks(prev, 1) : addSingleDay(prev, 1),
-    );
+    return () => clearTimeout(timer);
+  }, []);
+
+  const calendar = useCalendar({
+    initialViewMode: "semana",
+    weekStartsOn: 0,
+  });
+
+  const handleReschedule = (id: string) => {
+    console.log("Reschedule ID capturado do Drawer:", id);
+    setIsRescheduleModalOpen(true);
   };
 
-  const handlePrev = () => {
-    setCurrentDate((prev) =>
-      viewMode === "semana" ? subWeeks(prev, 1) : subDays(prev, 1),
-    );
-  };
-
-  const handleToday = () => {
-    setCurrentDate(new Date());
-  };
-
-  const handleRemarcar = (id: string) => {
-    console.log("Remarcar ID:", id);
-  };
-
-  const handleCancelar = (id: string) => {
+  const handleCancelClick = (id: string) => {
     console.log("Cancelar ID:", id);
+    setIsCancelModalOpen(true);
   };
 
-  const timeSlots = [
-    "00:00",
-    "01:00",
-    "02:00",
-    "03:00",
-    "04:00",
-    "05:00",
-    "06:00",
-    "07:00",
-    "08:00",
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00",
-    "21:00",
-    "22:00",
-    "23:00",
-  ];
+  const { handleConfirmReschedule } = useRescheduleAppointment({
+    selectedAppointment,
+    setSelectedAppointment,
+    setIsRescheduleModalOpen,
+  });
+
+  const { handleConfirmCancel } = useCancelAppointment({
+    selectedAppointment,
+    setSelectedAppointment,
+    setIsCancelModalOpen,
+  });
+
+  if (isLoading) {
+    return <ScheduleSkeleton />;
+  }
 
   return (
     <ScheduleView
-      visibleDays={visibleDays}
+      visibleDays={calendar.visibleDays}
       timeSlots={timeSlots}
       appointments={MOCK_APPOINTMENTS}
-      viewMode={viewMode}
+      viewMode={calendar.viewMode}
       selectedAppointment={selectedAppointment}
-      onViewModeChange={setViewMode}
+      onViewModeChange={calendar.setViewMode}
       onSelectAppointment={setSelectedAppointment}
-      onNext={handleNext}
-      onPrev={handlePrev}
-      onToday={handleToday}
-      onRemarcar={handleRemarcar}
-      onCancelar={handleCancelar}
+      onNext={calendar.handleNext}
+      onPrev={calendar.handlePrev}
+      onToday={calendar.handleToday}
+      onNavigateToDate={calendar.handleNavigateToDate}
+      onReschedule={handleReschedule}
+      onCancel={handleCancelClick}
+      isRescheduleModalOpen={isRescheduleModalOpen}
+      onCloseRescheduleModal={() => setIsRescheduleModalOpen(false)}
+      onConfirmReschedule={handleConfirmReschedule}
+      isCancelModalOpen={isCancelModalOpen}
+      onCloseCancelModal={() => setIsCancelModalOpen(false)}
+      onConfirmCancel={handleConfirmCancel}
     />
   );
 }
