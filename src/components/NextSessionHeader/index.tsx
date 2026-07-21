@@ -6,15 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { BiInfoCircle } from 'react-icons/bi';
+import { contactWahtsappUtil } from "@/utils/contact-whatsapp";
 
 export default function NextSessionHeader() {
-  const handleContactWhatsapp = () => {
-    const phoneNumber = "5511999999999";
-    const message =
-      "Olá, gostaria de entrar em contato sobre minha próxima sessão.";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
-  };
+  const phoneNumber = "5511999999999";
   return (
     <section className="w-full">
       <div className="text-xs md:text-sm text-blue font-semibold mb-6 flex items-top gap-4 bg-blue-100 p-4 rounded-lg">
@@ -60,7 +55,7 @@ export default function NextSessionHeader() {
         <div className="hidden md:flex flex-row items-start lg:items-center gap-1 text-white">
           <PrimaryButton
             color="white"
-            onClick={handleContactWhatsapp}
+            onClick={() => contactWahtsappUtil(phoneNumber, "Olá, podemos conversar sobre a próxima sessão?")}
             text={`Conversar com ${`Alex`}`}
             icon={faWhatsapp}
           />
