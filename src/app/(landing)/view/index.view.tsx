@@ -26,9 +26,9 @@ export default function LandingPageView() {
       {loading ? (
         <LandingPageSkeleton />
       ) : (
-        <div className="min-h-screen flex flex-col">
+        <div className="flex flex-col">
           <NavBar />
-          <div className="max-w-[1400px] mx-auto px-4 py-10">
+          <div className="lg:max-w-[1400px] px-4 py-10">
             <HeroSection />
             <Introduction />
             <SpecServices />
