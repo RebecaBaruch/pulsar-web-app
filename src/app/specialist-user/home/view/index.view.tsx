@@ -1,7 +1,7 @@
 "use client";
 
-import NextSessionHeader from "@/components/NextSessionHeader";
 import React from "react";
+import NextSessionHeader from "@/components/NextSessionHeader";
 import { TodayAgenda, TodayAgendaData } from "../components/TodayAgenda";
 import { WeeklyOverview, WeeklyOverviewData } from "../components/WeeklyOverview";
 
