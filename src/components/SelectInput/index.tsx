@@ -114,7 +114,7 @@ export default function SelectInput({
       {label && (
         <label
           htmlFor={btnId}
-          className="block text-sm font-medium mb-2 text-black"
+          className="block text-xs font-medium mb-2 text-gray-900"
         >
           {label}
         </label>
@@ -131,29 +131,29 @@ export default function SelectInput({
           e.preventDefault();
           if (!isDisabled) setOpen((s) => !s);
         }}
-        className={`flex items-center justify-between w-full border rounded px-3 py-2 bg-white text-left focus:outline-none
+        className={`flex items-center justify-between w-full border rounded p-3 bg-blue-lightest text-left focus:outline-none
           ${error ? "border-red-500" : "border-gray-light"} ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
       >
         {isMulti ? (
           Array.isArray(selected) && selected.length > 0 && showResult ? (
-            <span className="text-gray-dark text-sm">
+            <span className="text-gray-dark text-xs">
               {selected.map((s) => s.label).join(", ")}
             </span>
           ) : (
-            <span className="text-gray-dark text-sm">{placeholder}</span>
+            <span className="text-gray-dark text-xs">{placeholder}</span>
           )
         ) : selected && showResult ? (
-          <span className="text-gray-dark text-sm">
+          <span className="text-gray-dark text-xs">
             {(selected as any).label}
           </span>
         ) : (
-          <span className="text-gray-dark text-sm">{placeholder}</span>
+          <span className="text-gray-dark text-xs">{placeholder}</span>
         )}
 
         {icon ? (
-          <FontAwesomeIcon icon={icon} className="ml-2 text-sm" />
+          <FontAwesomeIcon icon={icon} className="ml-2 text-xs" />
         ) : (
-          <FontAwesomeIcon icon={faChevronDown} className="ml-2 text-sm" />
+          <FontAwesomeIcon icon={faChevronDown} className="ml-2 text-xs" />
         )}
       </button>
 

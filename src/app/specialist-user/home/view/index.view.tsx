@@ -12,12 +12,12 @@ export type HomeViewProps = {
 
 export default function HomeView({ todayAgendaData, weeklyOverviewData }: HomeViewProps) {
   return (
-    <div className="flex flex-col w-full gap-8">
-      <div className="flex flex-col gap-2 md:gap-4">
+    <div className="flex flex-col w-full gap-6">
+      <div className="flex flex-col">
         <h1 className="text-xl md:text-2xl font-bold text-black">
          Boa tarde, Alex! 👋
         </h1>
-        <p className="text-xs md:text-base text-gray-dark">
+        <p className="text-xs md:text-sm text-gray-900">
           Confira como está sua agenda para hoje e os próximos dias.
         </p>
       </div>
