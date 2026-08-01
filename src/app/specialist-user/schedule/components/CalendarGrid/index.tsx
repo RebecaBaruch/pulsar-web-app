@@ -271,7 +271,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
             >
               {/* It will disappear on mobile */}
               {isCurrentDay ? (
-                <div className="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-2xl shadow-md shadow-blue-500/10 flex-col items-center min-w-[64px]">
+                <div className="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-md shadow-md shadow-blue-500/10 flex-col items-center min-w-[64px]">
                   <span className="text-[10px] uppercase tracking-wider font-bold opacity-90">
                     {format(day, "EEEE", { locale: ptBR }).split("-")[0]}
                   </span>
@@ -305,7 +305,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
             className="absolute left-0 right-0 z-30 pointer-events-none flex items-center"
             style={{ top: `${indicatorTop}px` }}
           >
-            <div className="w-12 md:w-16 pl-1 md:pl-2 text-[10px] md:text-[11px] font-bold text-blue-600 bg-white/90 backdrop-blur-sm py-0.5 rounded shadow-sm text-center whitespace-nowrap">
+            <div className="w-12 md:w-16 pl-1 md:pl-2 text-[10px] md:text-[11px] font-bold text-blue-600 bg-white/90 backdrop-blur-sm py-0.5 rounded-md shadow-sm text-center whitespace-nowrap">
               {format(currentTime, "HH:mm")}
             </div>
 
@@ -350,7 +350,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
                       <button
                         key={app.id}
                         onClick={() => onSelectAppointment(app)}
-                        className={`absolute inset-x-1 md:inset-x-2 top-1 md:top-2 bottom-1 md:bottom-2 backdrop-blur-sm p-2 md:p-3 rounded-xl shadow-sm cursor-pointer hover:shadow transition-all text-left flex flex-col justify-between z-10 ${
+                        className={`absolute inset-x-1 md:inset-x-2 top-1 md:top-2 bottom-1 md:bottom-2 backdrop-blur-sm p-2 md:p-3 rounded shadow-sm cursor-pointer hover:shadow transition-all text-left flex flex-col justify-between z-10 ${
                           isNext
                             ? "bg-blue-600 text-white border border-blue-700"
                             : "bg-blue-50/90 border border-blue-200/50 text-blue-800 hover:bg-blue-100/90"
