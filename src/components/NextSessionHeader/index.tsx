@@ -7,15 +7,14 @@ import { faCalendar, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { BiInfoCircle } from 'react-icons/bi';
 import { contactWahtsappUtil } from "@/utils/contact-whatsapp";
+import InfoHeader from "@/components/InfoHeader";
 
 export default function NextSessionHeader() {
   const phoneNumber = "5511999999999";
+  const days = 2;
   return (
     <section className="w-full">
-      <div className="text-xs md:text-sm text-blue font-semibold mb-6 flex items-top gap-4 bg-blue-100 p-4 rounded-lg">
-        <BiInfoCircle className="text-lg" />
-        <span>Sua próxima sessão · em 2 dias</span>
-      </div>
+      <InfoHeader text={`Sua próxima sessão · em ${days} dias`} />
 
       <div className="flex flex-col md:flex-row md:justify-between items-center w-full gap-4 md:gap-8 p-4 md:p-8 bg-blue rounded-lg">
         <div className="flex flex-col md:flex-row md:items-center w-full md:w-fit gap-4">
