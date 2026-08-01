@@ -26,6 +26,7 @@ type InputFieldProps = {
   placeholder?: string;
   type?: InputType;
   value?: string;
+  min?: string;
   isDisabled?: boolean;
   onChange?: (value: string) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -47,6 +48,7 @@ const InputField = ({
   placeholder,
   type = "text",
   value,
+  min,
   isDisabled = false,
   onChange,
   error = false,
@@ -150,7 +152,7 @@ const InputField = ({
         <label
           id={labelId}
           htmlFor={inputId}
-          className="block text-xs font-medium mb-2 text-black"
+          className="block text-xs font-medium mb-2 text-gray-900"
         >
           {label}
         </label>
@@ -159,7 +161,7 @@ const InputField = ({
       <input
         id={inputId}
         type={type}
-        className={`w-full outline-none border rounded p-2.5 lg:p-2 xl:p-2.5 text-black text-xs placeholder-gray bg-blue-lightest focus:outline-none
+        className={`w-full outline-none border rounded p-3 text-gray-900 text-xs placeholder-gray bg-blue-lightest focus:outline-none
           ${
             isError
               ? "border-red-500 focus:border-red-600"
@@ -170,6 +172,7 @@ const InputField = ({
         `}
         placeholder={placeholder}
         value={value}
+        min={min}
         disabled={isDisabled}
         onBlur={handleBlur}
         onChange={handleChange}
