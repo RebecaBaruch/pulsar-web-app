@@ -28,7 +28,7 @@ export default function HomeView({ loading, userName }: HomeViewProps) {
           <NextSessionHeader
           profilePictureUrl="/public/images/alex-dog.svg"
             name={"Alex Machado"}
-            description={"Psicólogo Clínico • CRP: XXX-XXX"}
+            description={"CRP: XXX-XXX"}
             phoneNumber={"9999999999"}
             daysCount={2}
           />

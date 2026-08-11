@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "./context";
 import { AuthUser, AuthContextType } from "./authTypes";
-import { tokenService } from "./services/tokenService";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -14,16 +13,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(true);
 
   const refreshUser = async () => {
-    const token = tokenService.get();
-
     try {
-      const headers: HeadersInit = {};
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
-
       const res = await fetch("/api/me", {
-        headers,
+        cache: "no-store",
       });
 
       if (!res.ok) {
@@ -40,10 +32,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const logout = async () => {
-    tokenService.clear();
     setUser(null);
 
-    // Call server endpoint to clear httpOnly cookie
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } catch (error) {

@@ -1,11 +1,11 @@
 import { cookies } from "next/headers";
 import { AuthResponse } from "../authTypes";
 
-const COOKIE_KEY = "auth_session";
+export const AUTH_SESSION_KEY = "auth_session";
 
 export async function getSessionCookie() {
-  const cookieStore = cookies();
-  const session = (await cookieStore).get(COOKIE_KEY)?.value ?? null;
+  const cookieStore = await cookies();
+  const session = cookieStore.get(AUTH_SESSION_KEY)?.value ?? null;
   if (!session) return null;
   try {
     return JSON.parse(session);
@@ -15,8 +15,8 @@ export async function getSessionCookie() {
 }
 
 export async function setSession(authData: AuthResponse) {
-  const cookieStore = cookies();
-  (await cookieStore).set(COOKIE_KEY, JSON.stringify(authData), {
+  const cookieStore = await cookies();
+  cookieStore.set(AUTH_SESSION_KEY, JSON.stringify(authData), {
     httpOnly: true,
     path: "/",
     sameSite: "lax",
@@ -26,6 +26,6 @@ export async function setSession(authData: AuthResponse) {
 
 export function clearSession() {
   if (typeof window !== "undefined") {
-    document.cookie = `${COOKIE_KEY}=; path=/; max-age=0`;
+    document.cookie = `${AUTH_SESSION_KEY}=; path=/; max-age=0`;
   }
 }
