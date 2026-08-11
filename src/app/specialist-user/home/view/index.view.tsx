@@ -17,11 +17,16 @@ export default function HomeView({ todayAgendaData, weeklyOverviewData }: HomeVi
         <h1 className="text-xl md:text-2xl font-bold text-black">
          Boa tarde, Alex! 👋
         </h1>
-        <p className="text-xs md:text-sm text-gray-900">
+        <p className="text-xs md:text-sm text-gray-500">
           Confira como está sua agenda para hoje e os próximos dias.
         </p>
       </div>
-      <NextSessionHeader />
+      <NextSessionHeader 
+        name="Rebeca Baruch"
+        description="Registro, SP"
+        phoneNumber="5511999999999"
+        daysCount={2}
+      />
 
       <div className="flex flex-col md:flex-row gap-4">
           <TodayAgenda data={todayAgendaData} />
