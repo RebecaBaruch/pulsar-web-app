@@ -23,7 +23,7 @@ const colorStyles: Record<ColorOption, string> = {
   green: `
     bg-green-500
     hover:bg-green-600
-    text-white
+    text-dark
     disabled:hover:bg-green-300
   `,
   red: `
@@ -73,12 +73,14 @@ const PrimaryButton = ({
         justify-center
         gap-2
         text-xs
+        lg:text-sm
         font-semibold
-        p-3 lg:p-4
+        p-2 lg:p-3
         rounded
         cursor-pointer
         disabled:opacity-50
         disabled:cursor-not-allowed
+        text-nowrap
         ${colorStyles[color]}
       `}
     >
