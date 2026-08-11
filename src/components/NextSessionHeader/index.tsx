@@ -75,7 +75,7 @@ export default function NextSessionHeader({ profilePictureUrl, name, description
                 "Olá, podemos conversar sobre a próxima sessão?",
               )
             }
-            text={`Conversar com ${name}`}
+            text={`Conversar com ${name.trim().split(' ')[0]}`}
             icon={faWhatsapp}
           />
         </div>
@@ -84,7 +84,7 @@ export default function NextSessionHeader({ profilePictureUrl, name, description
           <PrimaryButton
             color="white"
             icon={faWhatsapp}
-            text={`Conversar com ${name}`}
+            text={`Conversar com ${name.trim().split(' ')[0]}...`}
           />
         </div>
       </div>
