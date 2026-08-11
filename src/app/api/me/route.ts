@@ -1,30 +1,13 @@
 import { NextResponse } from "next/server";
 import { getSessionCookie } from "@/auth/services/sessionService";
-import { jwtDecode } from "jwt-decode";
 
-export async function GET(req: Request) {
-  // Try to get session from cookie (httpOnly)
-  let session = await getSessionCookie();
-
-  // If no cookie, try to get token from Authorization header
-  if (!session) {
-    const authHeader = req.headers.get("authorization");
-    if (authHeader?.startsWith("Bearer ")) {
-      const token = authHeader.substring(7);
-      try {
-        const decoded = jwtDecode(token);
-        session = { accessToken: token, user: decoded };
-      } catch (error) {
-        console.error("Error decoding token:", error);
-      }
-    }
-  }
+export async function GET() {
+  const session = await getSessionCookie();
 
   if (!session || !session.user) {
     return NextResponse.json({ user: null }, { status: 401 });
   }
 
-  // Retorna os dados completos do usuário armazenados na sessão
   return NextResponse.json({ user: session.user });
 }
 
