@@ -1,6 +1,6 @@
 import { AppointmentData } from "../types";
 import { format, parseISO } from "date-fns";
-import { contactWahtsappUtil } from "@/utils/contact-whatsapp";
+import { contactWhatsappUtil } from "@/utils/contact-whatsapp";
 
 interface UseCancelAppointmentProps {
   selectedAppointment: AppointmentData | null;
@@ -39,7 +39,7 @@ export function useCancelAppointment({
       const textMessage = `Olá, suporte Pulsar! O atendimento do(a) paciente *${patientName}* - agendado para o dia ${appointmentDate} às ${appointmentTime} - foi *cancelado*. Por favor, realizar o reembolso do valor correspondente.`;
 
       console.log("Disparando solicitação de estorno via util de WhatsApp...");
-      await contactWahtsappUtil(pulsarSupportPhoneNumber, textMessage);
+      await contactWhatsappUtil(pulsarSupportPhoneNumber, textMessage);
     } catch (error) {
       console.error("Erro ao tentar enviar notificação de reembolso:", error);
     }
