@@ -1,37 +1,52 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { BiInfoCircle } from 'react-icons/bi';
-import { contactWahtsappUtil } from "@/utils/contact-whatsapp";
+import { contactWhatsappUtil } from "@/utils/contact-whatsapp";
 import InfoHeader from "@/components/InfoHeader";
 
-export default function NextSessionHeader() {
-  const phoneNumber = "5511999999999";
-  const days = 2;
+type NextSessionHeaderProps = {
+  profilePictureUrl?: string;
+  name: string;
+  description: string;
+  phoneNumber: string;
+  daysCount: number;
+};
+
+export default function NextSessionHeader({ profilePictureUrl, name, description, phoneNumber, daysCount }: NextSessionHeaderProps) {
+  
   return (
     <section className="w-full">
-      <InfoHeader text={`Sua próxima sessão · em ${days} dias`} />
+      <InfoHeader text={`Sua próxima sessão · em ${daysCount} dias`} />
 
       <div className="flex flex-col md:flex-row md:justify-between items-center w-full gap-4 md:gap-8 p-4 md:p-8 bg-blue rounded-lg">
         <div className="flex flex-col md:flex-row md:items-center w-full md:w-fit gap-4">
           <div className="flex items-center md:items-start lg:items-center gap-4 bg-[#4C63E9] w-full lg:w-fit rounded p-2 md:px-4">
             <div className="flex justify-center items-center w-8 h-8 flex-shrink-0 bg-white rounded-sm">
-              <img
-                src="/images/doctor-avatar.png"
-                alt="avatar"
-                className="w-8 h-8 object-cover rounded-sm"
-              />
+              {profilePictureUrl ? (
+                <Image
+                  src={profilePictureUrl}
+                  alt="avatar"
+                  width={32}
+                  height={32}
+                  className="object-cover rounded-sm"
+                />
+              ) : (
+                <span className="text-sm font-semibold text-blue-dark">
+                  {name.charAt(0).toUpperCase()}
+                </span>
+              )}
             </div>
             <div>
               <div className="text-sm text-white font-semibold">
-                Alex Machado
+                {name}
               </div>
               <div className="text-xs text-white">
-                Psicólogo Clínico · CRP: XXX-XXX
+                {description}
               </div>
             </div>
           </div>
@@ -54,8 +69,13 @@ export default function NextSessionHeader() {
         <div className="hidden md:flex flex-row items-start lg:items-center gap-1 text-white">
           <PrimaryButton
             color="white"
-            onClick={() => contactWahtsappUtil(phoneNumber, "Olá, podemos conversar sobre a próxima sessão?")}
-            text={`Conversar com ${`Alex`}`}
+            onClick={() =>
+              contactWhatsappUtil(
+                phoneNumber,
+                "Olá, podemos conversar sobre a próxima sessão?",
+              )
+            }
+            text={`Conversar com ${name}`}
             icon={faWhatsapp}
           />
         </div>
@@ -64,7 +84,7 @@ export default function NextSessionHeader() {
           <PrimaryButton
             color="white"
             icon={faWhatsapp}
-            text={`Conversar com ${`Alex`}`}
+            text={`Conversar com ${name}`}
           />
         </div>
       </div>

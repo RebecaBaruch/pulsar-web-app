@@ -11,10 +11,7 @@ interface HomeViewProps {
   userName?: string;
 }
 
-export default function HomeView({
-  loading,
-  userName,
-}: HomeViewProps) {
+export default function HomeView({ loading, userName }: HomeViewProps) {
   if (loading) {
     return <HomeSkeleton />;
   }
@@ -28,7 +25,13 @@ export default function HomeView({
               Olá, {userName} 👋
             </h1>
           </span>
-          <NextSessionHeader />
+          <NextSessionHeader
+          profilePictureUrl="/public/images/alex-dog.svg"
+            name={"Alex Machado"}
+            description={"Psicólogo Clínico • CRP: XXX-XXX"}
+            phoneNumber={"9999999999"}
+            daysCount={2}
+          />
           <MySessions />
         </div>
         <SpecialistsSection />

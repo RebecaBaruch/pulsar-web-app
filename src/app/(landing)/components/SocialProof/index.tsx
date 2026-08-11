@@ -58,7 +58,7 @@ export default function SocialProof() {
       <div
         className="
           flex flex-col justify-center items-center
-          mx-auto max-w-[1440px] px-3 lg:px-25 pt-20 pb-10"
+          mx-auto max-w-[1280px] px-3 lg:px-25 pt-20 pb-10"
       >
         <div
           className="

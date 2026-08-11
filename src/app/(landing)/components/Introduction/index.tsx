@@ -1,14 +1,15 @@
+"use client";
 import React from "react";
+import Image from "next/image";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import { useRouter } from "next/navigation";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 export default function Introduction() {
+  const router = useRouter();
   return (
-    <section className="w-full bg-white">
-      <div
-        className="
-          mx-auto max-w-[1440px]
-           lg:px-25 py-15
-        "
-      >
+    <section className="max-auto lg:max-w-[1280px] p-4 lg:p-[64px]">
+      <div>
         <div
           className="
             flex flex-col md:flex-row md:items-center
@@ -16,20 +17,22 @@ export default function Introduction() {
           "
         >
           <div className="md:flex-1 min-w-0">
-            <img
+            <Image
               src="/images/happy-people.png"
               alt="Happy family"
+              width={800}
+              height={600}
               className="w-full h-auto object-contain"
             />
           </div>
 
-          <div className="md:flex-1/8 lg:flex-1 min-w-0 text-left">
+          <div className="md:flex-1/8 lg:flex-1 flex flex-col gap-4 min-w-0 text-left">
             <h1 className="mb-2 text-2xl lg:text-4xl text-black font-semibold">
               <span className="text-blue">Cuidar de você</span> é o nosso ponto
               de partida
             </h1>
 
-            <p className="text-black break-words text-sm  lg:text-base">
+            <p className="text-black break-words text-sm lg:text-base">
               Na Pulsar, você é cuidado de forma integral.
               <span className="font-semibold"> Criamos um espaço onde </span>
               <span className="font-semibold text-blue">
@@ -44,9 +47,12 @@ export default function Introduction() {
               </span>
             </p>
 
-            <button className="mt-6 inline-block rounded-full bg-blue px-5 py-3 text-sm md:text-xs lg:text-sm text-white font-semibold hover:bg-blue-dark cursor-pointer">
-              Agendar com um especialista
-            </button>
+            <div className="w-fit">
+              <PrimaryButton
+                text="Agendar com um especialista"
+                onClick={() => router.replace(RoutesUrls.FIND_SPECIALIST)}
+              />
+            </div>
           </div>
         </div>
       </div>

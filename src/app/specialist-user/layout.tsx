@@ -16,7 +16,7 @@ export default function SpecialistLayout({
       </div>
       
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
-        <main className="flex-1 overflow-auto bg-white p-3 lg:p-8">
+        <main className="flex-1 overflow-auto bg-white p-4 lg:p-8">
           {children}
         </main>
       </div>

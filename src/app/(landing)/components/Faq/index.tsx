@@ -38,12 +38,8 @@ export function FaqSection() {
   };
 
   return (
-    <section className="w-full bg-white py-20">
-      <div
-        className="
-          flex flex-col justify-center items-center
-          mx-auto max-w-[1440px] px-3 lg:px-25"
-      >
+    <section className="max-auto lg:max-w-[1280px] w-full p-4 lg:p-[64px] bg-white">
+      <div className="flex flex-col justify-center items-center w-full">
         <h2 className="text-black text-center text-3xl md:text-4xl font-semibold mb-6">
           Ainda com dúvidas?{" "}
           <span className="text-blue-600">A gente responde!</span>
@@ -53,15 +49,12 @@ export function FaqSection() {
           atendimentos.
         </p>
 
-        <div className="space-y-4 w-full max-w-4xl">
+        <div className="space-y-4 w-full">
           {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="rounded-lg shadow-sm"
-            >
+            <div key={index} className="rounded-lg bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
               <button
                 onClick={() => toggle(index)}
-                className="w-full flex justify-between items-center p-4 text-left font-medium text-gray-800 cursor-pointer"
+                className="w-full flex justify-between items-center p-6 text-left font-medium text-gray-800 cursor-pointer"
               >
                 <div className="flex gap-4">
                   <span className="font-bold text-blue">{index + 1}.</span>

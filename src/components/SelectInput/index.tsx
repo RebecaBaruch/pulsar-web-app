@@ -114,7 +114,7 @@ export default function SelectInput({
       {label && (
         <label
           htmlFor={btnId}
-          className="block text-xs font-medium mb-2 text-gray-900"
+          className="block text-xs font-medium mb-2 text-gray-700"
         >
           {label}
         </label>

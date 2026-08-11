@@ -13,6 +13,7 @@ type SecondaryButtonProps = {
   onClick?: () => void;
   isDisabled?: boolean;
   color?: ColorOption;
+  type?: "button" | "submit" | "reset";
 };
 
 const SecondaryButton = ({
@@ -20,10 +21,12 @@ const SecondaryButton = ({
   onClick,
   isDisabled,
   color = "blue",
+  type = "button",
 }: SecondaryButtonProps) => {
   return (
     <button
       onClick={onClick}
+      type={type}
       disabled={isDisabled}
       aria-disabled={isDisabled}
       className={`
@@ -31,12 +34,14 @@ const SecondaryButton = ({
     border
     bg-transparent
     text-xs
+    lg:text-sm
     font-semibold
     p-2 lg:p-3
     rounded
     cursor-pointer
     disabled:opacity-50
     disabled:cursor-not-allowed
+    transition-colors
     ${colorStyles[color]}
   `}
     >

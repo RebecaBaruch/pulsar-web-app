@@ -8,6 +8,7 @@ import {
   faTiktok,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import Image from "next/image";
 import Link from "next/link";
 import FooterSkeleton from "./FooterSkeleton";
 
@@ -27,13 +28,15 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-blue-dark text-white px-6 py-10 mt-15">
+    <footer className="w-full text-white px-6 py-10 mt-15 bg-blue-dark">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <img
+          <Image
             src="/images/logotipo-branco-azul.png"
             alt="Pulsar Logo"
-            className="h-10 mb-4"
+            width={120}
+            height={100}
+            className="mb-4"
           />
           <p className="text-sm">45.978.723/0001-06</p>
           <p className="text-sm">
@@ -85,8 +88,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      <div className="flex flex-col md:flex-row justify-center md:justify-between w-full mt-10 pt-4 text-xs text-center text-white-light">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-center md:justify-between w-full mt-10 pt-4 text-xs text-center text-white-light">
         <p>
           © 2025 SM PSICOLOGIA TREINAMENTO E DESENVOLVIMENTO PESSOAL LTDA. Todos
           os direitos reservados.

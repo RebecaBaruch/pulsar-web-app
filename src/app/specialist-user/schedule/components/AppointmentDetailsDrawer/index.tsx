@@ -11,7 +11,7 @@ import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
-import { contactWahtsappUtil } from "@/utils/contact-whatsapp";
+import { contactWhatsappUtil } from "@/utils/contact-whatsapp";
 
 interface AppointmentDetailsDrawerProps {
   appointment: AppointmentData | null;
@@ -137,7 +137,7 @@ export const AppointmentDetailsDrawer: React.FC<
                 <PrimaryButton
                   text={"Conversar por Whatsapp"}
                   onClick={() =>
-                    contactWahtsappUtil(
+                    contactWhatsappUtil(
                       appointment.phone,
                       "Olá, podemos conversar sobre a próxima sessão?",
                     )

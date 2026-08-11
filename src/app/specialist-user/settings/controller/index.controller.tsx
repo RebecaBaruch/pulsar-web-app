@@ -1,8 +1,19 @@
 "use client";
 
 import React from "react";
-import Settings from "../view/index.view";
+import SettingsView from "../view/index.view";
+import { useSettingsController } from "../hooks/useSettingsController";
 
 export default function SettingsController() {
-  return <Settings />;
+  const { activeTab, setActiveTab, profileData, profileDetailsData } =
+    useSettingsController();
+
+  return (
+    <SettingsView
+      activeTab={activeTab}
+      onTabChange={setActiveTab}
+      profileData={profileData}
+      profileDetailsData={profileDetailsData}
+    />
+  );
 }

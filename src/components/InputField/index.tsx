@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useId } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import {
   Validator,
   validateEmail,
@@ -10,6 +12,7 @@ import {
   isRequired,
   runValidators,
 } from "../../utils/inputs-validation";
+import { formatCpf, formatPhone } from "../../utils/input-formatting";
 
 type InputType =
   | "text"
@@ -39,8 +42,8 @@ type InputFieldProps = {
   shouldValidate?: boolean;
   isSuccess?: boolean;
 
-  /** NOVO: permite desligar validação automática por tipo */
   skipTypeValidation?: boolean;
+  showPasswordToggle?: boolean;
 };
 
 const InputField = ({
@@ -58,8 +61,9 @@ const InputField = ({
   onValidationChange,
   shouldValidate = false,
   isSuccess = false,
-  className,
+  className = "",
   skipTypeValidation = false,
+  showPasswordToggle = false,
   onBlur,
 }: InputFieldProps) => {
   const [validationError, setValidationError] = React.useState<
@@ -67,6 +71,9 @@ const InputField = ({
   >(undefined);
 
   const [touched, setTouched] = React.useState(false);
+
+  // state for toggling password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const defaultValidators = React.useMemo(() => {
     const validators: Validator[] = [];
@@ -127,7 +134,15 @@ const InputField = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+
+    // apply formatting based on the input type
+    if (type === "cpf") {
+      newValue = formatCpf(newValue);
+    } else if (type === "tel") {
+      newValue = formatPhone(newValue);
+    }
+
     onChange?.(newValue);
 
     if (isError || touched || shouldValidate) {
@@ -146,42 +161,75 @@ const InputField = ({
   const labelId = `label-${fieldId}`;
   const errorId = `error-${fieldId}`;
 
+  const isPasswordType = type === "password";
+
+  // makes the input type dynamic based on whether it's a password field and if the toggle is enabled
+  const rawInputType =
+    isPasswordType && showPasswordToggle
+      ? showPassword
+        ? "text"
+        : "password"
+      : type === "cpf"
+      ? "text"
+      : type;
+
   return (
     <div className={`${className}`}>
       {label && (
         <label
           id={labelId}
           htmlFor={inputId}
-          className="block text-xs font-medium mb-2 text-gray-900"
+          className="block text-xs font-medium mb-2 text-gray-700"
         >
           {label}
         </label>
       )}
 
-      <input
-        id={inputId}
-        type={type}
-        className={`w-full outline-none border rounded p-3 text-gray-900 text-xs placeholder-gray bg-blue-lightest focus:outline-none
-          ${
-            isError
-              ? "border-red-500 focus:border-red-600"
-              : isSuccess
-                ? "border-green-500 focus:border-green-600"
-                : "border-gray-light focus:border-blue"
-          }
-        `}
-        placeholder={placeholder}
-        value={value}
-        min={min}
-        disabled={isDisabled}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        required={required}
-        aria-required={required || undefined}
-        aria-invalid={isError || undefined}
-        aria-describedby={finalErrorMsg ? errorId : undefined}
-        aria-labelledby={label ? labelId : undefined}
-      />
+      <div className="relative">
+        <input
+          id={inputId}
+          type={rawInputType}
+          className={`w-full outline-none border rounded p-3 text-gray-900 text-xs placeholder-gray bg-blue-lightest focus:outline-none
+            ${
+              isError
+                ? "border-red-500 focus:border-red-600"
+                : isSuccess
+                  ? "border-green-500 focus:border-green-600"
+                  : "border-gray-light focus:border-blue"
+            }
+            ${isDisabled ? "text-gray bg-gray-200 cursor-not-allowed" : "cursor-text"}
+            ${isPasswordType && showPasswordToggle ? "pr-10" : ""}
+          `}
+          placeholder={placeholder}
+          value={value}
+          min={min}
+          disabled={isDisabled}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          required={required}
+          aria-required={required || undefined}
+          aria-invalid={isError || undefined}
+          aria-describedby={finalErrorMsg ? errorId : undefined}
+          aria-labelledby={label ? labelId : undefined}
+        />
+
+        {/* button for changing the eye icon visibility */}
+        {isPasswordType && showPasswordToggle && (
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            disabled={isDisabled}
+            tabIndex={-1}
+            title={showPassword ? "Ocultar senha" : "Exibir senha"}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer disabled:cursor-not-allowed"
+          >
+            <FontAwesomeIcon
+              icon={showPassword ? faEyeSlash : faEye}
+              className="text-xs"
+            />
+          </button>
+        )}
+      </div>
 
       {finalErrorMsg && (
         <p

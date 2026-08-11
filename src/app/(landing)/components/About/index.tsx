@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 export default function About() {
   return (
@@ -6,7 +7,7 @@ export default function About() {
       <div
         className="
           lg:flex lg:justify-center lg:items-center
-          mx-auto w-full max-w-[1440px] 2xl:rounded-xl bg-gray-lightest overflow-hidden 2xl:mb-15"
+          mx-auto w-full max-w-[1280px] bg-gray-lightest overflow-hidden 2xl:my-[64px] lg:rounded-xl"
       >
         <div
           className="
@@ -15,7 +16,7 @@ export default function About() {
           <div className="flex flex-col gap-4 md:gap-2 lg:gap-4 md:w-1/2 lg:w-1/2 min-w-0 text-left px-5 py-10 md:py-0 md:px-10 lg:px-15 xlg:px-70">
             <div className="flex flex-col w-full">
               <h2 className="text-lg md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-blue font-semibold">
-                Por que existimos
+                Porquê existimos
               </h2>
               <h1 className="text-2xl md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl text-black font-semibold">
                 Onde nasce o cuidado
@@ -45,9 +46,11 @@ export default function About() {
                   humanidade, presença e verdade em cada atendimento.
                 </span>
               </div>
-              <img
+              <Image
                 src="/images/quot.svg"
                 alt="Quotation mark"
+                width={80}
+                height={80}
                 className="w-20 md:w-10 lg:w-20 h-auto object-contain mt-2"
               />
             </div>
@@ -61,11 +64,13 @@ export default function About() {
             </div>
           </div>
 
-          <div className="md:w-1/2 lg:w-1/2 min-w-0 h-full">
-            <img
+          <div className="md:w-1/2 lg:w-1/2 min-w-0 h-full lg:rounded-xl">
+            <Image
               src="/images/alex-dog.svg"
               alt="Alex and his dog"
-              className="w-full h-auto object-contain"
+              width={800}
+              height={600}
+              className="w-full h-auto object-contain lg:rounded-xl"
             />
           </div>
         </div>

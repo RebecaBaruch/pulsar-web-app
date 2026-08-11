@@ -68,7 +68,7 @@ export const AvailabilityView: React.FC<AvailabilityViewProps> = ({
         <h1 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
           Disponibilidade
         </h1>
-        <p className="text-xs md:text-sm text-gray-900">
+        <p className="text-xs md:text-sm text-gray-500">
           Configure os horários e datas disponíveis para atendimento.
         </p>
       </div>
