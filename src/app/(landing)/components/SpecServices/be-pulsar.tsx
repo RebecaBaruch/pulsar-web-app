@@ -1,36 +1,46 @@
 import React from "react";
+import Image from "next/image";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import { contactWhatsappUtil } from "@/utils/contact-whatsapp";
 
 export default function BePulsarContent() {
   return (
     <div
       className="
-            flex flex-col md:flex-row md:items-center gap-10
-            md:gap-10 gap-5 lg:px-25
+            flex flex-col md:flex-row md:items-center w-full gap-10
+            md:gap-10 gap-5
           "
     >
-      <div className="md:flex-1 order-2 lg:order-1 min-w-0 text-left">
-        <h1 className="mb-2 text-lg lg:text-xl text-black font-semibold">
+      <div className="md:flex-1 order-2 lg:order-1 flex flex-col gap-4 min-w-0 text-left">
+        <h1 className="text-base lg:text-3xl text-black font-semibold">
           Faça parte da rede Pulsar
         </h1>
 
-        <p className="text-black break-words text-sm md:text-md">
-          Se você é um profissional comprometido com o cuidado humano e acredita
-          em um atendimento acolhedor, colaborativo e integral, a Pulsar é o seu
-          lugar. Junte-se a uma rede multidisciplinar que valoriza o bem-estar
-          em todas as suas dimensões — física emocional, alimentar e financeira.
-          Entre em contato e compartilhe seu conhecimento com quem busca apoio
-          de verdade.
+        <p className="text-black break-words text-sm lg:text-base">
+          Na Pulsar, valorizamos o cuidado humano e integral. Junte-se à nossa
+          rede multidisciplinar de saúde física, emocional, alimentar e
+          financeira. Faça parte e impacte vidas com seu trabalho.
         </p>
 
-        <button className="mt-6 inline-block rounded-full bg-green px-5 py-3 text-sm md:text-md  text-black font-semibold hover:bg-green-mid cursor-pointer">
-          Quero ser especialista Pulsar
-        </button>
+        <div className="w-fit">
+          <PrimaryButton
+            text="Quero ser especialista Pulsar"
+            onClick={() =>
+              contactWhatsappUtil(
+                "+55 11 97612-1123",
+                "Olá! Tenho interesse em ser um especialista da Pulsar. Podemos conversar sobre?",
+              )
+            }
+          />
+        </div>
       </div>
       <div className="md:flex-1 order-1 lg:order-2 min-w-0">
-        <img
+        <Image
           src="/images/be-pulsar.png"
           alt="Happy family"
           className="w-full h-auto object-contain"
+          width={500}
+          height={500}
         />
       </div>
     </div>

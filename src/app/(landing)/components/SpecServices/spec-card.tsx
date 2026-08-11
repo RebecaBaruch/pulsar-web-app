@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 type SpecCardProps = {
@@ -14,13 +15,13 @@ export default function SpecCard({
   title,
   introDescription,
   description,
-  href
+  href,
 }: SpecCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md-gray-light p-4 w-3xs md:w-full h-70 sm:h-64 md:h-3xs lg:h-fit hover:scale-103 transition-transform duration-400 cursor-pointer">
       <Link href={href}>
         <div className="p-2 bg-blue w-10 h-10 rounded-lg text-white flex items-center justify-center">
-          <img src={icon} alt={title} className="w-6 h-6" />
+          <Image src={icon} alt={title} className="w-6 h-6" width={24} height={24} />
         </div>
 
         <div className="mt-4 space-y-1">

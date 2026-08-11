@@ -26,20 +26,20 @@ export default function LandingPageView() {
       {loading ? (
         <LandingPageSkeleton />
       ) : (
-        <div className="flex flex-col">
-          <NavBar />
-          <div className="lg:max-w-[1400px] px-4 py-10">
+        <>
+          <main className="flex flex-col items-center">
+            <NavBar />
             <HeroSection />
             <Introduction />
             <SpecServices />
             <ChoosePulsar />
-          </div>
-          <About />
-          <SocialProof />
-          <FaqSection />
-          <ForCompanies />
+            <About />
+            <SocialProof />
+            <FaqSection />
+            <ForCompanies />
+          </main>
           <Footer />
-        </div>
+        </>
       )}
     </div>
   );

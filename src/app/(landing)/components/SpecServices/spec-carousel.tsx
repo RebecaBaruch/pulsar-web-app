@@ -58,7 +58,7 @@ export default function SpecCarousel() {
   return (
     <>
       <div className="block md:hidden overflow-visible">
-        <div className="">
+        <div>
           <Swiper
             modules={[Pagination]}
             slidesPerView={1.15}
@@ -83,7 +83,7 @@ export default function SpecCarousel() {
         </div>
       </div>
 
-      <div className="hidden px-10 lg:px-25 md:grid md:grid-cols-3 md:gap-6">
+      <div className="hidden px-10 lg:px-0 md:grid md:grid-cols-3 md:gap-6">
         {data.map((item, index) => (
           <SpecCard
             key={index}

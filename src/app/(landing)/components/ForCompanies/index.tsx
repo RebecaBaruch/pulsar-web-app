@@ -1,27 +1,23 @@
 import React from "react";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import { contactWhatsappUtil } from "@/utils/contact-whatsapp";
 
 export default function ForCompanies() {
   return (
-    <section className="w-full bg-blue-lightest py-10">
-      <div
-        className="
-            flex flex-col justify-center items-center md:flex-row mx-auto max-w-[1440px] md:items-center gap-10
-            md:gap-10 gap-5 px-6 lg:px-25
-          "
-      >
-        <div className=" order-2 w-full lg:order-1 min-w-0 text-left">
+    <section className="max-auto lg:max-w-[1280px] w-full p-4 lg:p-[64px] bg-blue-lightest py-10">
+      <div className="flex flex-col justify-center items-center md:flex-row md:items-center gap-10 md:gap-10 gap-5">
+        <div className=" order-2 flex flex-col gap-4 w-full lg:order-1 min-w-0 text-left">
           <div className="flex flex-col gap-4">
-            <h1 className="text-2xl lg:text-2xl text-black font-semibold">
+            <h1 className="text-2xl lg:text-3xl text-black font-semibold">
               Leve a Pulsar para a sua empresa
             </h1>
 
             <p className="text-black break-words text-sm md:text-base">
-              Invista no bem-estar dos seus colaboradores com a
-              Pulsar. Oferecemos parcerias para empresas que valorizam a saúde
-              mental no ambiente corporativo. Com atendimentos online, programas
+              Invista no bem-estar dos seus colaboradores com a Pulsar.
+              Oferecemos parcerias para empresas que valorizam a saúde mental no
+              ambiente corporativo. Com atendimentos online, programas
               personalizados e profissionais qualificados, ajudamos a construir
               equipes mais equilibradas, engajadas e produtivas.
             </p>
@@ -32,19 +28,30 @@ export default function ForCompanies() {
             </span>
           </div>
 
-          <Link href="/">
-            <button className="flex flex-row gap-4 items-center mt-6 rounded-full bg-green px-4 py-3 text-sm md:text-xs lg:text-sm text-black font-semibold hover:bg-green-mid cursor-pointer">
-              Quero ser especialista Pulsar
-              <FontAwesomeIcon icon={faWhatsapp} />
-            </button>
-          </Link>
+          <div className="w-fit">
+            <PrimaryButton
+              icon={faWhatsapp}
+              text="Quero conversar por WhatsApp"
+              onClick={() =>
+                contactWhatsappUtil(
+                  "+55 11 97612-1123",
+                  "Olá! Gostaria de saber mais sobre a Pulsar para empresas. Podemos conversar?",
+                )
+              }
+            />
+          </div>
         </div>
-        <div className="order-1 lg:order-2 min-w-0">
-          <img
-            src="/images/alex-monica.svg"
-            alt="Alex and Mônica"
-            className="w-[700px] h-auto object-contain"
-          />
+        <div className="order-1 w-full md:w-1/2 lg:order-2">
+          <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px]">
+            <Image
+              src="/images/alex-monica.svg"
+              alt="Alex e Mônica"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain"
+            />
+          </div>
         </div>
       </div>
     </section>

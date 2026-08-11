@@ -1,3 +1,5 @@
+import React from "react";
+import Image from "next/image";
 import {
   faCertificate,
   faCircleNodes,
@@ -5,7 +7,6 @@ import {
   faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 
 const data = [
   {
@@ -36,22 +37,17 @@ const data = [
 
 export default function ChoosePulsar() {
   return (
-    <section className="w-full bg-white">
-      <div
-        className="
-          mx-auto max-w-[1440px] lg:px-25 py-20
-        "
-      >
+    <section className="max-auto lg:max-w-[1280px] p-4 lg:p-[64px]">
+      <div className="w-full">
         <div
-          className="
-            flex flex-col md:flex-row md:items-center
-            md:gap-10 gap-5
-          "
+          className="flex flex-col md:flex-row md:items-center md:gap-10 gap-5"
         >
           <div className="md:flex-1 min-w-0">
-            <img
+            <Image
               src="/images/woman.svg"
               alt="Blond woman"
+              width={800}
+              height={600}
               className="w-full h-auto object-contain"
             />
           </div>
