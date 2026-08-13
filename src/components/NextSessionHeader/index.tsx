@@ -15,58 +15,75 @@ type NextSessionHeaderProps = {
   description: string;
   phoneNumber: string;
   daysCount: number;
+  sessionTime: string;
+  sessionDate: string;
 };
 
-export default function NextSessionHeader({ profilePictureUrl, name, description, phoneNumber, daysCount }: NextSessionHeaderProps) {
-  
+export default function NextSessionHeader({
+  profilePictureUrl,
+  name,
+  description,
+  phoneNumber,
+  daysCount,
+  sessionTime,
+  sessionDate,
+}: NextSessionHeaderProps) {
+  const firstName = name ? name.trim().split(" ")[0] : "";
+
   return (
-    <section className="w-full">
+    <section className="flex flex-col gap-6 w-full">
       <InfoHeader text={`Sua próxima sessão · em ${daysCount} dias`} />
 
-      <div className="flex flex-col md:flex-row md:justify-between items-center w-full gap-4 md:gap-8 p-4 md:p-8 bg-blue rounded-lg">
-        <div className="flex flex-col md:flex-row md:items-center w-full md:w-fit gap-4">
-          <div className="flex items-center md:items-start lg:items-center gap-4 bg-[#4C63E9] w-full lg:w-fit rounded p-2 md:px-4">
-            <div className="flex justify-center items-center w-8 h-8 flex-shrink-0 bg-white rounded-sm">
+      <div className="flex flex-col md:flex-row md:items-center justify-between w-full gap-4 p-4 md:p-5 bg-blue rounded shadow-sm">
+        
+        {/* info container */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-8 w-full md:w-auto">
+          
+          {/* specialist profile */}
+          <div className="flex items-center gap-3 text-white">
+            <div className="w-10 h-10 md:w-10 md:h-10 rounded-full bg-white/20 flex-shrink-0 overflow-hidden flex items-center justify-center border border-white/20">
               {profilePictureUrl ? (
                 <Image
                   src={profilePictureUrl}
-                  alt="avatar"
-                  width={32}
-                  height={32}
-                  className="object-cover rounded-sm"
+                  alt={name}
+                  width={40}
+                  height={40}
+                  className="object-cover w-full h-full"
                 />
               ) : (
-                <span className="text-sm font-semibold text-blue-dark">
-                  {name.charAt(0).toUpperCase()}
+                <span className="text-sm font-bold text-white">
+                  {name ? name.charAt(0).toUpperCase() : "U"}
                 </span>
               )}
             </div>
-            <div>
-              <div className="text-sm text-white font-semibold">
+
+            <div className="flex flex-col leading-tight">
+              <span className="font-semibold text-sm md:text-base text-white">
                 {name}
-              </div>
-              <div className="text-xs text-white">
+              </span>
+              <span className="text-xs text-white/80 font-normal mt-0.5">
                 {description}
-              </div>
+              </span>
             </div>
           </div>
 
-          <div className="flex-1 md:flex-none text-white md:self-stretch">
-            <div className="flex flex-row items-center justify-between md:gap-4 w-full md:h-full rounded p-2 md:px-6 bg-blue-dark text-white">
-              <div className="flex items-center gap-2 w-fit">
-                <FontAwesomeIcon icon={faCalendar} size="xs" />
-                <span className="text-xs font-medium">22 de Julho</span>
-              </div>
-              <span>|</span>
-              <div className="flex items-center gap-2 w-fit">
-                <FontAwesomeIcon icon={faClock} size="xs" />
-                <span className="text-xs font-medium">10:00 AM</span>
-              </div>
+          {/* date and time */}
+          <div className="flex items-center justify-around md:justify-center gap-3 bg-white/10 text-white rounded p-2.5 md:p-3 text-xs md:text-sm font-medium">
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon icon={faCalendar} className="text-white/80" />
+              <span>{sessionDate}</span>
+            </div>
+            <span className="text-white/30 font-light">|</span>
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon icon={faClock} className="text-white/80" />
+              <span>{sessionTime}</span>
             </div>
           </div>
+
         </div>
 
-        <div className="hidden md:flex flex-row items-start lg:items-center gap-1 text-white">
+        {/* action button */}
+        <div className="w-full md:w-auto mt-1 md:mt-0">
           <PrimaryButton
             color="white"
             onClick={() =>
@@ -75,18 +92,11 @@ export default function NextSessionHeader({ profilePictureUrl, name, description
                 "Olá, podemos conversar sobre a próxima sessão?",
               )
             }
-            text={`Conversar com ${name}`}
             icon={faWhatsapp}
+            text={`Conversar com ${firstName}`}
           />
         </div>
 
-        <div className="w-full md:hidden">
-          <PrimaryButton
-            color="white"
-            icon={faWhatsapp}
-            text={`Conversar com ${name}`}
-          />
-        </div>
       </div>
     </section>
   );
