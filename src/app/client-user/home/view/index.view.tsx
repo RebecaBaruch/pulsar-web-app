@@ -18,19 +18,21 @@ export default function HomeView({ loading, userName }: HomeViewProps) {
 
   return (
     <section className="flex w-full overflow-x-hidden min-h-screen justify-center pt-10 pb-10">
-      <div className="flex flex-col gap-12 w-full max-w-[768px] mx-auto">
+      <div className="flex flex-col gap-12 w-full max-w-[800px] mx-auto">
         <div className="flex flex-col gap-6 w-full">
           <span>
-            <h1 className="text-3xl text-black font-bold">
+            <h1 className="text-2xl text-black font-bold">
               Olá, {userName} 👋
             </h1>
           </span>
           <NextSessionHeader
-          profilePictureUrl="/public/images/alex-dog.svg"
-            name={"Alex Machado"}
-            description={"Psicólogo Clínico • CRP: XXX-XXX"}
+            profilePictureUrl="https://github.com/shadcn.png"
+            name={"Alex"}
+            description={"Psicólogo • CRP: XXX-XXX"}
             phoneNumber={"9999999999"}
             daysCount={2}
+            sessionDate={"22 de Julho"}
+            sessionTime={"10:00 AM"}
           />
           <MySessions />
         </div>

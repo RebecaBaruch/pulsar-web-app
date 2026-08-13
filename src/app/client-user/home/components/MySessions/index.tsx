@@ -1,18 +1,20 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LinkButton from "@/components/LinkButton";
 
 export default function MySessions() {
   return (
-    <section className="w-full h-fit bg-white rounded-xl border border-gray-light p-2 md:px-6 flex flex-row items-center justify-between gap-4">
+    <section className="w-full h-fit bg-white rounded border border-gray-light p-2 md:p-6 flex flex-row items-center justify-between gap-4">
       <div className="flex items-center h-full">
-        <img
+        <Image
           src="/images/schedule-2.svg"
           alt="Ícone de agendamento"
           className="h-full"
+          width={40}
+          height={40}
         />
       </div>
 
@@ -21,7 +23,7 @@ export default function MySessions() {
           <h1 className="text-sm md:text-base font-semibold text-black">
             Minhas sessões
           </h1>
-          <p className="text-xs lg:text-sm text-gray mt-1 w-full">
+          <p className="text-xs lg:text-sm text-gray w-full">
             Veja seu histórico ou sessões marcadas
           </p>
         </div>

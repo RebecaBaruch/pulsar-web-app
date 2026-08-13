@@ -26,7 +26,7 @@ export default function ClientLayout({
   return (
     <>
       <LoggedNavBar />
-      <div className="container mx-auto px-3 md:px-8 lg:px-12">{children}</div>
+      <div className="container max-auto lg:max-w-[1280px] p-4 lg:p-8">{children}</div>
       <Toaster position="top-center" richColors />
     </>
   );
