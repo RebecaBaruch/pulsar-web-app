@@ -1,51 +1,59 @@
+"use client";
+
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-
-import TestimonyCard from "./testimony-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+// Import das fotos da Swiper (certifique-se de importar o CSS no seu global.css)
+// @ts-expect-error - Swiper CSS side-effect imports do not ship with TypeScript declarations.
+import "swiper/css";
+// @ts-expect-error - Swiper CSS side-effect imports do not ship with TypeScript declarations.
+import "swiper/css/pagination";
+
+import TestimonyCard from "./testimony-card";
+
 const data = [
   {
-    title: "“Acolhimento de verdade”",
+    title: "Acolhimento humanizado",
     description:
-      "“A Pulsar me acolheu num dos momentos mais difíceis da minha vida. A terapeuta foi essencial para meu processo de cura”",
+      "A Pulsar me acolheu no momento mais difícil. A terapia online foi essencial para a minha saúde mental e recuperação.",
     profilePic: "https://randomuser.me/api/portraits/women/44.jpg",
     author: "Amanda Torres",
     authorBio: "Designer Gráfica",
   },
   {
-    title: "“Me senti ouvido e respeitado”",
+    title: "Escuta e respeito",
     description:
-      "“O atendimento foi humanizado do início ao fim. Me senti respeitado, ouvido e bem orientado. Recomendo de olhos fechados!”",
+      "Atendimento atencioso do início ao fim. Me senti seguro, respeitado e muito bem orientado. Recomendo de olhos fechados!",
     profilePic: "https://randomuser.me/api/portraits/men/46.jpg",
     author: "Carlos Henrique",
-    authorBio: "Professor de História",
+    authorBio: "Professor",
   },
   {
-    title: "“Cuidado integral que transforma”",
+    title: "Saúde integrada",
     description:
-      "“Consegui entender melhor meus limites. A abordagem integrada com psicóloga e nutricionista fez toda a diferença pra mim.”",
+      "A abordagem combinando psicologia e nutrição transformou minha rotina. Consegui entender meus limites e viver melhor.",
     profilePic: "https://randomuser.me/api/portraits/women/65.jpg",
     author: "Renata Lopes",
     authorBio: "Empreendedora",
   },
   {
-    title: "“Profissionais incríveis”",
+    title: "Equipe comprometida",
     description:
-      "“Cada especialista que me atendeu na Pulsar foi incrível. Senti que estavam realmente comprometidos com meu bem-estar.”",
+      "Especialistas altamente qualificados e atenciosos. Senti um alinhamento genuíno com o meu bem-estar emocional.",
     profilePic: "https://randomuser.me/api/portraits/men/33.jpg",
     author: "Paulo Silva",
     authorBio: "Advogado",
   },
   {
-    title: "“Ajudou a alcançar meu sonho”",
+    title: "Transformação real",
     description:
-      "“A Pulsar transformou minha vida. O suporte emocional que recebi me ajudou a superar desafios e encontrar um novo propósito.”",
+      "O suporte terapêutico me ajudou a superar desafios e encontrar um novo equilíbrio pessoal e profissional.",
     profilePic: "https://randomuser.me/api/portraits/women/48.jpg",
     author: "Mariana Costa",
     authorBio: "Psicóloga",
@@ -54,81 +62,89 @@ const data = [
 
 export default function SocialProof() {
   return (
-    <section className="w-full bg-blue ">
-      <div
-        className="
-          flex flex-col justify-center items-center
-          mx-auto max-w-[1280px] px-3 lg:px-25 pt-20 pb-10"
-      >
-        <div
-          className="
-            flex flex-col justify-center items-center gap-4 min-w-0 w-full"
-        >
-          <div className="flex flex-col w-full justify-center items-center text-center gap-2">
-            <h2 className="text-lg lg:text-base text-white font-semibold">
-              O que dizem sobre nós
-            </h2>
-            <h1 className="text-4xl text-white font-semibold">
-              Vozes que Pulsam com a Gente
-            </h1>
-            <p className="text-white">
-              Veja como ajudamos pessoas a viverem com mais leveza, saúde
-              emocional e propósito.
-            </p>
-          </div>
-          <div className="w-full mt-8">
-            <div className="flex flex-row justify-between gap-4 items-center h-fit">
-              <button className="swiper-button-prev-custom flex items-center justify-center w-3 h-3 md:w-5 md:h-5 bg-green text-black p-3 rounded-full">
-                <FontAwesomeIcon icon={faChevronLeft} size="xs" />
-              </button>
-              <Swiper
-                loop={true}
-                grabCursor={true}
-                modules={[Pagination, Navigation, Autoplay]}
-                spaceBetween={12}
-                navigation={{
-                  nextEl: ".swiper-button-next-custom",
-                  prevEl: ".swiper-button-prev-custom",
-                }}
-                pagination={{ clickable: true }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1,
-                    spaceBetween: 18,
-                  },
-                  768: {
-                    slidesPerView: 2,
-                    spaceBetween: 18,
-                  },
-                  1188: {
-                    slidesPerView: 3,
-                    spaceBetween: 24,
-                  },
-                }}
-                autoplay={{
-                  delay: 2500,
-                  disableOnInteraction: false,
-                }}
-                className="flex justify-between w-full h-[400px] sm:h-[280px] md:h-[250px]"
-              >
-                {data.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <TestimonyCard
-                      title={item.title}
-                      description={item.description}
-                      profilePic={item.profilePic}
-                      author={item.author}
-                      authorBio={item.authorBio}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              <button className="swiper-button-next-custom flex items-center justify-center w-3 h-3 md:w-5 md:h-5 bg-green text-black p-3 rounded-full">
-                <FontAwesomeIcon icon={faChevronRight} size="xs" />
-              </button>
-            </div>
-            <div className="swiper-pagination-bullet-active custom-pagination mt-4 flex justify-center" />
-          </div>
+    <section className="w-full bg-blue px-4 py-10 lg:px-16 lg:py-[64px] overflow-hidden">
+      <div className="w-full max-w-[1280px] mx-auto">
+        {/* Cabeçalho */}
+        <div className="flex flex-col items-center text-center gap-3 max-w-2xl mx-auto mb-12 lg:mb-16">
+          <span className="text-xs sm:text-sm text-white/80 font-semibold uppercase tracking-wider">
+            O que dizem sobre nós
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl text-white font-semibold leading-tight">
+            Vozes que pulsam com a gente
+          </h2>
+          <p className="text-sm sm:text-base text-white/90 leading-relaxed">
+            Depoimentos de quem transformou a saúde emocional e o bem-estar com
+            o nosso atendimento.
+          </p>
+        </div>
+
+        {/* Carousel Wrapper */}
+        <div className="relative w-full">
+          {/* Botão Anterior (Apenas Desktop) */}
+          <button
+            aria-label="Depoimento anterior"
+            className="swiper-button-prev-custom hidden md:flex absolute -left-12 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 bg-green text-black hover:bg-green-dark rounded-full shadow-md transition-transform hover:scale-105 active:scale-95"
+          >
+            <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+          </button>
+
+          <Swiper
+            loop={true}
+            grabCursor={true}
+            modules={[Pagination, Navigation, Autoplay]}
+            spaceBetween={16}
+            slidesPerView={1}
+            navigation={{
+              nextEl: ".swiper-button-next-custom",
+              prevEl: ".swiper-button-prev-custom",
+            }}
+            pagination={{
+              clickable: true,
+              el: ".custom-swiper-pagination",
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1.2,
+                spaceBetween: 16,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 24,
+              },
+            }}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            className="w-full pb-2"
+          >
+            {data.map((item, index) => (
+              <SwiperSlide key={index} className="h-auto flex">
+                <TestimonyCard
+                  title={item.title}
+                  description={item.description}
+                  profilePic={item.profilePic}
+                  author={item.author}
+                  authorBio={item.authorBio}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Botão Próximo (Apenas Desktop) */}
+          <button
+            aria-label="Próximo depoimento"
+            className="swiper-button-next-custom hidden md:flex absolute -right-12 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 bg-green text-black hover:bg-green-dark rounded-full shadow-md transition-transform hover:scale-105 active:scale-95"
+          >
+            <FontAwesomeIcon icon={faChevronRight} size="sm" />
+          </button>
+
+          {/* Paginação Dots Customizada */}
+          <div className="custom-swiper-pagination flex justify-center gap-1.5 mt-6 [&_.swiper-pagination-bullet]:bg-white/40 [&_.swiper-pagination-bullet-active]:!bg-green [&_.swiper-pagination-bullet-active]:w-6 [&_.swiper-pagination-bullet]:transition-all [&_.swiper-pagination-bullet]:rounded-full" />
         </div>
       </div>
     </section>

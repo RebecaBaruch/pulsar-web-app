@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,67 +13,102 @@ const faqs: FAQItem[] = [
   {
     question: "Como agendar uma sessão na Pulsar?",
     answer:
-      "O agendamento pode ser feito diretamente pelo nosso site ou entrando em contato pelo WhatsApp.",
+      "Você pode agendar sua consulta diretamente pelo site em poucos cliques ou chamando nossa equipe pelo WhatsApp.",
   },
   {
-    question: "Quais profissionais atendem na Pulsar?",
+    question: "Quais profissionais fazem parte da equipe?",
     answer:
-      "Contamos com psicólogos, terapeutas, educador físico, nutricionista e assessor financeiro — tudo para seu bem-estar completo.",
+      "Nossa equipe conta com psicólogos, terapeutas, nutricionistas, educadores físicos e consultores financeiros.",
   },
   {
-    question: "O atendimento é presencial ou online?",
+    question: "O atendimento é presencial ou 100% online?",
     answer:
-      "Atualmente, todos os atendimentos da Pulsar são realizados 100% online, com a mesma qualidade, acolhimento e sigilo de uma sessão presencial — tudo no conforto da sua casa.",
+      "Atendemos exclusivamente online, garantindo flexibilidade, sigilo e o mesmo acolhimento da consulta presencial.",
   },
   {
-    question: "A Pulsar atende convênio ou apenas particular?",
+    question: "Vocês atendem planos de saúde?",
     answer:
-      "Atendemos no formato particular, mas emitimos recibo para reembolso, caso seu plano de saúde aceite.",
+      "Os atendimentos são particulares, mas emitimos recibos e laudos necessários para solicitação de reembolso no seu convênio.",
   },
 ];
 
 export function FaqSection() {
-  const [openIndex, setOpenIndex] = React.useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+    setOpenIndex((prev) => (prev === index ? null : index));
   };
 
   return (
-    <section className="max-auto lg:max-w-[1280px] w-full p-4 lg:p-[64px] bg-white">
-      <div className="flex flex-col justify-center items-center w-full">
-        <h2 className="text-black text-center text-3xl md:text-4xl font-semibold mb-6">
-          Ainda com dúvidas?{" "}
-          <span className="text-blue-600">A gente responde!</span>
-        </h2>
-        <p className="text-center text-gray-600 mb-8">
-          Encontre aqui as respostas para as dúvidas mais comuns sobre nossos
-          atendimentos.
-        </p>
+    <section className="w-full max-w-[1280px] mx-auto px-4 py-10 lg:px-16 lg:py-[64px]">
+      <div className="max-w-3xl mx-auto flex flex-col items-center">
+        {/* Header */}
+        <div className="text-center mb-10 lg:mb-12">
+          {/* <span className="text-xs sm:text-sm text-blue font-semibold uppercase tracking-wider block mb-1">
+            Perguntas frequentes
+          </span> */}
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 leading-tight">
+            Ainda com dúvidas?{" "}
+            <span className="text-blue">A gente responde!</span>
+          </h2>
+          <p className="text-xs sm:text-sm text-gray-600 mt-3">
+            Respostas rápidas para as perguntas mais frequentes sobre o nosso
+            atendimento.
+          </p>
+        </div>
 
-        <div className="space-y-4 w-full">
-          {faqs.map((faq, index) => (
-            <div key={index} className="rounded-lg bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-              <button
-                onClick={() => toggle(index)}
-                className="w-full flex justify-between items-center p-6 text-left font-medium text-gray-800 cursor-pointer"
+        {/* FAQ Accordion List */}
+        <div className="w-full space-y-3 sm:space-y-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
+                key={index}
+                className="bg-white rounded-lg border border-gray-100 shadow-sm hover:border-gray-200 transition-all duration-200 overflow-hidden"
               >
-                <div className="flex gap-4">
-                  <span className="font-bold text-blue">{index + 1}.</span>
-                  <span>{faq.question}</span>
-                </div>
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  size="xs"
-                  className={`text-blue transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""}`}
-                />
-              </button>
+                <button
+                  type="button"
+                  onClick={() => toggle(index)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
+                  className="w-full flex items-start justify-between p-4 sm:p-5 text-left gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue/50 rounded-lg"
+                >
+                  <div className="flex items-start gap-3 min-w-0">
+                    <span className="font-bold text-blue text-sm sm:text-base leading-snug select-none">
+                      0{index + 1}.
+                    </span>
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-800 leading-snug">
+                      {faq.question}
+                    </h3>
+                  </div>
 
-              {openIndex === index && (
-                <div className="px-4 pb-4 text-gray-600">{faq.answer}</div>
-              )}
-            </div>
-          ))}
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-blue/5 flex items-center justify-center text-blue transition-transform duration-300">
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className={`w-3 h-3 text-xs transition-transform duration-300 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </div>
+                </button>
+
+                <div
+                  id={`faq-answer-${index}`}
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-4 pb-5 pl-10 sm:pl-11 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-50 pt-3">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

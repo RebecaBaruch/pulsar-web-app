@@ -1,9 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 type SpecCardProps = {
-  icon: string;
+  icon: IconProp;
   title: string;
   introDescription: string;
   description: string;
@@ -18,22 +19,28 @@ export default function SpecCard({
   href,
 }: SpecCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md-gray-light p-4 w-3xs md:w-full h-70 sm:h-64 md:h-3xs lg:h-fit hover:scale-103 transition-transform duration-400 cursor-pointer">
-      <Link href={href}>
-        <div className="p-2 bg-blue w-10 h-10 rounded-lg text-white flex items-center justify-center">
-          <Image src={icon} alt={title} className="w-6 h-6" width={24} height={24} />
-        </div>
+    <Link href={href} className="block h-full group">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 h-full flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-pointer">
+        <div>
+          {/* Badge do Ícone */}
+          <div className="p-2.5 bg-blue/10 group-hover:bg-blue text-blue group-hover:text-white w-11 h-11 rounded-xl flex items-center justify-center transition-colors duration-300">
+            <FontAwesomeIcon icon={icon} className="w-5 h-5 text-lg" />
+          </div>
 
-        <div className="mt-4 space-y-1">
-          <h1 className="text-lg lg:text-md text-blue-dark font-semibold">
-            {title}
-          </h1>
-          <p className="text-sm lg:text-md text-gray-darkest">
-            <span className="font-medium">{introDescription}</span>{" "}
-            {description}
-          </p>
+          {/* Conteúdo de Texto */}
+          <div className="mt-4 space-y-1.5">
+            <h3 className="text-base lg:text-lg text-blue font-semibold group-hover:text-blue-dark transition-colors">
+              {title}
+            </h3>
+            <p className="text-xs lg:text-sm text-gray- dark leading-relaxed">
+              <span className="font-semibold text-gray-darkest">
+                {introDescription}
+              </span>{" "}
+              {description}
+            </p>
+          </div>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }

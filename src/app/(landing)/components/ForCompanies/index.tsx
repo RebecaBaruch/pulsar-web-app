@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
@@ -5,52 +7,60 @@ import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { contactWhatsappUtil } from "@/utils/contact-whatsapp";
 
 export default function ForCompanies() {
-  return (
-    <section className="max-auto lg:max-w-[1280px] w-full p-4 lg:p-[64px] bg-blue-lightest py-10">
-      <div className="flex flex-col justify-center items-center md:flex-row md:items-center gap-10 md:gap-10 gap-5">
-        <div className=" order-2 flex flex-col gap-4 w-full lg:order-1 min-w-0 text-left">
-          <div className="flex flex-col gap-4">
-            <h1 className="text-2xl lg:text-3xl text-black font-semibold">
-              Leve a Pulsar para a sua empresa
-            </h1>
+  const handleWhatsappClick = () => {
+    contactWhatsappUtil(
+      "+55 11 97612-1123",
+      "Olá! Gostaria de saber mais sobre a Pulsar para empresas. Podemos conversar?",
+    );
+  };
 
-            <p className="text-black break-words text-sm md:text-base">
-              Invista no bem-estar dos seus colaboradores com a Pulsar.
-              Oferecemos parcerias para empresas que valorizam a saúde mental no
-              ambiente corporativo. Com atendimentos online, programas
-              personalizados e profissionais qualificados, ajudamos a construir
-              equipes mais equilibradas, engajadas e produtivas.
+  return (
+    <section className="w-full bg-blue-lightest px-4 py-10 lg:px-16 lg:py-[64px]">
+      <div className="w-full max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Coluna de Imagem (Primeiro no mobile se preferir, ou invertida) */}
+          <div className="order-1 lg:order-2 w-full">
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm">
+              <Image
+                src="/images/alex-monica.svg"
+                alt="Profissionais da Pulsar - Alex e Mônica"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-top"
+              />
+            </div>
+          </div>
+
+          {/* Coluna de Conteúdo */}
+          <div className="order-2 lg:order-1 flex flex-col items-start gap-4 text-left">
+            <div className="space-y-2">
+              <span className="text-xs sm:text-sm text-blue font-semibold uppercase tracking-wider block">
+                Soluções Corporativas
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 leading-tight">
+                Saúde mental e bem-estar para a sua empresa
+              </h2>
+            </div>
+
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+              Promova a saúde mental no ambiente de trabalho com a Pulsar.
+              Oferecemos atendimento psicológico online e programas
+              personalizados para fortalecer o bem-estar, o engajamento e a
+              produtividade do seu time.
             </p>
 
-            <span className="text-blue font-semibold break-words text-sm md:text-base">
-              Fale com a gente e descubra como levar esse cuidado para o seu
-              time.
-            </span>
-          </div>
+            <p className="text-sm sm:text-base font-semibold text-blue leading-snug">
+              Fale conosco e leve esse cuidado para os seus colaboradores.
+            </p>
 
-          <div className="w-fit">
-            <PrimaryButton
-              icon={faWhatsapp}
-              text="Quero conversar por WhatsApp"
-              onClick={() =>
-                contactWhatsappUtil(
-                  "+55 11 97612-1123",
-                  "Olá! Gostaria de saber mais sobre a Pulsar para empresas. Podemos conversar?",
-                )
-              }
-            />
-          </div>
-        </div>
-        <div className="order-1 w-full md:w-1/2 lg:order-2">
-          <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px]">
-            <Image
-              src="/images/alex-monica.svg"
-              alt="Alex e Mônica"
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain"
-            />
+            <div className="w-full sm:w-auto pt-2">
+              <PrimaryButton
+                icon={faWhatsapp}
+                text="Conversar pelo WhatsApp"
+                onClick={handleWhatsappClick}
+              />
+            </div>
           </div>
         </div>
       </div>
