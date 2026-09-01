@@ -75,12 +75,13 @@ const PrimaryButton = ({
         text-xs
         lg:text-sm
         font-semibold
-        p-2 lg:p-3
+        p-3 py-4 lg:p-3
         rounded
         cursor-pointer
         disabled:opacity-50
         disabled:cursor-not-allowed
         text-nowrap
+        transition-all duration-300
         ${colorStyles[color]}
       `}
     >
