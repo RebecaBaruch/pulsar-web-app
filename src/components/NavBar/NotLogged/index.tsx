@@ -6,10 +6,15 @@ import { faBars, faCalendar, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { RoutesUrls } from "@/utils/enum/routes-url";
 import NotLoggedNavBarSkeleton from "./NotLoggedNavBarSkeletion";
+import Image from "next/image";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import { useRouter } from "next/navigation";
 
 export default function NotLoggedNav() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+
+  const router = useRouter();
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -30,10 +35,11 @@ export default function NotLoggedNav() {
         aria-label="Barra de navegação principal"
       >
         <Link href="/">
-          <img
+          <Image
             src="/images/horizontal-logo.png"
             alt="Pulsar logo"
-            className="w-20"
+            width={100}
+            height={50}
           />
         </Link>
 
@@ -84,12 +90,10 @@ export default function NotLoggedNav() {
             </Link>
           </li>
           <li>
-            <Link
-              href={RoutesUrls.CLIENT_REGISTER}
-              className="bg-blue p-3 lg:p-2 rounded-md text-white hover:bg-blue-dark text-base lg:text-sm"
-            >
-              Criar uma conta
-            </Link>
+            <PrimaryButton
+              text={"Criar uma conta"}
+              onClick={() => router.replace(RoutesUrls.CLIENT_REGISTER)}
+            />
           </li>
           <li>
             <Link
@@ -116,10 +120,11 @@ export default function NotLoggedNav() {
       >
         <div className="flex justify-between items-center p-7 border-b border-gray-200">
           <Link href="/">
-            <img
+            <Image
               src="/images/horizontal-logo.png"
               alt="Pulsar logo"
-              className="w-28"
+              width={28}
+              height={50}
             />
           </Link>
           <button
