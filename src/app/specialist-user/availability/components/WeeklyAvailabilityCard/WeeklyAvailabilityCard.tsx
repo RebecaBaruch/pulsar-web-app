@@ -8,7 +8,6 @@ import {
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { DayAvailability } from "../../types";
-import LinkButton from "@/components/LinkButton";
 
 interface WeeklyAvailabilityCardProps {
   days: DayAvailability[];
