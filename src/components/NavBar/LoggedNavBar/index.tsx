@@ -81,7 +81,8 @@ export default function LoggedNavBar() {
             <Image
               src="/images/horizontal-logo.png"
               alt="Pulsar logo"
-              className="w-24"
+              width={100}
+              height={50}
             />
           </Link>
 
