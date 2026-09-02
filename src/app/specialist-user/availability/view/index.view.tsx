@@ -9,6 +9,10 @@ import { WeeklyAvailabilityCard } from "../components/WeeklyAvailabilityCard/Wee
 import { SpecificBlocksCard } from "../components/SpecificBlocksCard";
 import { DayAvailability } from "../types";
 import { BlockedDate } from "../hooks/useSpecificBlocks";
+import {
+  ConflictModal,
+  type ConflictingAppointment,
+} from "../components/ConflictModal";
 
 interface AvailabilityViewProps {
   activeTab: AvailabilityTab;
@@ -38,6 +42,12 @@ interface AvailabilityViewProps {
   setReason: (value: string) => void;
   onAddBlock: () => void;
   onRemoveBlock: (id: string) => void;
+
+  // Modal de Conflitos Props
+  isConflictModalOpen: boolean;
+  conflictingAppointments: ConflictingAppointment[];
+  onCloseConflictModal: () => void;
+  onGoToAgenda: () => void;
 }
 
 export const AvailabilityView: React.FC<AvailabilityViewProps> = ({
@@ -60,6 +70,10 @@ export const AvailabilityView: React.FC<AvailabilityViewProps> = ({
   setReason,
   onAddBlock,
   onRemoveBlock,
+  isConflictModalOpen,
+  conflictingAppointments,
+  onCloseConflictModal,
+  onGoToAgenda,
 }) => {
   return (
     <div className="flex flex-col gap-4 md:gap-6 w-full">
@@ -117,6 +131,14 @@ export const AvailabilityView: React.FC<AvailabilityViewProps> = ({
           )}
         </div>
       </div>
+
+      {/* modal de conflitos */}
+      <ConflictModal
+        isOpen={isConflictModalOpen}
+        onClose={onCloseConflictModal}
+        onGoToAgenda={onGoToAgenda}
+        appointments={conflictingAppointments}
+      />
     </div>
   );
 };

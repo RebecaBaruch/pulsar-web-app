@@ -1,16 +1,67 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { AvailabilityView } from "../view/index.view";
 import { useWeeklyAvailability } from "../hooks/useWeeklyAvailability";
-import { useSpecificBlocks } from "../hooks/useSpecificBlocks"; // Importando o novo hook
+import { useSpecificBlocks } from "../hooks/useSpecificBlocks";
 import type { AvailabilityTab } from "../components/AvailabilityTabs";
+import type { ConflictingAppointment } from "../components/ConflictModal";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 export default function AvailabilityController() {
-  const [activeTab, setActiveTab] = React.useState<AvailabilityTab>("weekly");
-  
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState<AvailabilityTab>("weekly");
+
+  // Estado do Modal de Conflito de Agendamentos
+  const [isConflictModalOpen, setIsConflictModalOpen] = useState(false);
+  const [conflictingAppointments, setConflictingAppointments] = useState<
+    ConflictingAppointment[]
+  >([]);
+
   const weeklyAvailability = useWeeklyAvailability();
   const specificBlocks = useSpecificBlocks();
+
+  const handleAddBlockWithValidation = () => {
+    const mockConflicts: ConflictingAppointment[] = [
+      {
+        id: "1",
+        patientName: "Ana Clara Silva",
+        date: "15/10/2026",
+        time: "09:00",
+      },
+      {
+        id: "2",
+        patientName: "Carlos Eduardo Santos",
+        date: "15/10/2026",
+        time: "10:30",
+      },
+      {
+        id: "3",
+        patientName: "Mariana Costa",
+        date: "15/10/2026",
+        time: "14:00",
+      },
+      {
+        id: "4",
+        patientName: "Roberto Alves",
+        date: "16/10/2026",
+        time: "16:00",
+      },
+    ];
+
+    if (mockConflicts.length > 0) {
+      setConflictingAppointments(mockConflicts);
+      setIsConflictModalOpen(true);
+    } else {
+      specificBlocks.handleAddBlock();
+    }
+  };
+
+  const handleGoToAgenda = () => {
+    setIsConflictModalOpen(false);
+    router.push(RoutesUrls.SPECIALIST_SCHEDULE || "/agenda");
+  };
 
   return (
     <AvailabilityView
@@ -31,8 +82,12 @@ export default function AvailabilityController() {
       setEndDate={specificBlocks.setEndDate}
       reason={specificBlocks.reason}
       setReason={specificBlocks.setReason}
-      onAddBlock={specificBlocks.handleAddBlock}
+      onAddBlock={handleAddBlockWithValidation}
       onRemoveBlock={specificBlocks.handleRemoveBlock}
+      isConflictModalOpen={isConflictModalOpen}
+      conflictingAppointments={conflictingAppointments}
+      onCloseConflictModal={() => setIsConflictModalOpen(false)}
+      onGoToAgenda={handleGoToAgenda}
     />
   );
 }

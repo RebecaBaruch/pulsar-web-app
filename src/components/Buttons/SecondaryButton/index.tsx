@@ -36,7 +36,7 @@ const SecondaryButton = ({
     text-xs
     lg:text-sm
     font-semibold
-    p-3 py-4
+    p-3 py-4 lg:py-3
     rounded
     cursor-pointer
     disabled:opacity-50
