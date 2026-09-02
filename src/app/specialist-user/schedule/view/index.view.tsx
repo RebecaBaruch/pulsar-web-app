@@ -145,6 +145,8 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
           isOpen={isCancelModalOpen}
           onClose={onCloseCancelModal}
           patientName={selectedAppointment.patientName}
+          appointmentDate={selectedAppointment.date}
+          appointmentTime={selectedAppointment.startTime}
           onConfirmCancel={onConfirmCancel}
         />
       )}
