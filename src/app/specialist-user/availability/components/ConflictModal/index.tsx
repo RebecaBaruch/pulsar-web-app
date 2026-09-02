@@ -13,6 +13,7 @@ export interface ConflictingAppointment {
   time: string;
 }
 
+
 interface ConflictModalProps {
   isOpen: boolean;
   onClose: () => void;
