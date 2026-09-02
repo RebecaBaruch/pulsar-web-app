@@ -9,10 +9,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-// Import das fotos da Swiper (certifique-se de importar o CSS no seu global.css)
-// @ts-expect-error - Swiper CSS side-effect imports do not ship with TypeScript declarations.
 import "swiper/css";
-// @ts-expect-error - Swiper CSS side-effect imports do not ship with TypeScript declarations.
 import "swiper/css/pagination";
 
 import TestimonyCard from "./testimony-card";
