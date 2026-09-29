@@ -12,12 +12,12 @@ import PrimaryButton from "@/components/Buttons/PrimaryButton";
 
 export default function HeroSection() {
   return (
-    <section className="w-full max-w-[1280px] mx-auto py-4 lg:p-[64px] px-4 md:px-0">
+    <section className="w-full max-w-[1280px] mx-auto px-4 py-10 lg:px-16 lg:py-[32px]">
       <div
         className="
           relative
           p-6 py-12 lg:p-12 
-          w-full min-h-[460px] lg:min-h-[500px]
+          w-full min-h-[460px] lg:min-h-[400px]
           bg-cover bg-center bg-no-repeat
           bg-[url('/images/hero-mobile.png')]
           md:bg-[url('/images/hero-desktop.png')]
@@ -36,15 +36,15 @@ export default function HeroSection() {
           />
         </div>
 
-        <div className="z-10 sm:w-full md:w-[55%] order-2 md:order-1 text-left">
+        <div className="z-10 sm:w-full md:w-[55%] order-2 md:order-1 text-left flex flex-col gap-3">
           <h1 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
             Mais que psicologia, cuidado completo
           </h1>
-          <p className="mt-2 text-sm text-white">
+          <p className="text-sm text-white">
             Na Pulsar, você encontra apoio emocional, físico e financeiro com
             profissionais qualificados e humanos.
           </p>
-          <div className="w-fit mt-4">
+          <div className="w-fit pt-1">
             <PrimaryButton
               color="green"
               text="Comece sua jornada"

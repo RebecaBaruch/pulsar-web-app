@@ -20,6 +20,7 @@ interface AppointmentDetailsDrawerProps {
   onCancel: (id: string) => void;
 }
 
+
 export const AppointmentDetailsDrawer: React.FC<
   AppointmentDetailsDrawerProps
 > = ({ appointment, onClose, onReschedule, onCancel }) => {

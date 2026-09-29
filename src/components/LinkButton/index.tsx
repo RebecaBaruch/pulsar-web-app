@@ -28,18 +28,18 @@ export default function LinkButton({
   return (
     <a
       href={href}
-      className={`flex flex-row items-center gap-1 text-xs md:text-sm hover:underline ${colorClass} ${hoverClass}`}
+      className={`flex flex-row items-center gap-2 text-xs hover:underline ${colorClass} ${hoverClass}`}
     >
       {iconFirst && icon && (
-        <FontAwesomeIcon icon={icon} size="sm" className={iconClass} />
+        <FontAwesomeIcon icon={icon} size="xs" className={iconClass} />
       )}
       <span
-        className={`w-fit text-xs md:text-sm font-medium underline whitespace-nowrap`}
+        className={`w-fit text-xs font-bold whitespace-nowrap`}
       >
         {text}
       </span>
       {icon && !iconFirst && (
-        <FontAwesomeIcon icon={icon} size="sm" className={iconClass} />
+        <FontAwesomeIcon icon={icon} size="xs" className={`${iconClass} ${iconColor}`} />
       )}
     </a>
   );

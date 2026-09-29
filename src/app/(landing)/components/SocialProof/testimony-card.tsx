@@ -1,6 +1,7 @@
 import React from "react";
+import Image from "next/image";
 
-type TestimonyProps = {
+type TestimonyCardProps = {
   title: string;
   description: string;
   profilePic: string;
@@ -14,18 +15,39 @@ export default function TestimonyCard({
   profilePic,
   author,
   authorBio,
-}: TestimonyProps) {
+}: TestimonyCardProps) {
   return (
-    <div className="flex flex-col justify-between bg-white rounded-lg p-5 h-[80%] ">
-      <div className="flex flex-col gap-2 w-full">
-        <h1 className="text-md sm:text-base md:text-sm font-semibold text-blue-dark">{title}</h1>
-        <blockquote className="text-md sm:text-base md:text-sm text-gray-darkest">{description}</blockquote>
+    <div className="bg-white rounded-2xl p-5 sm:p-6 flex flex-col justify-between w-full h-full shadow-sm hover:shadow-md transition-shadow border border-white/10 text-left">
+      <div>
+        {/* Título do Depoimento */}
+        <h3 className="text-base sm:text-lg font-semibold text-blue leading-snug">
+          “{title}”
+        </h3>
+
+        {/* Depoimento */}
+        <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed break-words">
+          “{description}”
+        </p>
       </div>
-      <div className="flex items-start mt-2">
-        <img src={profilePic} alt={author} className="w-7 h-7 md:w-10 md:h-10 rounded-full" />
-        <div className="ml-4">
-          <h2 className="text-sm sm:text-md md:text-sm lg:text-md font-semibold text-black">{author}</h2>
-          <p className="text-sm sm:text-md md:text-sm lg:text-md text-gray-darkest">{authorBio}</p>
+
+      {/* Autor */}
+      <div className="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
+        <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+          <Image
+            src={profilePic}
+            alt={author}
+            fill
+            sizes="40px"
+            className="object-cover"
+          />
+        </div>
+        <div className="flex flex-col min-w-0">
+          <span className="text-xs sm:text-sm font-bold text-gray-900 truncate">
+            {author}
+          </span>
+          <span className="text-xs text-gray-500 truncate">
+            {authorBio}
+          </span>
         </div>
       </div>
     </div>

@@ -26,6 +26,8 @@ export default function HomeView({ todayAgendaData, weeklyOverviewData }: HomeVi
         description="Registro, SP"
         phoneNumber="5511999999999"
         daysCount={2}
+        sessionDate="22 de Julho"
+        sessionTime="10:00 AM"
       />
 
       <div className="flex flex-col md:flex-row gap-4">

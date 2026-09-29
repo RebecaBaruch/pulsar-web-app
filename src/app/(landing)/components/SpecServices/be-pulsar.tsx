@@ -8,21 +8,21 @@ export default function BePulsarContent() {
     <div
       className="
             flex flex-col md:flex-row md:items-center w-full gap-10
-            md:gap-10 gap-5
+            md:gap-12 pt-[64px]
           "
     >
-      <div className="md:flex-1 order-2 lg:order-1 flex flex-col gap-4 min-w-0 text-left">
-        <h1 className="text-base lg:text-3xl text-black font-semibold">
+      <div className="md:flex-1 order-2 lg:order-1 flex flex-col gap-4 min-w-0 text-left text-dark">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
           Faça parte da rede Pulsar
-        </h1>
+        </h2>
 
-        <p className="text-black break-words text-sm lg:text-base">
+        <p className="break-words text-sm sm:text-base text-gray-700 leading-relaxed">
           Na Pulsar, valorizamos o cuidado humano e integral. Junte-se à nossa
           rede multidisciplinar de saúde física, emocional, alimentar e
           financeira. Faça parte e impacte vidas com seu trabalho.
         </p>
 
-        <div className="w-fit">
+        <div className="md:w-fit pt-2">
           <PrimaryButton
             text="Quero ser especialista Pulsar"
             onClick={() =>
@@ -34,10 +34,10 @@ export default function BePulsarContent() {
           />
         </div>
       </div>
-      <div className="md:flex-1 order-1 lg:order-2 min-w-0">
+      <div className="md:flex-1 order-1 lg:order-2 min-w-0 rounded-lg rounded-tl-4xl rounded-br-4xl overflow-hidden">
         <Image
-          src="/images/be-pulsar.png"
-          alt="Happy family"
+          src="/images/team-image.jpg"
+          alt="Imagem de equipe de especialistas da Pulsar"
           className="w-full h-auto object-contain"
           width={500}
           height={500}

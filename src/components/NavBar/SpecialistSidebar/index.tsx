@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FaRegCalendarAlt, FaRegClock } from "react-icons/fa";
 import { AiOutlineAppstore, AiOutlineSetting } from "react-icons/ai";
+import Image from "next/image";
 
 interface MenuItem {
   label: string;
@@ -23,7 +24,7 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   {
     label: "Dashboard",
-    href: RoutesUrls.SPECIALIST_DASHBOARD,
+    href: RoutesUrls.SPECIALIST_HOME,
     icon: AiOutlineAppstore,
   },
   {
@@ -100,10 +101,11 @@ export default function SpecialistSidebar() {
         {/* Sidebar Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <Link href="/" onClick={() => setIsOpen(false)}>
-            <img
+            <Image
               src="/images/horizontal-logo.png"
               alt="Pulsar logo"
-              className="w-20"
+              width={100}
+              height={50}
             />
           </Link>
           {/* Close Button (visible on mobile when sidebar is open, next to logo) */}

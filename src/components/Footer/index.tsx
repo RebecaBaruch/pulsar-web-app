@@ -28,72 +28,170 @@ export default function Footer() {
   }
 
   return (
-    <footer className="w-full text-white px-6 py-10 mt-15 bg-blue-dark">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-          <Image
-            src="/images/logotipo-branco-azul.png"
-            alt="Pulsar Logo"
-            width={120}
-            height={100}
-            className="mb-4"
-          />
-          <p className="text-sm">45.978.723/0001-06</p>
-          <p className="text-sm">
-            <Link href="mailto:contato@soupulsar.com">
-              contato@soupulsar.com
-            </Link>
-          </p>
-          <p className="text-sm">+55 11 97612-1123</p>
-        </div>
+    <footer className="w-full bg-[#f9fafb] text-gray-700 pt-12">
+      {/* Conteúdo Principal do Footer */}
+      <div className="w-full max-w-[1280px] mx-auto px-4 lg:px-16 pb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Coluna 1: Logo, Slogan e Redes */}
+          <div className="flex flex-col items-start space-y-4">
+            <Image
+              src="/images/logo-azul.svg" // Ajuste o caminho se necessário para o logo colorido
+              alt="Pulsar Logo"
+              width={160}
+              height={50}
+              className="h-auto w-auto"
+            />
+            <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+              O espaço de sua saúde mental online, lugar do seu cuidado
+              psicológico!
+            </p>
+            <div className="flex items-center space-x-4 text-gray-800 text-lg pt-1">
+              <a
+                href="https://www.instagram.com/soupulsar"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="hover:text-blue transition-colors"
+              >
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+              <a
+                href="https://www.facebook.com/Soupulsarr"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="hover:text-blue transition-colors"
+              >
+                <FontAwesomeIcon icon={faFacebookF} />
+              </a>
+              <a
+                href="https://www.tiktok.com/@soupulsar"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="hover:text-blue transition-colors"
+              >
+                <FontAwesomeIcon icon={faTiktok} />
+              </a>
+              <a
+                href="https://www.youtube.com/@soupulsar"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="hover:text-blue transition-colors"
+              >
+                <FontAwesomeIcon icon={faYoutube} />
+              </a>
+            </div>
+          </div>
 
-        <div>
-          <h3 className="text-green font-semibold mb-3">Institucional</h3>
-          <ul className="space-y-2 text-sm">
-            <li>
-              <Link href="#">Sobre a Pulsar</Link>
-            </li>
-            {/* <li><Link href="#">Política de Privacidade</Link></li> */}
-            {/* <li><Link href="#">Termos de Uso</Link></li> */}
-            <li>
-              <Link href="#">Seja um(a) especialista</Link>
-            </li>
-          </ul>
-        </div>
+          {/* Coluna 2: Institucional */}
+          <div className="flex flex-col space-y-3">
+            <h3 className="text-base font-semibold text-gray-900">
+              Institucional
+            </h3>
+            <ul className="space-y-2 text-sm text-gray-500">
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-gray-900 transition-colors"
+                >
+                  Sobre a Pulsar
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-gray-900 transition-colors"
+                >
+                  Política de Privacidade
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-gray-900 transition-colors"
+                >
+                  Termos de Uso
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-gray-900 transition-colors"
+                >
+                  Seja um(a) especialista
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-        <div>
-          <h3 className="text-green font-semibold mb-3">Cuidados e Serviços</h3>
-          <ul className="space-y-2 text-sm">
-            <li>
-              <a href="#">Agendar uma sessão</a>
-            </li>
-          </ul>
-        </div>
+          {/* Coluna 3: Cuidados e Serviços */}
+          <div className="flex flex-col space-y-3">
+            <h3 className="text-base font-semibold text-gray-900">
+              Cuidados e Serviços
+            </h3>
+            <ul className="space-y-2 text-sm text-gray-500">
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-gray-900 transition-colors"
+                >
+                  Agendar uma sessão
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-        <div>
-          <h3 className="text-green font-semibold mb-3">Conecte-se</h3>
-          <div className="flex space-x-4 text-xl">
-            <a href="https://www.instagram.com/soupulsar?utm_source=ig_web_button_share_sheet&igsh=dzdkMXJ2ZTBmcDRq">
-              <FontAwesomeIcon icon={faInstagram} />
-            </a>
-            <a href="https://www.facebook.com/Soupulsarr/?ref=_xav_ig_profile_page_web">
-              <FontAwesomeIcon icon={faFacebookF} />
-            </a>
-            <a href="https://www.tiktok.com/@soupulsar?is_from_webapp=1&sender_device=pc">
-              <FontAwesomeIcon icon={faTiktok} />
-            </a>
-            <a href="https://www.youtube.com/@soupulsar/shorts">
-              <FontAwesomeIcon icon={faYoutube} />
-            </a>
+          {/* Coluna 4: Entre em Contato */}
+          <div className="flex flex-col space-y-3">
+            <h3 className="text-base font-semibold text-gray-900">
+              Entre em contato
+            </h3>
+            <div className="space-y-1 text-sm text-gray-500 uppercase">
+              <p>
+                <a
+                  href="mailto:alex@principiokaizen.com.br"
+                  className="hover:text-gray-900 transition-colors"
+                >
+                  alex@principiokaizen.com.br
+                </a>
+              </p>
+              <p>(11) 3591-6089</p>
+            </div>
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-center md:justify-between w-full mt-10 pt-4 text-xs text-center text-white-light">
-        <p>
-          © 2025 SM PSICOLOGIA TREINAMENTO E DESENVOLVIMENTO PESSOAL LTDA. Todos
-          os direitos reservados.
-        </p>
-        <p className="mt-2 md:mt-0">Desenvolvido por Lorem Ipsum</p>
+
+      {/* Faixa Inferior (Sub-footer Azul) */}
+      <div className="w-full bg-blue text-white text-xs py-4">
+        <div className="w-full max-w-[1280px] mx-auto px-4 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+          <p>
+            © 2026 SM PSICOLOGIA TREINAMENTO E DESENVOLVIMENTO PESSOAL LTDA.
+            Todos os direitos reservados.
+          </p>
+          <p className="font-medium">45.199.723/0001-08</p>
+          <p>
+            Desenvolvido por{" "}
+            <span className="font-semibold">
+              <Link
+                href="https://www.linkedin.com/in/rebeca-baruch/"
+                target="_blank"
+                className="hover:underline"
+              >
+                Rebeca Baruch
+              </Link>
+              {" "} & {" "}
+              <Link
+                href="https://www.linkedin.com/in/mateus-ribeiro/"
+                target="_blank"
+                className="hover:underline"
+              >
+                Mateus Ribeiro
+              </Link>
+            </span>
+          </p>
+        </div>
       </div>
     </footer>
   );

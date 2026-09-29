@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import {
@@ -10,73 +12,97 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const data = [
   {
-    icon: <FontAwesomeIcon icon={faHeartPulse} />,
-    title: "Acolhimento e empatia",
+    icon: faHeartPulse,
+    title: "Acolhimento humanizado",
     description:
-      "Cuidamos de cada pessoa com empatia e atenção individualizada, criando um ambiente acolhedor e seguro.",
+      "Escuta qualificada e atenção individualizada para o seu bem-estar emocional e saúde mental.",
   },
   {
-    icon: <FontAwesomeIcon icon={faCertificate} />,
-    title: "Profissionais Especializados",
+    icon: faCertificate,
+    title: "Especialistas qualificados",
     description:
-      "Nossa equipe é composta por psicólogos, terapeutas e especialistas altamente qualificados e atualizados.",
+      "Equipe experiente com psicólogos, terapeutas e profissionais de saúde certificados.",
   },
   {
-    icon: <FontAwesomeIcon icon={faCircleNodes} />,
-    title: "Abordagem Integrada",
+    icon: faCircleNodes,
+    title: "Cuidado multidisciplinar",
     description:
-      "Tratamos o ser humano de forma completa, integrando psicologia, nutrição, educação física e saúde financeira para seu bem-estar.",
+      "Abordagem integrada combinando psicologia, nutrição, treino e saúde financeira.",
   },
   {
-    icon: <FontAwesomeIcon icon={faShieldHalved} />,
-    title: "Tecnologia e Confidencialidade",
+    icon: faShieldHalved,
+    title: "Atendimento 100% seguro",
     description:
-      "Utilizamos ferramentas digitais modernas para agendar, acompanhar e proteger seus dados com total sigilo e segurança.",
+      "Plataforma digital com sigilo absoluto, criptografia e facilidade de agendamento online.",
   },
 ];
 
 export default function ChoosePulsar() {
   return (
-    <section className="max-auto lg:max-w-[1280px] p-4 lg:p-[64px]">
-      <div className="w-full">
-        <div
-          className="flex flex-col md:flex-row md:items-center md:gap-10 gap-5"
-        >
-          <div className="md:flex-1 min-w-0">
+    <section className="w-full max-w-[1280px] mx-auto px-4 py-10 lg:px-16 lg:py-[64px] overflow-hidden">
+      <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
+        {/* Bloco de Imagem com Badge Flutuante */}
+        <div className="w-full md:flex-1 min-w-0 relative">
+          <div className="relative w-full rounded-3xl">
             <Image
               src="/images/woman.svg"
-              alt="Blond woman"
+              alt="Atendimento psicológico online com especialista Pulsar"
               width={800}
               height={600}
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-cover"
+              priority
             />
+
+            {/* Float Card Azul (Responsivo e Integrado) */}
+            <div className="absolute bottom-[-24px] left-3 right-3 sm:right-auto sm:max-w-xs bg-blue text-white p-3.5 sm:p-4 rounded-2xl shadow-lg backdrop-blur-sm bg-blue/95">
+              <p className="text-xs sm:text-sm font-medium leading-snug">
+                Acolhimento e escuta qualificada. Nosso{" "}
+                <strong className="font-bold underline decoration-white/40">
+                  atendimento 100% online
+                </strong>{" "}
+                facilita o seu cuidado onde estiver.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bloco de Conteúdo */}
+        <div className="w-full md:flex-1 min-w-0 text-left">
+          <div className="flex flex-col gap-2 mb-6">
+            <span className="text-xs sm:text-sm text-blue font-semibold uppercase tracking-wider">
+              Nosso diferencial
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-black leading-tight">
+              Por que escolher a Pulsar?
+            </h2>
           </div>
 
-          <div className="md:flex-1/8 lg:flex-1 min-w-0 text-left">
-            <div className="flex flex-col mb-4">
-              <h2 className="text-sm text-blue font-semibold">
-                Nosso diferencial
-              </h2>
-              <h1 className="text-2xl text-black font-semibold">
-                Por que escolher a Pulsar?
-              </h1>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              {data.map((item, index) => (
-                <div key={index} className="flex flex-row items-start gap-4">
-                  <div className="flex justify-center bg-blue rounded-full w-8 h-8 p-2 text-white text-sm">
-                    {item.icon}
-                  </div>
-                  <div className="flex flex-col gap-2text-left">
-                    <h1 className="text-base text-black font-semibold">
-                      {item.title}
-                    </h1>
-                    <p className="text-sm text-gray-dark">{item.description}</p>
-                  </div>
+          {/* Lista de Diferenciais */}
+          <div className="flex flex-col gap-5 sm:gap-6">
+            {data.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3.5 sm:gap-4 group"
+              >
+                {/* Ícone com Fundo Suave */}
+                <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue/10 text-blue group-hover:bg-blue group-hover:text-white flex items-center justify-center transition-colors duration-300">
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-sm sm:text-base"
+                  />
                 </div>
-              ))}
-            </div>
+
+                {/* Texto do Diferencial */}
+                <div className="flex flex-col gap-0.5 min-w-0">
+                  <h3 className="text-sm sm:text-base text-black font-semibold leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

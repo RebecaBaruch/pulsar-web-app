@@ -9,6 +9,7 @@ import {
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
@@ -77,10 +78,11 @@ export default function LoggedNavBar() {
           aria-label="Barra de navegação do usuário logado"
         >
           <Link href="/">
-            <img
+            <Image
               src="/images/horizontal-logo.png"
               alt="Pulsar logo"
-              className="w-24"
+              width={100}
+              height={50}
             />
           </Link>
 
@@ -151,6 +153,7 @@ export default function LoggedNavBar() {
             <li
               className="relative text-blue text-lg cursor-pointer"
               ref={userMenuRef}
+              role="button"
               aria-label="Abrir menu do usuário"
               aria-controls="user-menu"
               aria-expanded={userMenuOpen}

@@ -7,8 +7,8 @@ type InfoHeaderProps = {
 
 export default function InfoHeader({ text }: InfoHeaderProps) {
     return (
-        <div className="text-xs md:text-sm text-blue font-semibold mb-6 flex items-top gap-4 bg-blue-100 p-4 rounded-lg">
-            <BiInfoCircle className="text-lg" />
+        <div className="text-sm text-blue font-semibold flex items-center gap-2 bg-blue-100 p-2 md:p-3 rounded">
+            <BiInfoCircle className="text-base" />
             <span>{text}</span>
         </div>
     )

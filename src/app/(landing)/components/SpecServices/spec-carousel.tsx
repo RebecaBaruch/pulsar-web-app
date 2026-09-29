@@ -1,89 +1,110 @@
+"use client";
+
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import SpecCard from "./spec-card";
 
-const data = [
+// Importações dos Ícones FontAwesome (Solid)
+import {
+  faComments,
+  faStethoscope,
+  faHandHoldingHeart,
+  faDumbbell,
+  faAppleWhole,
+  faChartLine,
+} from "@fortawesome/free-solid-svg-icons";
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
+
+type SpecData = {
+  icon: IconProp;
+  title: string;
+  introDescription: string;
+  description: string;
+  href: string;
+};
+
+const data: SpecData[] = [
   {
-    icon: "/icons/psycho.svg",
+    icon: faComments,
     title: "Psicólogos",
-    introDescription: "Cuidando da sua saúde emocional.",
+    introDescription: "Psicoterapia e saúde emocional.",
     description:
-      "Acolhimento e escuta profissional para lidar com ansiedade, autoestima, traumas e outros desafios da vida.",
+      "Acolhimento profissional para ansiedade, autoestima e superar desafios diários.",
     href: "/",
   },
   {
-    icon: "/icons/psychi.svg",
+    icon: faStethoscope,
     title: "Psiquiatra",
-    introDescription: "Tratamento com olhar clínico e humano.",
+    introDescription: "Cuidado clínico e saúde mental.",
     description:
-      "Psiquiatria para entender e cuidar de questões como insônia, crises de ansiedade e mais.",
+      "Tratamento especializado para insônia, crises de ansiedade e depressão.",
     href: "/",
   },
   {
-    icon: "/icons/therapist.svg",
+    icon: faHandHoldingHeart,
     title: "Terapeuta",
-    introDescription: "Autoconhecimento.",
+    introDescription: "Autoconhecimento e equilíbrio.",
     description:
-      "Acompanhamento terapêutico para promover equilíbrio, desenvolvimento pessoal e bem-estar emocional.",
+      "Acompanhamento terapêutico para desenvolvimento pessoal e bem-estar.",
     href: "/",
   },
   {
-    icon: "/icons/physical-educ.svg",
+    icon: faDumbbell,
     title: "Educador físico",
-    introDescription: "Movimento com propósito e saúde.",
+    introDescription: "Exercícios e vida saudável.",
     description:
-      "Orientação profissional para inserir atividade física de forma segura e consciente na sua rotina.",
+      "Orientação profissional para inserir treinos com segurança na sua rotina.",
     href: "/",
   },
   {
-    icon: "/icons/nutritionist.svg",
+    icon: faAppleWhole,
     title: "Nutricionista",
-    introDescription: "Alimentação equilibrada para o seu dia a dia.",
+    introDescription: "Plano alimentar personalizado.",
     description:
-      "Plano alimentar personalizado respeitando seu corpo, necessidades e relação com a comida.",
+      "Nutrição equilibrada respeitando seus objetivos e relação com a comida.",
     href: "/",
   },
   {
-    icon: "/icons/financial-advisor.svg",
+    icon: faChartLine,
     title: "Assessor financeiro",
-    introDescription: "Bem-estar também é ter clareza financeira.",
+    introDescription: "Planejamento e clareza financeira.",
     description:
-      "Apoio para organizar suas finanças, traçar metas e lidar com o dinheiro com mais tranquilidade.",
+      "Apoio para organizar suas finanças, definir metas e ter tranquilidade.",
     href: "/",
   },
 ];
 
 export default function SpecCarousel() {
   return (
-    <>
+    <section className="w-full">
+      {/* Mobile: Swiper Carousel */}
       <div className="block md:hidden overflow-visible">
-        <div>
-          <Swiper
-            modules={[Pagination]}
-            slidesPerView={1.15}
-            spaceBetween={12}
-            centeredSlides={false}
-            pagination={{ el: ".custom-pagination", clickable: true }}
-            className="!overflow-visible py-2"
-          >
-            {data.map((item, idx) => (
-              <SwiperSlide key={idx} className="!w-auto">
-                <SpecCard
-                  icon={item.icon}
-                  title={item.title}
-                  introDescription={item.introDescription}
-                  description={item.description}
-                  href={item.href}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="custom-pagination mt-4 flex justify-center" />
-        </div>
+        <Swiper
+          modules={[Pagination]}
+          slidesPerView={1.2}
+          spaceBetween={16}
+          centeredSlides={false}
+          pagination={{ el: ".custom-pagination", clickable: true }}
+          className="!overflow-visible py-2"
+        >
+          {data.map((item, idx) => (
+            <SwiperSlide key={idx} className="!h-auto">
+              <SpecCard
+                icon={item.icon}
+                title={item.title}
+                introDescription={item.introDescription}
+                description={item.description}
+                href={item.href}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className="custom-pagination mt-4 flex justify-center" />
       </div>
 
-      <div className="hidden px-10 lg:px-0 md:grid md:grid-cols-3 md:gap-6">
+      {/* Desktop / Tablet: Grid de 3 colunas */}
+      <div className="hidden md:grid md:grid-cols-3 md:gap-6 items-stretch">
         {data.map((item, index) => (
           <SpecCard
             key={index}
@@ -95,6 +116,6 @@ export default function SpecCarousel() {
           />
         ))}
       </div>
-    </>
+    </section>
   );
 }

@@ -10,7 +10,6 @@ export enum RoutesUrls {
   CLIENT_SESSIONS = "/client-user/sessions",
   USER_PROFILE = "/client-user/profile",
   SPECIALIST_HOME = "/specialist-user/home",
-  SPECIALIST_DASHBOARD = "/specialist-user/home",
   SPECIALIST_SCHEDULE = "/specialist-user/schedule",
   SPECIALIST_AVAILABILITY = "/specialist-user/availability",
   SPECIALIST_SETTINGS = "/specialist-user/settings",
@@ -29,7 +28,6 @@ export type RouteUrl =
   | RoutesUrls.CLIENT_HOME
   | RoutesUrls.CLIENT_SESSIONS
   | RoutesUrls.SPECIALIST_HOME
-  | RoutesUrls.SPECIALIST_DASHBOARD
   | RoutesUrls.SPECIALIST_SCHEDULE
   | RoutesUrls.SPECIALIST_AVAILABILITY
   | RoutesUrls.SPECIALIST_SETTINGS
