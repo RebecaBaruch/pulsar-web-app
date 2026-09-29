@@ -150,7 +150,7 @@ export function WeeklyOverview({ data }: WeeklyOverviewProps) {
         </div>
       </div>
 
-      <div className="text-left mt-8">
+      <div className="w-full flex justify-end mt-8">
         <LinkButton
           href={RoutesUrls.SPECIALIST_SCHEDULE}
           text={"Agenda completa"}
