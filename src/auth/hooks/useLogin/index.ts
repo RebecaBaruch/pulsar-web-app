@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
-import { tokenService } from "@/auth/services/tokenService";
 import { useAuth } from "@/auth/useAuth";
 
 interface UseLoginOptions {
@@ -43,15 +42,10 @@ export function useLogin(options?: UseLoginOptions) {
         throw new Error(`${data?.error || "Invalid credentials"}`);
       }
 
-      if (!data?.ok || !data?.accessToken) {
+      if (!data?.ok) {
         console.error("Invalid response structure:", data);
         throw new Error("Invalid response");
       }
-
-      tokenService.save({
-        token: data.accessToken,
-        user: data.user,
-      });
 
       await refreshUser();
 
@@ -63,7 +57,6 @@ export function useLogin(options?: UseLoginOptions) {
       if (options?.redirectOnSuccess !== false) {
         let redirectUrl = sessionStorage.getItem("redirectAfterLogin");
 
-        // Se não houver URL armazenada, redireciona baseado no role do usuário
         if (!redirectUrl) {
           if (data.user?.role === "SPECIALIST") {
             redirectUrl = RoutesUrls.SPECIALIST_HOME;
