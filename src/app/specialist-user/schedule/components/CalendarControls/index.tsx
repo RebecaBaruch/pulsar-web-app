@@ -71,7 +71,7 @@ export const CalendarControls: React.FC<CalendarControlsProps> = ({
   });
 
   return (
-    <div className="hidden md:flex flex-row items-start md:items-center justify-between w-full">
+    <div className="hidden lg:flex flex-row items-start lg:items-center justify-between w-full">
       {/* CONTAINER DO PICKER DE DATA INTERATIVO */}
       <div className="relative" ref={pickerRef}>
         <button

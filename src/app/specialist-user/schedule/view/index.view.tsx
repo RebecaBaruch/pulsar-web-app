@@ -52,15 +52,15 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
   onConfirmCancel,
 }) => {
   return (
-    <div className="flex flex-col w-full gap-4 md:gap-8">
-      <div className="flex-1 overflow-y-auto flex flex-col gap-4 md:gap-6">
-        {/* Header */}
-        <div className="flex justify-between items-center">
+    <div className="flex flex-col w-full gap-0 lg:gap-8">
+      <div className="flex-1 overflow-y-auto flex flex-col gap-0 lg:gap-6">
+        {/* Header — desktop only; mobile uses the Outlook-style calendar chrome */}
+        <div className="hidden lg:flex justify-between items-center">
           <div>
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
+            <h1 className="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">
               Agenda
             </h1>
-            <p className="text-xs md:text-sm text-gray">
+            <p className="text-sm text-gray">
               Visualize e gerencie seus atendimentos.
             </p>
           </div>
@@ -71,7 +71,7 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
 
         <div className="w-full">
           {/* Navigation Controls Wrapper */}
-          <div className="hidden md:flex flex-row items-center justify-between gap-4 mb-6 w-full">
+          <div className="hidden lg:flex flex-row items-center justify-between gap-4 mb-6 w-full">
             <CalendarControls
               visibleDays={visibleDays}
               viewMode={viewMode}
@@ -118,6 +118,7 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
               appointments={appointments}
               viewMode={viewMode}
               onSelectAppointment={onSelectAppointment}
+              onNavigateToDate={onNavigateToDate}
             />
           </div>
         </div>
