@@ -1,5 +1,7 @@
-import React, { useId } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import ReactCountryFlag from "react-country-flag";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { phoneCountryCodes, countryNames } from "@/utils/phone-country-codes";
 
 type Mode = "phone" | "country";
@@ -38,23 +40,6 @@ const normalizeOptions = (mode: Mode): NormalizedOption[] => {
   }));
 };
 
-const getPlaceholder = (mode: Mode, options: NormalizedOption[]) => {
-  const first = options[0];
-
-  return (
-    <div className="flex items-center gap-2">
-      <ReactCountryFlag
-        countryCode={first.code}
-        svg
-        style={{ width: "1.5em", height: "1.5em" }}
-      />
-      <span className="text-xs text-gray font-medium">
-        {mode === "phone" ? first.value : first.display}
-      </span>
-    </div>
-  );
-};
-
 export default function CountryCodeSelect({
   value,
   onChange,
@@ -65,6 +50,7 @@ export default function CountryCodeSelect({
   mode = "phone",
 }: CountryCodeSelectProps) {
   const [open, setOpen] = React.useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const uid = useId();
   const buttonId = `ccs-btn-${uid}`;
   const listboxId = `ccs-list-${uid}`;
@@ -72,15 +58,37 @@ export default function CountryCodeSelect({
 
   const options = normalizeOptions(mode);
   const selected = options.find((c) => c.value === value);
+  const widthClass = width === "fit" ? "w-full min-w-[7.25rem]" : "w-full";
 
-  const widthClass = width === "fit" ? "inline-flex flex-col w-fit" : "w-full";
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
   return (
-    <div className={`relative ${widthClass} ${className || ""}`}>
+    <div
+      ref={containerRef}
+      className={`relative ${widthClass} ${className ?? ""}`}
+    >
       {label && (
         <label
           id={labelId}
-          className="block text-md font-medium mb-2 text-lg lg:text-xs 2xl:text-sm text-black whitespace-nowrap"
+          htmlFor={buttonId}
+          className="mb-2 block text-xs font-medium text-gray-700"
         >
           {label}
         </label>
@@ -88,22 +96,17 @@ export default function CountryCodeSelect({
 
       <button
         type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setOpen((o) => !o);
-        }}
         id={buttonId}
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listboxId}
         aria-labelledby={label ? `${labelId} ${buttonId}` : undefined}
         aria-invalid={error || undefined}
-        className={`flex items-center justify-between w-full border rounded p-2.5 lg:p-1 2xl:p-2.5 bg-blue-lightest focus:outline-none ${
-          error
-            ? "border-red-500 focus:border-red-600"
-            : "border-gray-light focus:border-blue"
-        }`}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setOpen((current) => !current);
+        }}
         onKeyDown={(e) => {
           if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -113,24 +116,37 @@ export default function CountryCodeSelect({
             setOpen(false);
           }
         }}
+        className={`flex w-full cursor-pointer items-center justify-between rounded border bg-blue-lightest p-3 text-left text-xs focus:outline-none ${
+          error
+            ? "border-red-500 focus:border-red-600"
+            : "border-gray-light focus:border-blue"
+        }`}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           {selected ? (
             <>
               <ReactCountryFlag
                 countryCode={selected.code}
                 svg
-                style={{ width: "0.8em", height: "0.8em" }}
+                className="shrink-0"
+                style={{ width: "1.125rem", height: "1.125rem" }}
               />
-              <span className="lg:text-xs text-black font-semibold">
+              <span className="truncate font-medium text-gray-900">
                 {mode === "phone" ? selected.value : selected.display}
               </span>
             </>
           ) : (
-            getPlaceholder(mode, options)
+            <span className="text-gray-500">
+              {mode === "phone" ? "Código" : "Selecione"}
+            </span>
           )}
         </div>
-        <span className="text-black">▾</span>
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          className={`ml-2 shrink-0 text-xs text-gray-500 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       {open && (
@@ -138,7 +154,7 @@ export default function CountryCodeSelect({
           id={listboxId}
           role="listbox"
           aria-labelledby={label ? labelId : undefined}
-          className="absolute z-10 mt-1 w-full max-h-56 overflow-y-auto bg-white border border-gray-light rounded shadow-lg"
+          className="absolute z-20 mt-1 max-h-56 w-full overflow-y-auto rounded border border-gray-light bg-white shadow-lg"
         >
           {options.map((option) => (
             <li
@@ -146,7 +162,7 @@ export default function CountryCodeSelect({
               role="option"
               aria-selected={option.value === value}
               tabIndex={0}
-              className="flex items-center gap-2 px-3 py-2 hover:bg-blue-lightest focus:bg-blue-lightest cursor-pointer"
+              className="flex cursor-pointer items-center gap-2 px-3 py-2 text-xs text-gray-dark hover:bg-blue-lightest focus:bg-blue-lightest"
               onClick={() => {
                 onChange?.(option.value);
                 setOpen(false);
@@ -164,9 +180,9 @@ export default function CountryCodeSelect({
               <ReactCountryFlag
                 countryCode={option.code}
                 svg
-                style={{ width: "1.5em", height: "1.5em" }}
+                style={{ width: "1.125rem", height: "1.125rem" }}
               />
-              <span className="text-black font-medium">
+              <span className="font-medium">
                 {mode === "phone" ? option.value : option.display}
               </span>
             </li>
