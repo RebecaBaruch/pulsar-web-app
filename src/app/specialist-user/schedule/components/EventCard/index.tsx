@@ -23,7 +23,7 @@ export const EventCard: React.FC<EventCardProps> = ({
       type="button"
       onClick={() => onSelect(appointment)}
       style={style}
-      className={`absolute inset-x-1 lg:inset-x-1.5 text-left flex flex-col justify-start overflow-hidden z-10 rounded-xl bg-blue-50/80 border-l-4 shadow-sm hover:bg-blue-100/80 hover:shadow transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+      className={`absolute inset-x-1 lg:inset-x-1.5 z-10 flex cursor-pointer flex-col justify-start overflow-hidden rounded-xl border-l-4 bg-blue-50/80 text-left shadow-sm transition-all hover:bg-blue-100/80 hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
         isNext ? "border-blue-700 bg-blue-500" : "border-blue-600"
       } ${compact ? "px-2 py-1" : "px-2.5 py-1.5"}`}
     >
