@@ -92,19 +92,19 @@ export default function ChoosePasswordForm({
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl md:text-xl lg:text-2xl font-bold text-black">
+    <div className="flex flex-col gap-6 sm:gap-8">
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
           Defina a sua senha
         </h1>
-        <p className="text-lg md:text-base lg:text-md">
+        <p className="text-sm text-gray-darkest">
           A senha deve ter pelo menos 8 caracteres, com letras, números e um
           caractere especial.
         </p>
       </div>
 
-      <div className="flex flex-col gap-6">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <InputField
             label="Senha"
             type="password"
@@ -138,7 +138,7 @@ export default function ChoosePasswordForm({
           />
         </form>
 
-        <div className="flex flex-col justify-center items-center gap-4 mt-3">
+        <div className="mt-1 flex flex-col items-center justify-center gap-3">
           <PrimaryButton
             type="submit"
             text="Próximo"

@@ -78,22 +78,24 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
   };
 
   return (
-    <div className="flex flex-col gap-12 mb-10">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl md:text-xl lg:text-2xl font-bold text-black">Endereço</h1>
-        <p className="text-lg md:text-base lg:text-md">
+    <div className="flex flex-col gap-6 sm:gap-8">
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
+          Endereço
+        </h1>
+        <p className="text-sm text-gray-darkest">
           Nos diga onde você está. Essas informações nos ajudam a oferecer um
           atendimento mais completo.
         </p>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <form
           ref={formRef}
           onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-4"
         >
-          <div className="flex w-full flex-row gap-4">
+          <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-end">
             <InputField
               className="w-full"
               label="Código postal"
@@ -154,9 +156,9 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
           />
 
           <div className="flex flex-col gap-3 items-end w-full">
-            <div className="flex w-full flex-row gap-4">
+            <div className="flex w-full flex-col gap-4 sm:flex-row">
               <InputField
-                className="flex-4/5"
+                className="w-full sm:flex-[4]"
                 label="Rua"
                 type="text"
                 placeholder="Digite a rua"
@@ -170,7 +172,7 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
               />
 
               <InputField
-                className="flex-1/5"
+                className="w-full sm:flex-1 sm:max-w-[120px]"
                 label="N°"
                 type="number"
                 placeholder="XXX"
@@ -219,7 +221,7 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
           />
         </form>
 
-        <div className="flex flex-col justify-center items-center gap-4 mt-3">
+        <div className="mt-1 flex flex-col items-center justify-center gap-3">
           <PrimaryButton
             type="submit"
             text="Próximo"

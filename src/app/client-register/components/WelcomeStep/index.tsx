@@ -1,11 +1,10 @@
-// src/app/register/components/WelcomeStep.tsx
-
 "use client";
 
 import React from "react";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import InputField from "@/components/InputField";
 import { useRegister } from "../../context/RegisterContext";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 type WelcomeStepProps = {
   onNext: () => void;
@@ -31,21 +30,18 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
   };
 
   return (
-    <div className="flex flex-col w-full gap-15 md:gap-8 lg:gap-10 xl:gap-12">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl md:text-3xl lg:text-3xl font-bold text-black">
+    <div className="flex w-full flex-col gap-6 sm:gap-8">
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
           Bem-vindo à Pulsar!
         </h1>
-        <p className="text-lg md:text-base lg:text-md text-gray-darkest">
+        <p className="text-sm text-gray-darkest">
           Dê o primeiro passo para uma vida com mais equilíbrio, cuidado e
           bem-estar.
         </p>
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 lg:gap-2.5 2xl:gap-5"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <InputField
           label="E-mail"
           type="email"
@@ -58,33 +54,32 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
           errorMessage={submitted ? emailValidationError : undefined}
         />
 
-        <div className="flex flex-col justify-center items-center gap-15 mt-3">
-          <div className="flex flex-col gap-4 w-full">
-            <PrimaryButton
-              type="submit"
-              text="Próximo"
-              isDisabled={!isFormValid && submitted}
-            />
+        <div className="mt-1 flex flex-col items-center gap-4">
+          <PrimaryButton
+            type="submit"
+            text="Próximo"
+            isDisabled={!isFormValid && submitted}
+          />
 
-            <p className="text-sm lg:text-xs 2xl:text-sm text-center text-gray-dark">
-              Ao fazer a inscrição, você aceita os{" "}
-              <span className="underline cursor-pointer">
-                Termos de Serviço
-              </span>{" "}
-              e concorda com a{" "}
-              <span className="underline cursor-pointer">
-                Política de Privacidade
-              </span>{" "}
-              da Pulsar.
-            </p>
-          </div>
+          <p className="text-center text-xs text-gray-dark">
+            Ao fazer a inscrição, você aceita os{" "}
+            <span className="cursor-pointer underline">Termos de Serviço</span>{" "}
+            e concorda com a{" "}
+            <span className="cursor-pointer underline">
+              Política de Privacidade
+            </span>{" "}
+            da Pulsar.
+          </p>
 
-          <span className="lg:text-base 2xl:text text-lg">
+          <p className="text-center text-sm text-gray-darkest">
             Já possui uma conta?{" "}
-            <a href="/login" className="text-blue font-semibold underline">
+            <a
+              href={RoutesUrls.LOGIN}
+              className="font-medium text-blue underline"
+            >
               Entrar
             </a>
-          </span>
+          </p>
         </div>
       </form>
     </div>
