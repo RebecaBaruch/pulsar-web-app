@@ -100,7 +100,11 @@ export default function SpecialistSidebar() {
       >
         {/* Sidebar Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <Link href="/" onClick={() => setIsOpen(false)}>
+          <Link
+            href={RoutesUrls.SPECIALIST_HOME}
+            onClick={() => setIsOpen(false)}
+            aria-label="Ir para o início do painel do especialista"
+          >
             <Image
               src="/images/horizontal-logo.png"
               alt="Pulsar logo"

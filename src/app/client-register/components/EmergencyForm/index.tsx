@@ -61,22 +61,22 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl md:text-xl lg:text-2xl font-bold text-black">
+    <div className="flex flex-col gap-6 sm:gap-8">
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
           Contato de emergência
         </h1>
-        <p className="text-lg md:text-base lg:text-md">
+        <p className="text-sm text-gray-darkest">
           Em caso de emergência, entraremos em contato com alguém que você
           confia.
         </p>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <form
           ref={formRef}
           onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-4"
         >
           <InputField
             label="Nome do contato de emergência"
@@ -109,9 +109,9 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
           />
 
           {/* Telefone */}
-          <div className="flex w-full flex-row gap-4">
+          <div className="flex w-full flex-row gap-4 sm:flex-row sm:items-end">
             <CountryCodeSelect
-              width="fit"
+              className="w-fit"
               label="Código do país"
               value={emergency.countryCode}
               onChange={(v) => updateNested("emergency", { countryCode: v })}
@@ -134,7 +134,7 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
           </div>
         </form>
 
-        <div className="flex flex-col justify-center items-center gap-4 mt-3">
+        <div className="mt-1 flex flex-col items-center justify-center gap-3">
           <PrimaryButton
             type="submit"
             text="Próximo"

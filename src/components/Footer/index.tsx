@@ -28,18 +28,17 @@ export default function Footer() {
   }
 
   return (
-    <footer className="w-full bg-[#f9fafb] text-gray-700 pt-12">
+    <footer className="w-full bg-[#f9fafb] text-gray-700 pt-12 mt-16">
       {/* Conteúdo Principal do Footer */}
       <div className="w-full max-w-[1280px] mx-auto px-4 lg:px-16 pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Coluna 1: Logo, Slogan e Redes */}
           <div className="flex flex-col items-start space-y-4">
             <Image
-              src="/images/logo-azul.svg" // Ajuste o caminho se necessário para o logo colorido
+              src="/images/logo-azul.svg"
               alt="Pulsar Logo"
-              width={160}
-              height={50}
-              className="h-auto w-auto"
+              width={180}
+              height={40}
             />
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
               O espaço de sua saúde mental online, lugar do seu cuidado

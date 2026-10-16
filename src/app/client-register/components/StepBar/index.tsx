@@ -29,14 +29,14 @@ export default function SimpleStepBar({
   }
 
   return (
-    <div className="w-full mb-8">
-      <div className="w-full h-1.5 bg-gray-200 relative rounded-full">
+    <div className="mb-4 w-full">
+      <div className="relative h-1 w-full rounded-full bg-gray-200">
         <div
-          className="h-full bg-blue-500 rounded-full transition-all duration-500"
+          className="h-full rounded-full bg-blue-500 transition-all duration-500"
           style={{ width: progressWidth }}
-        ></div>
+        />
       </div>
-      <p className="text-sm text-gray-500 mb-2 text-right">
+      <p className="mb-1 mt-1.5 text-right text-xs text-gray-500">
         Etapa {activeIndex} de {totalCountedSteps}
       </p>
     </div>

@@ -8,7 +8,11 @@ import NotLoggedNavBarSkeleton from "./NotLogged/NotLoggedNavBarSkeletion";
 import LoggedNavBarSkeleton from "./LoggedNavBar/LoggedNavBarSkeleton";
 
 export default function NavBar() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, user } = useAuth();
+
+  if (!loading && user?.role === "SPECIALIST") {
+    return null;
+  }
 
   if (!isAuthenticated && loading) {
     return <NotLoggedNavBarSkeleton />;
