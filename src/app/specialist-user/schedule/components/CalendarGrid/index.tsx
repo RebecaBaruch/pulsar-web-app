@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { isSameDay, startOfWeek, addDays } from "date-fns";
+import { isSameDay, startOfDay } from "date-fns";
 import { AppointmentData } from "../../types";
 import { MobileCalendarHeader } from "../MobileCalendarHeader";
 import { DesktopCalendarHeader } from "../DesktopCalendarHeader";
@@ -44,16 +44,27 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
     }
   }, [visibleDays]);
 
-  const weekDays = useMemo(() => {
-    const start = startOfWeek(selectedDayMobile, { weekStartsOn: 0 });
-    return Array.from({ length: 7 }, (_, index) => addDays(start, index));
-  }, [selectedDayMobile]);
+  const markedDates = useMemo(
+    () => new Set(appointments.map((appointment) => appointment.date)),
+    [appointments],
+  );
 
   const handleSelectDay = (day: Date) => {
     setSelectedDayMobile(day);
     setCurrentMonthPivot(day);
     setIsExpanded(false);
     onNavigateToDate(day);
+  };
+
+  const handleSelectMonth = (monthDate: Date) => {
+    const year = monthDate.getFullYear();
+    const month = monthDate.getMonth();
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    const dayNumber = Math.min(selectedDayMobile.getDate(), lastDay);
+    const target = startOfDay(new Date(year, month, dayNumber));
+    setSelectedDayMobile(target);
+    setCurrentMonthPivot(target);
+    onNavigateToDate(target);
   };
 
   const desktopGridColsClass =
@@ -63,18 +74,18 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
 
   return (
     <div
-      className="bg-white lg:rounded-2xl lg:border lg:border-slate-100 lg:shadow-sm overflow-hidden flex flex-col h-[calc(100dvh-8rem)] lg:h-[calc(100vh-240px)] -mx-4 -mt-4 lg:mx-0 lg:mt-0"
+      className="bg-white rounded-lg lg:rounded-2xl lg:border lg:border-slate-100 lg:shadow-sm overflow-hidden flex flex-col h-[calc(100dvh-8rem)] lg:h-[calc(100vh-240px)]"
       role="region"
       aria-label={`Grade de calendário de ${viewMode === "semana" ? "semana" : "dia"}`}
     >
       <MobileCalendarHeader
         selectedDay={selectedDayMobile}
-        weekDays={weekDays}
         isExpanded={isExpanded}
         currentMonthPivot={currentMonthPivot}
+        markedDates={markedDates}
         onToggleExpanded={() => setIsExpanded((open) => !open)}
         onSelectDay={handleSelectDay}
-        onMonthChange={setCurrentMonthPivot}
+        onSelectMonth={handleSelectMonth}
       />
 
       <DesktopCalendarHeader
