@@ -20,7 +20,7 @@ export default function SpecialistHeader() {
   const initials = getInitials(user?.name ?? "Especialista");
 
   return (
-    <header className="relative flex w-full shrink-0 items-center justify-end gap-3 border-b border-gray-100 bg-white/80 px-6 py-2.5 backdrop-blur-sm lg:px-8">
+    <header className="relative hidden w-full shrink-0 items-center justify-end gap-3 border-b border-gray-100 bg-white/80 px-6 py-2.5 backdrop-blur-sm lg:flex lg:px-8">
       <Link
         href={RoutesUrls.SPECIALIST_SETTINGS}
         className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-blue-100 ring-2 ring-transparent transition-shadow hover:ring-blue-200 focus:outline-none focus-visible:ring-blue"

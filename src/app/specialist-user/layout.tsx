@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import SpecialistSidebar from "@/components/NavBar/SpecialistSidebar";
 import SpecialistHeader from "@/components/SpecialistHeader";
+import NotificationBell from "@/components/NotificationBell";
 import { useAuth } from "@/auth/useAuth";
 import { RoutesUrls } from "@/utils/enum/routes-url";
 
@@ -26,8 +27,11 @@ export default function SpecialistLayout({
   }
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-gray-50 lg:flex-row">
-      <div className="flex w-full shrink-0 flex-row items-center bg-white shadow-sm lg:h-screen lg:w-52 lg:flex-col lg:shadow-none">
+      <div className="flex w-full shrink-0 flex-row items-center justify-between bg-white shadow-sm lg:h-screen lg:w-52 lg:flex-col lg:justify-start lg:shadow-none">
         <SpecialistSidebar />
+        <div className="flex shrink-0 items-center px-2 lg:hidden">
+          <NotificationBell />
+        </div>
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col min-w-0 lg:min-h-screen">
