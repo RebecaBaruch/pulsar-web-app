@@ -32,7 +32,7 @@ export const AppointmentDetailsDrawer: React.FC<
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 bg-slate-900/20 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -43,7 +43,7 @@ export const AppointmentDetailsDrawer: React.FC<
 
       {/* Lateral panel - Desktop (right side) / Mobile (bottom sheet) */}
       <div
-        className={`fixed bottom-0 right-0 md:right-0 md:bottom-auto md:top-0 w-full md:w-[400px] max-h-[90vh] md:h-screen md:max-h-screen bg-white md:border-l border-t md:border-t-0 md:border-l border-slate-100 shadow-2xl z-50 flex flex-col transition-transform duration-300 ease-out transform ${
+        className={`fixed bottom-0 right-0 z-[60] flex w-full max-h-[90vh] transform flex-col border-t border-slate-100 bg-white shadow-2xl transition-transform duration-300 ease-out md:bottom-auto md:right-0 md:top-0 md:h-screen md:max-h-screen md:w-[400px] md:border-l md:border-t-0 ${
           isOpen
             ? "translate-y-0 md:translate-x-0"
             : "translate-y-full md:translate-x-full"
