@@ -73,7 +73,9 @@ export default function Calendar({
 
     // Empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
-      days.push(<div key={`empty-${i}`} className="aspect-square" />);
+      days.push(
+        <div key={`empty-${i}`} className="h-8 sm:h-9" aria-hidden="true" />,
+      );
     }
 
     // Days of the month
@@ -104,12 +106,15 @@ export default function Calendar({
           key={day}
           onClick={() => !isDisabled && onSelectDate(date)}
           disabled={isDisabled}
-          className={`
-            aspect-square rounded-full flex items-center justify-center text-xs font-medium transition-all
-            ${isDisabled ? "text-gray-300 cursor-not-allowed" : "hover:bg-blue-100 cursor-pointer"}
-            ${isSelected ? "bg-blue-600 text-white hover:bg-blue-700" : ""}
-            ${isToday && !isSelected ? "border-2 border-blue-600 text-blue-600" : ""}
-          `}
+          className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-medium transition-all sm:h-9 sm:w-9 sm:text-xs ${
+            isDisabled
+              ? "cursor-not-allowed text-gray-300"
+              : "cursor-pointer hover:bg-blue-100"
+          } ${isSelected ? "bg-blue-600 text-white hover:bg-blue-700" : ""} ${
+            isToday && !isSelected
+              ? "border-2 border-blue-600 text-blue-600"
+              : ""
+          }`}
         >
           {day}
         </button>
@@ -135,33 +140,37 @@ export default function Calendar({
   };
 
   return (
-    <div className="w-full h-45 md:w-fit flex flex-col items-center gap-2 bg-white rounded-lg border border-gray-200 p-2">
-      <div className="w-full flex items-center justify-between">
-        <h3 className="text-xs text-gray-darkest font-semibold">
+    <div className="flex w-full flex-col gap-2 rounded-lg border border-gray-200 bg-white p-3 md:w-fit md:min-w-[18rem]">
+      <div className="flex w-full items-center justify-between gap-2">
+        <h3 className="text-xs font-semibold text-gray-darkest">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </h3>
-        <div className="flex gap-4">
+        <div className="flex shrink-0 items-center gap-2">
           <button
+            type="button"
             onClick={prevMonth}
             disabled={!canGoPrev()}
-            className="w-2 h-2 rounded-full flex items-center justify-center hover:bg-gray-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed "
+            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+            aria-label="Mês anterior"
           >
             <FontAwesomeIcon icon={faChevronLeft} className="text-xs" />
           </button>
           <button
+            type="button"
             onClick={nextMonth}
-            className="w-2 h-2 rounded-full flex items-center cursor-pointer justify-center hover:bg-gray-100"
+            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full hover:bg-gray-100"
+            aria-label="Próximo mês"
           >
             <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
           </button>
         </div>
       </div>
 
-      <div className="w-full grid grid-cols-7 gap-1">
+      <div className="grid w-full grid-cols-7 gap-x-0.5 gap-y-1 sm:gap-1">
         {dayNames.map((day) => (
           <div
             key={day}
-            className="aspect-square flex items-center justify-center text-[10px] font-medium text-gray-500"
+            className="flex h-8 items-center justify-center text-[10px] font-medium text-gray-500 sm:h-9"
           >
             {day}
           </div>
