@@ -130,7 +130,7 @@ export const TimeGrid: React.FC<TimeGridProps> = ({
                   key={app.id}
                   type="button"
                   onClick={() => onSelectAppointment(app)}
-                  className="w-full text-left rounded-lg bg-blue-50/80 border-l-4 border-blue-600 px-2 py-1"
+                  className="w-full cursor-pointer rounded-lg border-l-4 border-blue-600 bg-blue-50/80 px-2 py-1 text-left"
                 >
                   <p className="font-bold text-xs text-slate-800 line-clamp-1">
                     {app.patientName}

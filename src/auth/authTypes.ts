@@ -4,6 +4,8 @@ export interface AuthUser {
   name: string;
   email: string;
   role: "CLIENT" | "SPECIALIST";
+  /** URL da foto de perfil retornada pelo backend (opcional). */
+  avatarUrl?: string | null;
 }
 export interface AuthCredentials {
   email: string;
