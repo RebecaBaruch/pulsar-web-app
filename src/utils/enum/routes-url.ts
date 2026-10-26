@@ -8,6 +8,7 @@ export enum RoutesUrls {
   RESET_PASSWORD = "/reset-password",
   CLIENT_HOME = "/client-user/home",
   CLIENT_SESSIONS = "/client-user/sessions",
+  CLIENT_EVALUATION = "/client-user/evaluation",
   USER_PROFILE = "/client-user/profile",
   SPECIALIST_HOME = "/specialist-user/home",
   SPECIALIST_SCHEDULE = "/specialist-user/schedule",
@@ -27,6 +28,7 @@ export type RouteUrl =
   | RoutesUrls.RESET_PASSWORD
   | RoutesUrls.CLIENT_HOME
   | RoutesUrls.CLIENT_SESSIONS
+  | RoutesUrls.CLIENT_EVALUATION
   | RoutesUrls.SPECIALIST_HOME
   | RoutesUrls.SPECIALIST_SCHEDULE
   | RoutesUrls.SPECIALIST_AVAILABILITY

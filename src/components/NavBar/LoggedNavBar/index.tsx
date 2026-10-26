@@ -6,7 +6,6 @@ import {
   faSignOutAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,10 +14,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
 import { useAuth } from "@/auth/useAuth";
 import LoggedNavBarSkeleton from "./LoggedNavBarSkeleton";
+import ClientNotificationBell from "@/components/ClientNotificationBell";
 
 export default function LoggedNavBar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+  const [dismissNotifications, setDismissNotifications] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
   const pathname = usePathname();
   const router = useRouter();
@@ -33,6 +34,10 @@ export default function LoggedNavBar() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  React.useEffect(() => {
+    setDismissNotifications((current) => current + 1);
+  }, [pathname]);
 
   React.useEffect(() => {
     // Close dropdown when clicking outside
@@ -86,25 +91,6 @@ export default function LoggedNavBar() {
             />
           </Link>
 
-          <button
-            className="lg:hidden text-blue text-2xl relative w-8 h-8"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-            aria-controls="mobile-menu-logged"
-            aria-expanded={isOpen}
-          >
-            <span
-              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
-            >
-              <FontAwesomeIcon icon={faClose} />
-            </span>
-            <span
-              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isOpen ? "opacity-0" : "opacity-100"}`}
-            >
-              <FontAwesomeIcon icon={faBars} />
-            </span>
-          </button>
-
           {/* Desktop Menu */}
           <ul className="hidden lg:flex lg:items-center lg:space-x-6 list-none p-0 m-0">
             <li>
@@ -142,59 +128,97 @@ export default function LoggedNavBar() {
             </li>
           </ul>
 
-          <ul className="hidden lg:flex lg:items-center lg:space-x-6 list-none p-0 m-0">
-            <li
-              aria-label="Notificações"
-              className="text-blue text-lg cursor-pointer"
-              onClick={() => {}}
-            >
-              <FontAwesomeIcon icon={faBell} />
-            </li>
-            <li
-              className="relative text-blue text-lg cursor-pointer"
-              ref={userMenuRef}
-              role="button"
-              aria-label="Abrir menu do usuário"
-              aria-controls="user-menu"
-              aria-expanded={userMenuOpen}
-              onClick={() => setUserMenuOpen(!userMenuOpen)}
-            >
-              <FontAwesomeIcon icon={faUser} />
-              {userMenuOpen && (
-                <ul
-                  id="user-menu"
-                  role="menu"
-                  aria-label="Menu do usuário"
-                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
-                >
-                  <li
-                    role="menuitem"
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-dark hover:bg-gray-100 cursor-pointer"
-                    onClick={() => {
-                      setUserMenuOpen(false);
-                      router.push(RoutesUrls.USER_PROFILE);
-                    }}
+          <div className="flex items-center gap-4 lg:gap-6">
+            <ClientNotificationBell
+              dismissSignal={dismissNotifications}
+              onOpen={() => {
+                setUserMenuOpen(false);
+                setIsOpen(false);
+              }}
+            />
+
+            <ul className="m-0 hidden list-none p-0 lg:flex lg:items-center">
+              <li
+                className="relative cursor-pointer text-lg text-blue"
+                ref={userMenuRef}
+                role="button"
+                aria-label="Abrir menu do usuário"
+                aria-controls="user-menu"
+                aria-expanded={userMenuOpen}
+                onClick={() => {
+                  setUserMenuOpen((current) => {
+                    const next = !current;
+                    if (next) {
+                      setDismissNotifications((signal) => signal + 1);
+                    }
+                    return next;
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon={faUser} />
+                {userMenuOpen && (
+                  <ul
+                    id="user-menu"
+                    role="menu"
+                    aria-label="Menu do usuário"
+                    className="absolute right-0 z-50 mt-2 w-48 rounded-md border border-gray-200 bg-white py-1 shadow-lg"
                   >
-                    Meu perfil
-                  </li>
-                  <li
-                    role="menuitem"
-                    className="block w-full text-left px-4 py-2 text-sm text-red hover:bg-gray-100 border-t border-gray-200 cursor-pointer"
-                    onClick={() => {
-                      setUserMenuOpen(false);
-                      handleSignOut();
-                    }}
-                  >
-                    Sign out
-                    <FontAwesomeIcon
-                      icon={faSignOutAlt}
-                      className="text-red ml-2"
-                    />
-                  </li>
-                </ul>
-              )}
-            </li>
-          </ul>
+                    <li
+                      role="menuitem"
+                      className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-gray-dark hover:bg-gray-100"
+                      onClick={() => {
+                        setUserMenuOpen(false);
+                        router.push(RoutesUrls.USER_PROFILE);
+                      }}
+                    >
+                      Meu perfil
+                    </li>
+                    <li
+                      role="menuitem"
+                      className="block w-full cursor-pointer border-t border-gray-200 px-4 py-2 text-left text-sm text-red hover:bg-gray-100"
+                      onClick={() => {
+                        setUserMenuOpen(false);
+                        handleSignOut();
+                      }}
+                    >
+                      Sign out
+                      <FontAwesomeIcon
+                        icon={faSignOutAlt}
+                        className="ml-2 text-red"
+                      />
+                    </li>
+                  </ul>
+                )}
+              </li>
+            </ul>
+
+            <button
+              className="relative h-8 w-8 text-2xl text-blue lg:hidden"
+              onClick={() => {
+                setIsOpen((current) => {
+                  const next = !current;
+                  if (next) {
+                    setDismissNotifications((signal) => signal + 1);
+                  }
+                  return next;
+                });
+              }}
+              aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+              aria-controls="mobile-menu-logged"
+              aria-expanded={isOpen}
+            >
+              <span
+                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+              >
+                <FontAwesomeIcon icon={faClose} />
+              </span>
+              <span
+                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isOpen ? "opacity-0" : "opacity-100"}`}
+              >
+                <FontAwesomeIcon icon={faBars} />
+              </span>
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
