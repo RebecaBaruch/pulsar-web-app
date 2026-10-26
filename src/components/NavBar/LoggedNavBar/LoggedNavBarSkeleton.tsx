@@ -9,7 +9,10 @@ export default function LoggedNavBarSkeleton() {
         <Skeleton className="h-8 w-28" />
 
         {/* Mobile menu button skeleton */}
-        <Skeleton className="lg:hidden h-6 w-6" />
+        <div className="flex items-center gap-4 lg:hidden">
+          <Skeleton className="h-5 w-5 rounded-full" />
+          <Skeleton className="h-6 w-6" />
+        </div>
 
         {/* Desktop navigation links skeleton */}
         <ul className="hidden lg:flex lg:items-center lg:space-x-6 list-none p-0 m-0">

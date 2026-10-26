@@ -13,7 +13,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { toast } from "sonner";
-import SessionRatingModal from "./SessionRatingModal";
+import { useRouter } from "next/navigation";
+import { buildEvaluationPath } from "@/app/client-user/evaluation/utils/query";
+import {
+  SESSION_REVIEW_SUBMITTED_EVENT,
+  SessionReviewSubmittedDetail,
+} from "./events";
 
 type ClientNotificationType =
   | "session_invite"
@@ -24,6 +29,9 @@ type ClientNotification = {
   id: string;
   type: ClientNotificationType;
   professionalName: string;
+  professionalRole?: string;
+  credentialCode?: string;
+  profilePic?: string;
   sessionDate?: string;
   sessionTime?: string;
   createdAt: string;
@@ -80,6 +88,9 @@ const INITIAL_NOTIFICATIONS: ClientNotification[] = [
     id: "review-1",
     type: "session_review",
     professionalName: "Dr. Rafael Costa",
+    professionalRole: "Psicólogo",
+    credentialCode: "CRP 06/654321",
+    profilePic: "https://randomuser.me/api/portraits/men/32.jpg",
     createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
     read: false,
   },
@@ -222,6 +233,9 @@ function NotificationCard({
                   tone="invite"
                 />
               )}
+              <p className="mt-2 text-xs text-gray">
+                {formatTimeAgo(notification.createdAt)}
+              </p>
               <div className="mt-3 flex gap-2">
                 <NotificationAction
                   label="Cancelar"
@@ -245,6 +259,9 @@ function NotificationCard({
                   {notification.professionalName}
                 </span>
                 . O que achou do trabalho dele?
+              </p>
+              <p className="mt-2 text-xs text-gray">
+                {formatTimeAgo(notification.createdAt)}
               </p>
               <div className="mt-3 flex gap-2">
                 <NotificationAction
@@ -276,6 +293,9 @@ function NotificationCard({
                   tone="cancelled"
                 />
               )}
+              <p className="mt-2 text-xs text-gray">
+                {formatTimeAgo(notification.createdAt)}
+              </p>
               <div className="mt-3 flex justify-end">
                 <button
                   type="button"
@@ -287,8 +307,6 @@ function NotificationCard({
               </div>
             </>
           )}
-
-          <p className="mt-2 text-xs text-gray">{formatTimeAgo(notification.createdAt)}</p>
         </div>
       </div>
     </article>
@@ -306,9 +324,7 @@ export default function ClientNotificationBell({
   const [notifications, setNotifications] = useState<ClientNotification[]>(
     INITIAL_NOTIFICATIONS,
   );
-  const [ratingTarget, setRatingTarget] = useState<ClientNotification | null>(
-    null,
-  );
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const dismissRef = useRef(dismissSignal);
@@ -414,15 +430,38 @@ export default function ClientNotificationBell({
 
   const handleEvaluate = (notification: ClientNotification) => {
     closePanel();
-    setRatingTarget(notification);
+    router.push(
+      buildEvaluationPath({
+        notificationId: notification.id,
+        name: notification.professionalName,
+        role: notification.professionalRole ?? "",
+        credentialCode: notification.credentialCode ?? "",
+        photoUrl: notification.profilePic,
+      }),
+    );
   };
 
-  const handleSubmitRating = (rating: number) => {
-    if (!ratingTarget || rating < 1) return;
-    removeNotification(ratingTarget.id);
-    setRatingTarget(null);
-    toast.success("Avaliação enviada");
-  };
+  useEffect(() => {
+    const handleReviewSubmitted = (event: Event) => {
+      const notificationId = (event as CustomEvent<SessionReviewSubmittedDetail>)
+        .detail?.notificationId;
+      if (!notificationId) return;
+      setNotifications((current) =>
+        current.filter((notification) => notification.id !== notificationId),
+      );
+    };
+
+    window.addEventListener(
+      SESSION_REVIEW_SUBMITTED_EVENT,
+      handleReviewSubmitted,
+    );
+    return () => {
+      window.removeEventListener(
+        SESSION_REVIEW_SUBMITTED_EVENT,
+        handleReviewSubmitted,
+      );
+    };
+  }, []);
 
   const panel =
     isOpen && panelPosition ? (
@@ -446,14 +485,14 @@ export default function ClientNotificationBell({
             <button
               type="button"
               onClick={() => setNotifications([])}
-              className="cursor-pointer text-sm font-medium text-blue transition-colors hover:text-blue-700"
+              className="cursor-pointer text-sm font-medium text-blue transition-colors hover:text-blue-dark"
             >
               Limpar tudo
             </button>
           )}
         </div>
 
-        <div className="max-h-[min(24rem,calc(100vh-6rem))] overflow-y-auto">
+        <div className="max-h-[min(36rem,calc(100vh-6rem))] overflow-y-auto">
           {notifications.length === 0 ? (
             <div className="flex flex-col items-center gap-2 px-6 py-10 text-center text-gray">
               <FontAwesomeIcon icon={faBell} className="text-2xl text-gray-300" />
@@ -484,11 +523,13 @@ export default function ClientNotificationBell({
         <button
           type="button"
           onClick={() => (isOpen ? closePanel() : openPanel())}
-          className="relative cursor-pointer text-lg leading-none text-blue"
+          className="relative cursor-pointer text-lg leading-none text-blue transition-colors hover:text-blue-dark"
           aria-label={
-            unreadCount > 0
-              ? `Notificações, ${unreadCount} não lidas`
-              : "Notificações"
+            unreadCount === 1
+              ? "Notificações, 1 não lida"
+              : unreadCount > 1
+                ? `Notificações, ${unreadCount} não lidas`
+                : "Notificações"
           }
           aria-haspopup="dialog"
           aria-expanded={isOpen}
@@ -505,14 +546,6 @@ export default function ClientNotificationBell({
       {typeof document !== "undefined" && panel
         ? createPortal(panel, document.body)
         : null}
-
-      {ratingTarget && (
-        <SessionRatingModal
-          professionalName={ratingTarget.professionalName}
-          onClose={() => setRatingTarget(null)}
-          onSubmit={handleSubmitRating}
-        />
-      )}
     </>
   );
 }
