@@ -19,8 +19,8 @@ export default function HeroSection() {
           p-6 py-12 lg:p-12 
           w-full min-h-[460px] lg:min-h-[400px]
           bg-cover bg-center bg-no-repeat
-          bg-[url('/images/hero-mobile.png')]
-          md:bg-[url('/images/hero-desktop.png')]
+          bg-[url('/images/hero-mobile.webp')]
+          md:bg-[url('/images/hero-desktop.webp')]
           flex flex-col md:flex-row
           justify-start items-start md:items-center
           rounded-xl overflow-hidden
@@ -28,7 +28,7 @@ export default function HeroSection() {
       >
         <div className="relative flex-1 w-full order-1 md:order-2 mb-6 md:mb-0">
           <Image
-            src="/images/hero-image-desktop.png"
+            src="/images/hero-image-desktop.webp"
             alt="Hero"
             width={500}
             height={500}

@@ -45,7 +45,7 @@ export default function ChoosePulsar() {
         <div className="w-full md:flex-1 min-w-0 relative">
           <div className="relative w-full rounded-3xl">
             <Image
-              src="/images/woman.svg"
+              src="/images/woman.webp"
               alt="Atendimento psicológico online com especialista Pulsar"
               width={800}
               height={600}
