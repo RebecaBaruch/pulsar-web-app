@@ -1,3 +1,4 @@
+import { clientStickyHeaderClass } from "@/components/ClientPage";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { faCalendar, faClock } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
@@ -12,8 +13,8 @@ type SessionsHeaderProps = {
 export default function SessionsHeader({ activeTab, setActiveTab }: SessionsHeaderProps) {
   
   return (
-    <header className="flex flex-col gap-4 w-full sticky top-0 z-10 pb-6 bg-[#ffffff] border-b border-gray-200 sticky">
-      <h1 className="text-2xl font-bold">Minhas Sessões</h1>
+    <header className={clientStickyHeaderClass}>
+      <h1 className="text-2xl font-semibold text-gray-darkest">Minhas Sessões</h1>
       <div className="flex flex-row gap-4">
         <div className="w-fit rounded-full overflow-hidden">
           <PrimaryButton

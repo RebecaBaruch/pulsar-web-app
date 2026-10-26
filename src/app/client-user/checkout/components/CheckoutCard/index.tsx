@@ -1,3 +1,4 @@
+import { clientCardClass } from "@/components/ClientPage";
 import React from "react";
 
 interface CheckoutCardProps {
@@ -13,7 +14,7 @@ export default function CheckoutCard({ price, discount }: CheckoutCardProps) {
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-sm font-medium">Resumo do pagamento</h2>
-      <div className="flex flex-col gap-2 bg-white rounded-lg shadow-sm p-4 w-full max-w-xs">
+      <div className={`${clientCardClass} flex w-full max-w-xs flex-col gap-2 p-4`}>
         <div className="flex justify-between text-gray-dark">
           <span className="text-xs font-medium">Subtotal</span>
           <span className="text-xs">R${subtotal}</span>
@@ -24,7 +25,7 @@ export default function CheckoutCard({ price, discount }: CheckoutCardProps) {
             {hasDiscount ? `R$${discount}` : "--"}
           </span>
         </div>
-        <hr className="my-2 border-dashed border-gray-300" />
+        <hr className="my-2 border-dashed border-gray-light" />
         <div className="flex justify-between font-semibold">
           <span className="text-sm">Total</span>
           <span className="text-sm">R${total}</span>

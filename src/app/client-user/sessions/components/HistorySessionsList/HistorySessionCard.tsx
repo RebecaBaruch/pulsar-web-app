@@ -30,7 +30,7 @@ export default function HistorySessionCard(props: HistorySessionCardProps) {
   } = props;
   return (
     <div
-      className={`flex flex-col md:flex-row items-start md:items-end justify-between gap-4 md:gap-6 transition-colors cursor-pointer hover:bg-gray-100 p-4 py-8 border-b border-gray-200`}
+      className="flex cursor-pointer flex-col items-start justify-between gap-4 border-b border-gray-light p-4 py-8 transition-colors hover:bg-gray-light md:flex-row md:items-end md:gap-6"
     >
       <div className="w-full flex flex-col md:flex-row items-center gap-4">
         <div className="w-full md:w-fit flex flex-row items-start md:items-start gap-4 md:gap-6">

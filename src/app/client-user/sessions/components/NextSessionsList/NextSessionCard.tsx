@@ -34,8 +34,8 @@ export default function NextSessionCard({
     <div
       className={`flex flex-col md:flex-row items-end justify-between gap-4 md:gap-6 transition-colors cursor-pointer  hover:bg-gray-100 ${
         isPriority
-          ? "p-4 py-6 bg-[#ffffff] border-l-8 border-blue mb-8 shadow-gray-200 shadow-md rounded-lg"
-          : "p-4 py-8  border-b border-gray-200"
+          ? "mb-8 rounded-lg border-l-8 border-blue bg-white p-4 py-6 shadow-md-gray-light"
+          : "border-b border-gray-light p-4 py-8"
       }`}
     >
       <div className="w-full flex flex-col md:flex-row items-start md:items-center gap-4">

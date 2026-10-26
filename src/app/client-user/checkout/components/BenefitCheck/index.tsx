@@ -1,5 +1,6 @@
 "use client";
 import { CustomCheckbox } from "@/components/CustomCheckbox";
+import { clientCardClass } from "@/components/ClientPage";
 import React from "react";
 
 export type BenefitCheckProps = {
@@ -24,7 +25,9 @@ export default function BenefitCheck({
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-sm font-medium">Usar benefício</h2>
-      <div className="flex flex-row items-center text-gray-darkest p-4 bg-white rounded-lg shadow-sm">
+      <div
+        className={`${clientCardClass} flex flex-row items-center p-4 text-gray-darkest`}
+      >
         {benefitTitle && benefitDiscount ? (
           <div className="flex flex-row items-center gap-2 text-gray-darkest">
             <CustomCheckbox checked={checked} onChange={onChange} />
