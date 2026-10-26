@@ -2,10 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import { useRouter } from "next/navigation";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import LinkButton from "@/components/LinkButton";
 
 export default function MySessions() {
+  const router = useRouter();
+
   return (
     <section className="w-full h-fit bg-white rounded border border-gray-light p-2 md:p-6 flex flex-row items-center justify-between gap-4">
       <div className="flex items-center h-full">
@@ -28,11 +32,9 @@ export default function MySessions() {
           </p>
         </div>
 
-        <LinkButton
-          href="/"
-          text="Ver todas as sessões"
-          icon={faChevronRight}
-        />
+        <div>
+          <PrimaryButton text={"Todas as sessões"} rightIcon={faChevronRight} onClick={() => router.push(RoutesUrls.CLIENT_SESSIONS)}/>
+        </div>
       </div>
     </section>
   );

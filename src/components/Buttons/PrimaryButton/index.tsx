@@ -7,6 +7,7 @@ type ColorOption = "blue" | "green" | "red" | "white" | "dark" | "gray";
 type PrimaryButtonProps = {
   type?: "button" | "submit" | "reset";
   icon?: IconDefinition;
+  rightIcon?: IconDefinition;
   text: string;
   onClick?: () => void;
   isDisabled?: boolean;
@@ -55,6 +56,7 @@ const colorStyles: Record<ColorOption, string> = {
 const PrimaryButton = ({
   type = "button",
   icon,
+  rightIcon,
   text,
   onClick,
   isDisabled,
@@ -87,6 +89,7 @@ const PrimaryButton = ({
     >
       {icon && <FontAwesomeIcon icon={icon} />}
       {text}
+      {rightIcon && <FontAwesomeIcon icon={rightIcon} />}
     </button>
   );
 };
