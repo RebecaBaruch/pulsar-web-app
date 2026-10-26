@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -25,8 +25,8 @@ export default function ForCompanies() {
                 src="/images/alex-and-monica.webp"
                 alt="Profissionais da Pulsar - Alex e Mônica"
                 fill
-                priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
                 className="object-cover object-top"
               />
             </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -10,7 +10,7 @@ export default function MySessions() {
     <section className="w-full h-fit bg-white rounded border border-gray-light p-2 md:p-6 flex flex-row items-center justify-between gap-4">
       <div className="flex items-center h-full">
         <Image
-          src="/images/schedule-2.svg"
+          src="/images/schedule-2.webp"
           alt="Ícone de agendamento"
           className="h-full"
           width={40}

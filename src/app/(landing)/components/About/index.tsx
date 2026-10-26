@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -65,7 +65,7 @@ export default function About() {
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center"
-              priority
+              loading="lazy"
             />
           </div>
         </div>

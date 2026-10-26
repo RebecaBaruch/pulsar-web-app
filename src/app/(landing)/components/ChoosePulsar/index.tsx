@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -50,7 +50,8 @@ export default function ChoosePulsar() {
               width={800}
               height={600}
               className="w-full h-auto object-cover"
-              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading="lazy"
             />
 
             {/* Float Card Azul (Responsivo e Integrado) */}

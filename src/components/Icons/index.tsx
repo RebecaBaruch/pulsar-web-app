@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -18,7 +18,7 @@ export default function Icon({
   className?: string;
 }) {
   const map: Record<IconName, string> = {
-    psycho: "psychologist-blue.svg",
+    psycho: "psychologist-blue.webp",
     therapist: "therapist-blue.svg",
     "physical-educ": "phisycal-blue.svg",
     nutritionist: "nutri-blue.svg",

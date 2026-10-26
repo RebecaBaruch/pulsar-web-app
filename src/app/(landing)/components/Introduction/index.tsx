@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -23,8 +23,8 @@ export default function Introduction() {
                 src="/images/happy-people.webp"
                 alt="Família sorrindo unida representando o cuidado integral da Pulsar"
                 fill
-                priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
                 className="object-contain object-center"
               />
             </div>
