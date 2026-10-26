@@ -29,19 +29,19 @@ export default function ResetPasswordView({
   error,
 }: ResetPasswordViewProps) {
   return (
-    <section className="flex w-screen min-h-screen justify-center pt-15">
-      <div className="flex flex-col w-full p-6 md:p-15 lg:py-10 lg:px-6 lg:max-w-lg gap-10 md:gap-10">
+    <section className="flex w-screen min-h-screen justify-center lg:items-start pt-8">
+      <div className="mx-auto flex flex-col p-4 lg:py-10 lg:max-w-[350px] gap-8">
         <img
           src="/images/horizontal-logo.png"
           alt="Logo da Pulsar"
-          className="lg:w-[150px] w-[150px]"
+          className="w-[100px]"
         />
 
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl md:text-3xl lg:text-2xl font-bold text-black">
+          <h1 className="text-2xl md:text-3xl lg:text-xl font-bold text-black">
             Redefinir sua senha
           </h1>
-          <p className="text-lg md:text-md lg:text-base text-gray-darkest">
+          <p className="text-sm md:text-xs text-gray-darkest">
             A senha deve conter no mínimo 8 caracteres, incluindo letra
             maiúscula, minúscula, número e pelo menos um caractere especial.
           </p>
@@ -55,7 +55,7 @@ export default function ResetPasswordView({
           )}
           <form onSubmit={onSubmit} className="flex flex-col gap-6">
             <InputField
-              label="Senha"
+              label="Nova senha"
               type="password"
               placeholder="Digite a senha"
               value={password}
@@ -65,7 +65,7 @@ export default function ResetPasswordView({
             />
 
             <InputField
-              label="Confirme a senha"
+              label="Confirme a nova senha"
               type="password"
               placeholder="Confirme a senha"
               value={confirmPassword}
