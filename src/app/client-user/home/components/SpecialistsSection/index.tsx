@@ -5,19 +5,27 @@ import { SpecialistCard } from "../SpecialistCard";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import LinkButton from "@/components/LinkButton";
 import { RoutesUrls } from "@/utils/enum/routes-url";
-import Icon from "@/components/Icons";
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
+import {
+  faComments,
+  faStethoscope,
+  faHandHoldingHeart,
+  faDumbbell,
+  faAppleWhole,
+  faChartLine,
+} from "@fortawesome/free-solid-svg-icons";
 
 // extract the type of the icon prop from the Icon component
-type IconNameType = React.ComponentProps<typeof Icon>["name"];
+type IconNameType = IconProp;
 
 const specialists: Array<{ title: string; icon: IconNameType; href: string }> =
   [
-    { title: "Psicólogo", icon: "psycho", href: "/" },
-    { title: "Terapeuta", icon: "therapist", href: "/" },
-    { title: "Educador Físico", icon: "physical-educ", href: "/" },
-    { title: "Nutricionista", icon: "nutritionist", href: "/" },
-    { title: "Assessor Financeiro", icon: "financial-advisor", href: "/" },
-    { title: "Psiquiatra", icon: "psychi", href: "/" },
+    { title: "Psicólogo", icon: faComments, href: "/" },
+    { title: "Psiquiatra", icon: faStethoscope, href: "/" },
+    { title: "Terapeuta", icon: faHandHoldingHeart, href: "/" },
+    { title: "Educador Físico", icon: faDumbbell, href: "/" },
+    { title: "Nutricionista", icon: faAppleWhole, href: "/" },
+    { title: "Assessor Financeiro", icon: faChartLine, href: "/" },
   ];
 
 export default function SpecialistsSection() {

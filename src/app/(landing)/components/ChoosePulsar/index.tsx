@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -45,12 +45,13 @@ export default function ChoosePulsar() {
         <div className="w-full md:flex-1 min-w-0 relative">
           <div className="relative w-full rounded-3xl">
             <Image
-              src="/images/woman.svg"
+              src="/images/woman.webp"
               alt="Atendimento psicológico online com especialista Pulsar"
               width={800}
               height={600}
               className="w-full h-auto object-cover"
-              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading="lazy"
             />
 
             {/* Float Card Azul (Responsivo e Integrado) */}

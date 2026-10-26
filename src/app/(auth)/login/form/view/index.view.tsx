@@ -1,8 +1,10 @@
-"use client";
+﻿"use client";
 
 import React from "react";
+import Link from "next/link";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import InputField from "@/components/InputField";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 type Props = {
   email: string;
@@ -74,9 +76,12 @@ export default function LoginFormView({
                   error={!!errors.password}
                 />
 
-                <a href="/" className="text-blue text-xs font-medium underline">
+                <Link
+                  href={RoutesUrls.FORGOT_PASSWORD}
+                  className="text-blue text-xs font-medium underline"
+                >
                   Esqueci minha senha
-                </a>
+                </Link>
               </div>
             </div>
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -22,11 +22,11 @@ export default function ForCompanies() {
           <div className="order-1 lg:order-2 w-full">
             <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm">
               <Image
-                src="/images/alex-monica.svg"
+                src="/images/alex-and-monica.webp"
                 alt="Profissionais da Pulsar - Alex e Mônica"
                 fill
-                priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
                 className="object-cover object-top"
               />
             </div>

@@ -1,13 +1,9 @@
 @import "tailwindcss";
-@import "swiper/css";
-@import "swiper/css/pagination";
-
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-work-sans), var(--font-inter), sans-serif;
   
   /* Blue Palette */
   --color-blue-primary: #3852e7;
@@ -72,7 +68,7 @@ body {
   width: full;
   overflow-x: hidden;
   background: #ffffff;
-  font-family: "Work Sans", "Inter", sans-serif;
+  font-family: var(--font-work-sans), var(--font-inter), sans-serif;
 }
 
 .swiper-pagination-bullet-active {

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -20,11 +20,11 @@ export default function Introduction() {
           <div className="w-full">
             <div className="relative w-full aspect-square sm:aspect-[4/3] lg:aspect-square max-w-[540px] mx-auto">
               <Image
-                src="/images/happy-people.svg"
+                src="/images/happy-people.webp"
                 alt="Família sorrindo unida representando o cuidado integral da Pulsar"
                 fill
-                priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
                 className="object-contain object-center"
               />
             </div>

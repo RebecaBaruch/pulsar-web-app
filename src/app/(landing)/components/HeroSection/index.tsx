@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,20 +18,39 @@ export default function HeroSection() {
           relative
           p-6 py-12 lg:p-12 
           w-full min-h-[460px] lg:min-h-[400px]
-          bg-cover bg-center bg-no-repeat
-          bg-[url('/images/hero-mobile.png')]
-          md:bg-[url('/images/hero-desktop.png')]
           flex flex-col md:flex-row
           justify-start items-start md:items-center
           rounded-xl overflow-hidden
         "
       >
+        <Image
+          src="/images/hero-mobile.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={80}
+          className="object-cover object-center md:hidden -z-10"
+          aria-hidden
+        />
+        <Image
+          src="/images/hero-desktop.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          quality={80}
+          className="hidden md:block object-cover object-center -z-10"
+          aria-hidden
+        />
+
         <div className="relative flex-1 w-full order-1 md:order-2 mb-6 md:mb-0">
           <Image
-            src="/images/hero-image-desktop.png"
-            alt="Hero"
+            src="/images/hero-image-desktop.webp"
+            alt="Profissionais de saúde da Pulsar em atendimento acolhedor"
             width={500}
             height={500}
+            priority
+            sizes="(max-width: 768px) 90vw, 450px"
             className="mx-auto md:absolute md:right-[15px] md:top-1/2 md:-translate-y-1/2 md:max-w-[450px] lg:max-w-[500px]"
           />
         </div>
@@ -53,7 +72,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="flex flex-row justify-end space-x-3 order-3 md:order-2 w-full fa-lg mt-12 md:absolute md:bottom-6 md:right-6">
+        <div className="flex flex-row justify-end space-x-3 order-3 md:order-2 w-full fa-lg mt-12 md:absolute md:bottom-6 md:right-6 z-10">
           <Link href="https://www.instagram.com/soupulsar?utm_source=ig_web_button_share_sheet&igsh=dzdkMXJ2ZTBmcDRq">
             <FontAwesomeIcon icon={faInstagram} style={{ color: "white" }} />
           </Link>

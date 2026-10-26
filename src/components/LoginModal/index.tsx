@@ -1,7 +1,9 @@
-"use client";
+﻿"use client";
 
 import React from "react";
+import Link from "next/link";
 import InputField from "../InputField";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { useLogin } from "@/auth/hooks/useLogin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -78,9 +80,12 @@ export default function LoginModal({ onClose }: LoginModalProps) {
                 error={!!error}
               />
 
-              <a href="/" className="text-blue text-xs font-medium underline">
+              <Link
+                href={RoutesUrls.FORGOT_PASSWORD}
+                className="text-blue text-xs font-medium underline"
+              >
                 Esqueci minha senha
-              </a>
+              </Link>
             </div>
           </div>
 

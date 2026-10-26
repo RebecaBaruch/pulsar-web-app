@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import InputField from "@/components/InputField";
@@ -21,12 +21,12 @@ export default function ForgotPasswordView({
   onSubmit,
 }: ForgotPasswordProps) {
   return (
-    <section className="flex w-screen min-h-screen justify-center pt-15">
-      <div className="flex flex-col w-full p-6 md:p-15 lg:py-10 lg:px-6 lg:max-w-lg gap-15 md:gap-15">
+    <section className="flex w-screen min-h-screen justify-center lg:items-start pt-8">
+      <div className="mx-auto flex flex-col p-4 lg:py-10 lg:max-w-[350px] gap-8">
         <img
           src="/images/horizontal-logo.png"
           alt="Logo da Pulsar"
-          className="lg:w-[150px] w-[150px]"
+          className="w-[100px]"
         />
 
         {sent ? (
@@ -34,10 +34,10 @@ export default function ForgotPasswordView({
         ) : (
           <>
             <div className="flex flex-col gap-2">
-              <h1 className="text-2xl md:text-3xl lg:text-2xl font-bold text-black">
+              <h1 className="text-2xl md:text-3xl lg:text-xl font-bold text-black">
                 Esqueceu sua senha?
               </h1>
-              <p className="text-lg md:text-md lg:text-md text-gray-darkest">
+              <p className="text-sm md:text-xs text-gray-darkest">
                 Digite o endereço de e-mail associado à sua conta e vamos te
                 enviar um link para redefinir a sua senha.
               </p>
@@ -50,7 +50,7 @@ export default function ForgotPasswordView({
               >
                 <div className="flex flex-col gap-6 w-full">
                   <InputField
-                    type="text"
+                    type="email"
                     placeholder="Digite seu e-mail"
                     value={email}
                     onChange={onEmailChange}

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { contactWhatsappUtil } from "@/utils/contact-whatsapp";
@@ -36,7 +36,7 @@ export default function BePulsarContent() {
       </div>
       <div className="md:flex-1 order-1 lg:order-2 min-w-0 rounded-lg rounded-tl-4xl rounded-br-4xl overflow-hidden">
         <Image
-          src="/images/team-image.jpg"
+          src="/images/team-image.webp"
           alt="Imagem de equipe de especialistas da Pulsar"
           className="w-full h-auto object-contain"
           width={500}

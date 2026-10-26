@@ -1,6 +1,8 @@
 // components/Forms/PasswordForm.tsx
 import React from "react";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import InputField from "@/components/InputField";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
@@ -37,6 +39,12 @@ export const PasswordForm: React.FC = () => {
           credenciais de acesso. A nova senha deve ter no mínimo 8 caracteres,
           contendo 1 número e 1 caractere especial.
         </p>
+        <Link
+          href={RoutesUrls.FORGOT_PASSWORD}
+          className="text-blue text-xs font-medium underline self-end"
+        >
+          Esqueci minha senha
+        </Link>
       </div>
 
       {/* Inputs grid */}
@@ -55,14 +63,16 @@ export const PasswordForm: React.FC = () => {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <InputField
-            label="Senha atual"
-            type="password"
-            skipTypeValidation={true}
-            placeholder="••••••••••••"
-            value={formData.currentPassword}
-            onChange={(val) => handleChange("currentPassword", val)}
-          />
+          <div className="flex flex-col gap-2">
+            <InputField
+              label="Senha atual"
+              type="password"
+              skipTypeValidation={true}
+              placeholder="••••••••••••"
+              value={formData.currentPassword}
+              onChange={(val) => handleChange("currentPassword", val)}
+            />
+          </div>
 
           <InputField
             label="Nova senha"

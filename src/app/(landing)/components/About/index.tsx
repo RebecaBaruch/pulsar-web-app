@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -60,12 +60,12 @@ export default function About() {
           {/* Imagem Lateral / Inferior */}
           <div className="flex-1 relative min-h-[320px] sm:min-h-[400px] lg:min-h-[auto] w-full">
             <Image
-              src="/images/alex-dog.svg"
+              src="/images/alex-and-dog.webp"
               alt="Alex Machado, psicólogo e cofundador da Pulsar, com seu cão de assistência"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center"
-              priority
+              loading="lazy"
             />
           </div>
         </div>

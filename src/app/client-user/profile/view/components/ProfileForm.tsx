@@ -87,7 +87,7 @@ export default function ProfileForm() {
         {isAuthenticated && user ? (
           <LinkButton
             text="Alterar senha"
-            href={RoutesUrls.RESET_PASSWORD + `?userId=${user.id}`}
+            href={RoutesUrls.FORGOT_PASSWORD}
             icon={faKey}
           />
         ) : null}
