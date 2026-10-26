@@ -21,7 +21,7 @@ export default function AppointmentResume({
   timeZone,
 }: AppointmentResumeProps) {
   return (
-    <div className="flex flex-col gap-4 p-4 bg-blue-200 rounded-lg">
+    <div className="flex flex-col gap-4 rounded-lg bg-blue-100 p-4">
       <div className="flex flex-row items-center gap-4">
         <div className="w-10 h-10 rounded-full">
           <img

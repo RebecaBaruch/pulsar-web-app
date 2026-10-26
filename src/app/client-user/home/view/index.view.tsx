@@ -2,6 +2,7 @@
 
 import React from "react";
 import NextSessionHeader from "../../../../components/NextSessionHeader";
+import { ClientPageShell } from "@/components/ClientPage";
 import MySessions from "../components/MySessions";
 import SpecialistsSection from "../components/SpecialistsSection";
 import HomeSkeleton from "../components/HomeSkeleton";
@@ -17,14 +18,11 @@ export default function HomeView({ loading, userName }: HomeViewProps) {
   }
 
   return (
-      <section className="flex w-full overflow-x-hidden min-h-screen justify-center pt-10 pb-10">
-        <div className="flex flex-col gap-12 w-full max-w-[800px] mx-auto">
+      <ClientPageShell width="wide" contentClassName="gap-12">
           <div className="flex flex-col gap-6 w-full">
-            <span>
-              <h1 className="text-2xl text-black font-bold">
-                Olá, {userName} 👋
-              </h1>
-            </span>
+            <h1 className="text-2xl font-semibold text-gray-darkest">
+              Olá, {userName} 👋
+            </h1>
             <NextSessionHeader
               profilePictureUrl="https://github.com/shadcn.png"
               name={"Alex"}
@@ -37,7 +35,6 @@ export default function HomeView({ loading, userName }: HomeViewProps) {
             <MySessions />
           </div>
           <SpecialistsSection />
-        </div>
-      </section>
+      </ClientPageShell>
   );
 }

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import { clientCardClass } from "@/components/ClientPage";
 import { useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -11,20 +12,22 @@ export default function MySessions() {
   const router = useRouter();
 
   return (
-    <section className="w-full h-fit bg-white rounded border border-gray-light p-2 md:p-6 flex flex-row items-center justify-between gap-4">
+    <section
+      className={`${clientCardClass} flex h-fit w-full flex-row items-center justify-between gap-4 p-2 md:p-6`}
+    >
       <div className="flex items-center h-full">
         <Image
           src="/images/schedule-2.webp"
           alt="Ícone de agendamento"
-          className="h-full"
+          className="h-full w-fit"
           width={40}
           height={40}
         />
       </div>
 
-      <div className="flex flex-col md:flex-row gap-2 w-70% md:w-full justify-between items-start md:items-center">
+      <div className="flex w-[70%] flex-col items-start justify-between gap-2 md:w-full md:flex-row md:items-center">
         <div className="w-full">
-          <h1 className="text-sm md:text-base font-semibold text-black">
+          <h1 className="text-sm font-semibold text-gray-darkest md:text-base">
             Minhas sessões
           </h1>
           <p className="text-xs lg:text-sm text-gray w-full">

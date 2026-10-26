@@ -5,6 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
+import {
+  ClientCard,
+  ClientPageHeader,
+  ClientPageShell,
+  clientCardClass,
+} from "@/components/ClientPage";
 import TextareaField from "@/components/TextareaField";
 import SpecialistSummary from "../components/SpecialistSummary";
 import StarRating from "../components/StarRating";
@@ -35,37 +41,32 @@ export default function EvaluationView({
   };
 
   return (
-    <section className="flex min-h-screen w-full justify-center overflow-x-hidden pt-10 pb-10">
-      <div className="mx-auto flex w-full max-w-[560px] flex-col gap-8">
-        <div className="flex flex-col gap-3">
-          <span
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
-            aria-hidden="true"
-          >
-            <FontAwesomeIcon icon={faStar} className="text-sm" />
-          </span>
-          <div className="flex flex-col gap-1">
-            <h1 className="text-2xl font-semibold text-gray-darkest">
-              Avalie o especialista
-            </h1>
-            <p className="text-sm text-gray-500">
-              Deixe o seu feedback! A sua opinião é muito importante pra gente.
-            </p>
-          </div>
-        </div>
+    <ClientPageShell width="narrow">
+      <div className="flex flex-col gap-3">
+        <span
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
+          aria-hidden="true"
+        >
+          <FontAwesomeIcon icon={faStar} className="text-sm" />
+        </span>
+        <ClientPageHeader
+          title="Avalie o especialista"
+          description="Deixe o seu feedback! A sua opinião é muito importante pra gente."
+        />
+      </div>
 
         {!specialist ? (
-          <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-5">
+          <ClientCard className="flex flex-col gap-4 p-5">
             <p className="text-sm text-gray">
               Não encontramos a sessão para avaliar. Abra a avaliação a partir
               da notificação no sino.
             </p>
             <PrimaryButton text="Voltar para a home" onClick={onGoHome} />
-          </div>
+          </ClientCard>
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-4 sm:p-5"
+            className={`${clientCardClass} flex flex-col gap-6 p-4 sm:p-5`}
           >
             <SpecialistSummary specialist={specialist} />
 
@@ -100,7 +101,6 @@ export default function EvaluationView({
             </div>
           </form>
         )}
-      </div>
-    </section>
+    </ClientPageShell>
   );
 }
