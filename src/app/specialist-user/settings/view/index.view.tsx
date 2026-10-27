@@ -44,7 +44,10 @@ export default function SettingsView({
               <h2 className="text-lg font-bold text-gray-900 mb-4">
                 Meu Perfil
               </h2>
-              <ProfileForm initialData={profileData} />
+              <ProfileForm
+                key={`${profileData.email}-${profileData.name}-${profileData.phone}`}
+                initialData={profileData}
+              />
             </div>
           )}
 

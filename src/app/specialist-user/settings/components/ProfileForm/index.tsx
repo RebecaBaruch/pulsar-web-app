@@ -26,6 +26,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ initialData }) => {
     handleSubmit,
   } = useProfileForm(initialData);
 
+  const avatarSrc = formData.avatarUrl || "/placeholder-avatar.png";
+  const avatarIsDataUrl = avatarSrc.startsWith("data:");
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -35,9 +38,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ initialData }) => {
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
           <Image
-            src={formData.avatarUrl || "/placeholder-avatar.png"}
+            src={avatarSrc}
             alt="Foto de Perfil"
             fill
+            unoptimized={avatarIsDataUrl}
             className="w-full h-full object-cover"
           />
         </div>

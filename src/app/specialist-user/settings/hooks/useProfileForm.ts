@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 export interface ProfileFormData {
   // personal data
@@ -20,6 +20,11 @@ export const useProfileForm = (initialData: ProfileFormData) => {
   const [formData, setFormData] = useState<ProfileFormData>(initialData);
   const [shouldValidate, setShouldValidate] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setFormData(initialData);
+    setShouldValidate(false);
+  }, [initialData]);
 
   const isDirty = useMemo(() => {
     return JSON.stringify(formData) !== JSON.stringify(initialData);

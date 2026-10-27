@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useAuth } from "@/auth/useAuth";
 import { SettingsTabType } from "../components/SettingsTabs";
 import { ProfileFormData } from "./useProfileForm";
 import { ProfileDetailsData } from "./useProfileDetailsForm";
@@ -32,6 +33,7 @@ const emptyDetails: ProfileDetailsData = {
 };
 
 export const useSettingsController = () => {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<SettingsTabType>("personal");
   const [profileData, setProfileData] = useState<ProfileFormData>(emptyProfile);
   const [profileDetailsData, setProfileDetailsData] =
@@ -50,6 +52,14 @@ export const useSettingsController = () => {
       } catch {
         if (!cancelled) {
           toast.error("Não foi possível carregar suas configurações.");
+          if (user) {
+            setProfileData((prev) => ({
+              ...prev,
+              name: user.name ?? prev.name,
+              email: user.email ?? prev.email,
+              avatarUrl: user.avatarUrl ?? prev.avatarUrl,
+            }));
+          }
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -59,7 +69,7 @@ export const useSettingsController = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [user]);
 
   return {
     activeTab,
