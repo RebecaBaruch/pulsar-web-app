@@ -13,18 +13,59 @@ import {
 
 import BenefitCard from "./BenefitCard";
 import SaveStatus from "./SaveStatus";
-import { useAutoSaveProfileForm } from "../../hooks/useAutoSaveProfileForm";
+import {
+  LocalUser,
+  useAutoSaveProfileForm,
+} from "../../hooks/useAutoSaveProfileForm";
 import LinkButton from "@/components/LinkButton";
 import { RoutesUrls } from "@/utils/enum/routes-url";
+import { fetchClientProfile } from "../../../services/clientUserApi";
 
 export default function ProfileForm() {
   const { user, setUser, isAuthenticated } = useAuth();
+  const [profileLoading, setProfileLoading] = React.useState(true);
+  const [initialProfile, setInitialProfile] = React.useState<
+    LocalUser | undefined
+  >(user ?? undefined);
+
+  React.useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const profile = await fetchClientProfile();
+        if (cancelled) return;
+        if (profile?.id && profile.email && profile.name) {
+          setInitialProfile(profile);
+          setUser?.({
+            id: profile.id,
+            name: profile.name,
+            email: profile.email,
+            role: profile.role ?? "CLIENT",
+            avatarUrl: profile.avatarUrl,
+          });
+        }
+      } finally {
+        if (!cancelled) setProfileLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [setUser]);
 
   const { form, saving, saved, handleChange, handleBlur } =
     useAutoSaveProfileForm({
-      initialData: user ?? undefined,
+      initialData: initialProfile,
       onUserUpdated: (u) => setUser?.(u),
     });
+
+  if (profileLoading) {
+    return (
+      <div className="h-40 animate-pulse rounded-lg bg-gray-light" aria-hidden />
+    );
+  }
 
   return (
     <div className="flex flex-col gap-16 text-gray-darkest">

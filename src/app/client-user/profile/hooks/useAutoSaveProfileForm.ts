@@ -119,7 +119,7 @@ export function useAutoSaveProfileForm({
 
       try {
         const res = await fetch("/api/me", {
-          method: "PUT",
+          method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(toSave),
         });

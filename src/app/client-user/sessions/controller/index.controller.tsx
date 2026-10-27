@@ -1,12 +1,13 @@
 "use client";
+
 import React from "react";
+import { toast } from "sonner";
 import SessionsView from "../view/index.view";
-import { mockNextSessions, mockHistorySessions } from "../mock/sessionsMock";
 import { NextSessionCardProps } from "../components/NextSessionsList/NextSessionCard";
 import { HistorySessionCardProps } from "../components/HistorySessionsList/HistorySessionCard";
+import { fetchClientSessions } from "../../services/clientUserApi";
 
 export default function SessionsController() {
-  // Simulate loading and fetch
   const [loading, setLoading] = React.useState(true);
   const [nextSessions, setNextSessions] = React.useState<
     NextSessionCardProps[]
@@ -16,11 +17,26 @@ export default function SessionsController() {
   >([]);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setNextSessions(mockNextSessions);
-      setHistorySessions(mockHistorySessions);
-      setLoading(false);
-    }, 1200);
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const data = await fetchClientSessions();
+        if (cancelled) return;
+        setNextSessions(data.nextSessions);
+        setHistorySessions(data.historySessions);
+      } catch {
+        if (!cancelled) {
+          toast.error("Não foi possível carregar suas sessões.");
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (

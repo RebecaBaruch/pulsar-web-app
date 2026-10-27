@@ -1,45 +1,93 @@
 import { NextResponse } from "next/server";
-import { getSessionCookie } from "@/auth/services/sessionService";
+import { AuthUser } from "@/auth/authTypes";
+import { getSessionCookie, setSession } from "@/auth/services/sessionService";
+import { backendFetch, readBackendError } from "@/lib/api/server/backendClient";
+import {
+  localUserToUpdatePayload,
+  profileToLocalUser,
+} from "@/app/client-user/services/profileMapper";
+import type { BackendClientProfile } from "@/types/backend";
+import type { LocalUser } from "@/app/client-user/profile/hooks/useAutoSaveProfileForm";
+
+async function fetchBackendProfile(): Promise<BackendClientProfile | null> {
+  const res = await backendFetch("/api/users/me");
+  if (!res.ok) return null;
+  return (await res.json()) as BackendClientProfile;
+}
+
+function toAuthUser(sessionUser: AuthUser, profile: LocalUser): AuthUser {
+  return {
+    id: sessionUser.id,
+    role: sessionUser.role,
+    name: profile.name ?? sessionUser.name,
+    email: profile.email ?? sessionUser.email,
+    avatarUrl: sessionUser.avatarUrl,
+  };
+}
 
 export async function GET() {
   const session = await getSessionCookie();
 
-  if (!session || !session.user) {
+  if (!session?.user) {
     return NextResponse.json({ user: null }, { status: 401 });
   }
 
-  return NextResponse.json({ user: session.user });
+  try {
+    const profile = session.accessToken
+      ? await fetchBackendProfile()
+      : null;
+
+    const user = profileToLocalUser(session.user, profile);
+
+    return NextResponse.json({ user });
+  } catch (error) {
+    console.error("GET /api/me", error);
+    return NextResponse.json({ user: session.user });
+  }
 }
 
-// import { AuthUser } from "@/auth/authTypes";
-// import React from "react";
+export async function PATCH(req: Request) {
+  const session = await getSessionCookie();
 
-// const { user, loading } = useAuth({
-//   mock: true,
-// });
+  if (!session?.user || !session.accessToken) {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
 
-// function useAuth({ mock = false } = {}) {
-//   const [user, setUser] = React.useState<AuthUser | null>(null);
-//   const [loading, setLoading] = React.useState(true);
+  if (session.user.role !== "CLIENT") {
+    return NextResponse.json({ error: "Acesso negado" }, { status: 403 });
+  }
 
-//   React.useEffect(() => {
-//     if (mock) {
-//       setUser({
-//         id: "1",
-//         name: "Teste",
-//         email: "teste@example.com",
-//         role: "CLIENT",
-//       });
-//       setLoading(false);
-//       return;
-//     }
+  try {
+    const form = (await req.json()) as LocalUser;
+    const payload = localUserToUpdatePayload(form);
 
-//     fetch("/api/auth/me")
-//       .then((res) => res.json())
-//       .then(setUser)
-//       .catch(() => setUser(null))
-//       .finally(() => setLoading(false));
-//   }, []);
+    const res = await backendFetch("/api/users/me", {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    });
 
-//   return { user, loading };
-// }
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: await readBackendError(res) },
+        { status: res.status },
+      );
+    }
+
+    const profile = await fetchBackendProfile();
+    const user = profileToLocalUser(session.user, profile);
+
+    const updatedSession = {
+      ...session,
+      user: toAuthUser(session.user, user),
+    };
+    await setSession(updatedSession);
+
+    return NextResponse.json({ user });
+  } catch (error) {
+    console.error("PATCH /api/me", error);
+    return NextResponse.json(
+      { error: "Erro ao atualizar perfil" },
+      { status: 500 },
+    );
+  }
+}
