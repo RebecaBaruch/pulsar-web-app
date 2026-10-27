@@ -1,17 +1,19 @@
 "use client";
 
 import React, { JSX } from "react";
+import { toast } from "sonner";
 import { ScheduleView } from "../view/index.view";
 import { useCalendar } from "../hooks/useCalendar";
 import { timeSlots } from "@/utils/time-slots";
 import { AppointmentData } from "../types";
-import { mockAppointments as MOCK_APPOINTMENTS } from "../mock/mockAppointments";
 import { ScheduleSkeleton } from "../components/ScheduleSkeleton";
 import { useCancelAppointment } from "../hooks/useCancelAppointment";
 import { useRescheduleAppointment } from "../hooks/useRescheduleAppointment";
+import { fetchSpecialistCalendar } from "../../services/specialistApi";
 
 export default function HomeController(): JSX.Element {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [appointments, setAppointments] = React.useState<AppointmentData[]>([]);
 
   const [selectedAppointment, setSelectedAppointment] =
     React.useState<AppointmentData | null>(null);
@@ -19,26 +21,36 @@ export default function HomeController(): JSX.Element {
     React.useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = React.useState(false);
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const calendar = useCalendar({
     initialViewMode: "semana",
     weekStartsOn: 0,
   });
 
-  const handleReschedule = (id: string) => {
-    console.log("Reschedule ID capturado do Drawer:", id);
+  const reloadCalendar = React.useCallback(async () => {
+    try {
+      const data = await fetchSpecialistCalendar({
+        viewMode: calendar.viewMode,
+        referenceDate: calendar.currentDate,
+      });
+      setAppointments(data);
+    } catch {
+      toast.error("Não foi possível carregar a agenda.");
+      setAppointments([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [calendar.viewMode, calendar.currentDate]);
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    reloadCalendar();
+  }, [reloadCalendar]);
+
+  const handleReschedule = (_id: string) => {
     setIsRescheduleModalOpen(true);
   };
 
-  const handleCancelClick = (id: string) => {
-    console.log("Cancelar ID:", id);
+  const handleCancelClick = (_id: string) => {
     setIsCancelModalOpen(true);
   };
 
@@ -46,12 +58,14 @@ export default function HomeController(): JSX.Element {
     selectedAppointment,
     setSelectedAppointment,
     setIsRescheduleModalOpen,
+    onSuccess: reloadCalendar,
   });
 
   const { handleConfirmCancel } = useCancelAppointment({
     selectedAppointment,
     setSelectedAppointment,
     setIsCancelModalOpen,
+    onSuccess: reloadCalendar,
   });
 
   if (isLoading) {
@@ -62,7 +76,7 @@ export default function HomeController(): JSX.Element {
     <ScheduleView
       visibleDays={calendar.visibleDays}
       timeSlots={timeSlots}
-      appointments={MOCK_APPOINTMENTS}
+      appointments={appointments}
       viewMode={calendar.viewMode}
       selectedAppointment={selectedAppointment}
       onViewModeChange={calendar.setViewMode}

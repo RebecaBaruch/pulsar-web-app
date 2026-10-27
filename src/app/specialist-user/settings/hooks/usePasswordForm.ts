@@ -91,13 +91,20 @@ export function usePasswordForm() {
     setError(null);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { changeSpecialistPassword } = await import(
+        "../../services/specialistApi"
+      );
+      await changeSpecialistPassword({
+        currentPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+      });
       setSuccess("Senha alterada com sucesso!");
       setFormData(initialFormState);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(
-        err?.response?.data?.message ||
-          "A senha atual está incorreta. Tente novamente."
+        err instanceof Error
+          ? err.message
+          : "A senha atual está incorreta. Tente novamente.",
       );
     } finally {
       setIsSubmitting(false);

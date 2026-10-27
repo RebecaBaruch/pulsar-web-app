@@ -42,6 +42,7 @@ export const useCalendar = ({
   };
 
   return {
+    currentDate,
     visibleDays,
     viewMode,
     setViewMode,

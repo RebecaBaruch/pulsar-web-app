@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+import { toast } from "sonner";
 import Home from "../view/index.view";
 import HomeSkeleton from "../components/HomeSkeleton";
+import { fetchSpecialistDashboard } from "../../services/specialistApi";
 import {
   mockTodayAgendaData,
   mockWeeklyOverviewData,
@@ -10,13 +12,32 @@ import {
 
 export default function HomeController() {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [todayAgendaData, setTodayAgendaData] = React.useState(mockTodayAgendaData);
+  const [weeklyOverviewData, setWeeklyOverviewData] = React.useState(
+    mockWeeklyOverviewData,
+  );
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
+    let cancelled = false;
 
-    return () => clearTimeout(timer);
+    (async () => {
+      try {
+        const data = await fetchSpecialistDashboard();
+        if (cancelled) return;
+        setTodayAgendaData(data.today);
+        setWeeklyOverviewData(data.weekly);
+      } catch {
+        if (!cancelled) {
+          toast.error("Não foi possível carregar o resumo da agenda.");
+        }
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (isLoading) {
@@ -25,8 +46,8 @@ export default function HomeController() {
 
   return (
     <Home
-      todayAgendaData={mockTodayAgendaData}
-      weeklyOverviewData={mockWeeklyOverviewData}
+      todayAgendaData={todayAgendaData}
+      weeklyOverviewData={weeklyOverviewData}
     />
   );
 }
