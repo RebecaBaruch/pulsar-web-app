@@ -2,6 +2,7 @@ import { SpecialistType } from "../components/SpecialistCard/type";
 
 export const specialistsMock: SpecialistType[] = [
   {
+    id: "00000000-0000-0000-0000-000000000001",
     name: "Alex Machado",
     role: "Psicólogo Clínico",
     crm: "CRP 01/2345",
@@ -28,6 +29,7 @@ export const specialistsMock: SpecialistType[] = [
       "Além da minha paixão pela psicologia, adoro viajar e explorar novas culturas. Acredito que o autoconhecimento é uma jornada contínua e estou aqui para ajudar meus pacientes a trilhar esse caminho com empatia e profissionalismo. Vamos trabalhar juntos para alcançar seus objetivos e melhorar sua qualidade de vida.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000002",
     name: "Beatriz Souza",
     role: "Psicóloga Infantil",
     crm: "CRP 02/6789",
@@ -54,6 +56,7 @@ export const specialistsMock: SpecialistType[] = [
       "Sou apaixonada por trabalhar com crianças e ajudar no desenvolvimento emocional e cognitivo delas. Acredito que cada criança é única e merece uma abordagem personalizada para florescer em seu próprio ritmo.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000003",
     name: "Carlos Lima",
     role: "Psicólogo",
     crm: "CRM 03/1122",
@@ -80,6 +83,7 @@ export const specialistsMock: SpecialistType[] = [
       "Com mais de 15 anos de experiência, ajudo meus pacientes a explorar o inconsciente e compreender os padrões que influenciam suas vidas. Meu objetivo é promover o autoconhecimento e a transformação pessoal através da psicanálise.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000004",
     name: "Daniela Rocha",
     role: "Psicóloga",
     crm: "CRP 04/3344",
@@ -107,6 +111,7 @@ export const specialistsMock: SpecialistType[] = [
       "Sou dedicada a ajudar profissionais a alcançarem seu potencial máximo, tanto na vida pessoal quanto na carreira. Acredito que o equilíbrio emocional é fundamental para o sucesso e felicidade.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000005",
     name: "Eduardo Mendes",
     role: "Psicólogo Clínico",
     crm: "CRP 05/5566",
@@ -129,6 +134,7 @@ export const specialistsMock: SpecialistType[] = [
       "Tenho paixão por ajudar meus pacientes a desenvolverem habilidades práticas para melhorar sua memória e capacidade de aprendizado. Acredito que todos têm o potencial para crescer e se adaptar às mudanças da vida.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000006",
     name: "Fernanda Lima",
     role: "Psicóloga Clínica",
     crm: "CRP 06/7788",
@@ -156,6 +162,7 @@ export const specialistsMock: SpecialistType[] = [
       "Acredito na importância do autoconhecimento e da compreensão profunda dos sentimentos para promover mudanças significativas na vida dos meus pacientes. Estou aqui para apoiar cada um em sua jornada pessoal.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000007",
     name: "Gustavo Fernandes",
     role: "Psicólogo Infantil",
     crm: "CRM 07/9900",
@@ -178,6 +185,7 @@ export const specialistsMock: SpecialistType[] = [
       "Trabalho com crianças para ajudá-las a superar desafios emocionais e comportamentais, promovendo um ambiente seguro e acolhedor. Acredito que a infância é uma fase crucial para o desenvolvimento saudável.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000008",
     name: "Helena Martins",
     role: "Psicóloga Familiar",
     crm: "CRP 08/1112",
@@ -204,6 +212,7 @@ export const specialistsMock: SpecialistType[] = [
       "Tenho como missão ajudar famílias e casais a fortalecerem seus vínculos e superarem desafios juntos. Acredito que a comunicação aberta e o entendimento mútuo são essenciais para relações saudáveis.",
   },
   {
+    id: "00000000-0000-0000-0000-000000000009",
     name: "Igor Santos",
     role: "Psicólogo Esportivo",
     crm: "CRP 09/1314",
