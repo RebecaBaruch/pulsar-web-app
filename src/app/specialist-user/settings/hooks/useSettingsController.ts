@@ -1,59 +1,71 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { SettingsTabType } from "../components/SettingsTabs";
 import { ProfileFormData } from "./useProfileForm";
 import { ProfileDetailsData } from "./useProfileDetailsForm";
+import { fetchSpecialistSettings } from "../../services/specialistApi";
 
-// Mock for the "Personal Profile" tab
-const initialProfileMock: ProfileFormData = {
-  avatarUrl: "https://github.com/shadcn.png",
-  name: "Alex Machado",
-  cpf: "526.649.258-90",
-  birthDate: "2003-08-11",
-  email: "rebecabaruch@outlook.com",
-  phone: "(13) 9981-8161",
-  cep: "11900-000",
-  neighborhood: "Bairro Exemplo",
-  street: "Av. Nome da Rua",
-  city: "Registro",
-  uf: "SP",
+const emptyProfile: ProfileFormData = {
+  avatarUrl: "",
+  name: "",
+  cpf: "",
+  birthDate: "",
+  email: "",
+  phone: "",
+  cep: "",
+  neighborhood: "",
+  street: "",
+  city: "",
+  uf: "",
 };
 
-// Mock for the "Profile Details" tab
-const initialProfileDetailsMock: ProfileDetailsData = {
-  role: "Psicólogo Clínico",
-
-  code: "CRP 14/9236",
-  price: "R$ 90,00",
-  summary:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis interdum tortur ut facilisis. Fusce in diam purus. Curabitur eu tortor id sapien aliquet finibus at gravida sem. Aliquam lacus justo, sollicitudin vitae orci eget, placerat vehicula mauris. Duis sed tempus urna efficitur.",
-  videoUrl: "https://www.youtube.com/watch?v=FLVBxq7KQMI",
-  approach: "Ex.: TCC",
-  specialties: [
-    "Ansiedade",
-    "Depressão",
-    "Relacionamentos",
-    "Timidez",
-    "Inteligência emocional",
-    "Liderança",
-    "Vocação",
-    "Maternidade / Paternidade",
-  ],
-  education: "• Curso, Instituição, ano.",
-  detailedDescription:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae ligula a tellus euismod hendrerit ac ac ex. Praesent pharetra rutrum lorem, et efficitur lectus ornare in. Aliquam ornare, dolor eget dignissim scelerisque, diam turpis sodales tortor, a aliquet sapien metus quis felis.",
+const emptyDetails: ProfileDetailsData = {
+  role: "",
+  code: "",
+  price: "",
+  summary: "",
+  videoUrl: "",
+  approach: "",
+  specialties: [],
+  education: "",
+  detailedDescription: "",
 };
 
 export const useSettingsController = () => {
   const [activeTab, setActiveTab] = useState<SettingsTabType>("personal");
-  const [profileData] = useState<ProfileFormData>(initialProfileMock);
-  const [profileDetailsData] = useState<ProfileDetailsData>(
-    initialProfileDetailsMock,
-  );
+  const [profileData, setProfileData] = useState<ProfileFormData>(emptyProfile);
+  const [profileDetailsData, setProfileDetailsData] =
+    useState<ProfileDetailsData>(emptyDetails);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const data = await fetchSpecialistSettings();
+        if (cancelled) return;
+        setProfileData(data.profile);
+        setProfileDetailsData(data.details);
+      } catch {
+        if (!cancelled) {
+          toast.error("Não foi possível carregar suas configurações.");
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return {
     activeTab,
     setActiveTab,
     profileData,
     profileDetailsData,
+    loading,
   };
 };

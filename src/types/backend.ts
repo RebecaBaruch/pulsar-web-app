@@ -36,6 +36,9 @@ export type BackendSpecialistDetails = {
     personalDescription?: string;
     presentationVideoUrl?: string;
     base64Image?: string;
+    academicHistory?: string[];
+    specializations?: string[];
+    therapeuticApproaches?: string[];
   };
 };
 

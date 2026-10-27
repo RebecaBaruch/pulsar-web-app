@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { backendFetch, readBackendError } from "@/lib/api/server/backendClient";
-import { requireClientSession } from "@/lib/api/server/requireClientSession";
+import { requireSession } from "@/lib/api/server/requireSession";
 
 type Params = { params: Promise<{ specialistId: string }> };
 
 export async function GET(_req: Request, { params }: Params) {
-  const session = await requireClientSession();
+  const session = await requireSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }

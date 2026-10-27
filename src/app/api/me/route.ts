@@ -53,7 +53,7 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  if (session.user.role !== "CLIENT") {
+  if (session.user.role !== "CLIENT" && session.user.role !== "SPECIALIST") {
     return NextResponse.json({ error: "Acesso negado" }, { status: 403 });
   }
 

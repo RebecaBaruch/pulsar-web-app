@@ -40,9 +40,13 @@ export const useProfileForm = (initialData: ProfileFormData) => {
 
     setIsSubmitting(true);
     try {
-      console.log("Submetendo formulário:", formData);
+      const { saveSpecialistPersonalProfile } = await import(
+        "../../services/specialistApi"
+      );
+      await saveSpecialistPersonalProfile(formData);
     } catch (error) {
       console.error("Erro ao salvar perfil:", error);
+      throw error;
     } finally {
       setIsSubmitting(false);
     }
