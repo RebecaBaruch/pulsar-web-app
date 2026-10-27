@@ -4,31 +4,58 @@ import React from "react";
 import { toast } from "sonner";
 import Home from "../view/index.view";
 import HomeSkeleton from "../components/HomeSkeleton";
-import { fetchSpecialistDashboard } from "../../services/specialistApi";
 import {
-  mockTodayAgendaData,
-  mockWeeklyOverviewData,
-} from "../mock/mockAgendaData";
+  fetchNextSpecialistSession,
+  fetchSpecialistDashboard,
+  type SpecialistNextSession,
+} from "../../services/specialistApi";
+import type { TodayAgendaData } from "../components/TodayAgenda";
+import type { WeeklyOverviewData } from "../components/WeeklyOverview";
+import { useAuth } from "@/auth/useAuth";
+import { getFirstName, getTimeGreeting } from "@/utils/timeGreeting";
+
+const emptyToday: TodayAgendaData = {
+  completed: 0,
+  remaining: 0,
+  total: 0,
+  progressPercentage: 0,
+};
+
+const emptyWeekly: WeeklyOverviewData = {
+  completed: 0,
+  total: 0,
+  completedPercentage: 0,
+};
 
 export default function HomeController() {
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = React.useState(true);
-  const [todayAgendaData, setTodayAgendaData] = React.useState(mockTodayAgendaData);
-  const [weeklyOverviewData, setWeeklyOverviewData] = React.useState(
-    mockWeeklyOverviewData,
-  );
+  const [todayAgendaData, setTodayAgendaData] =
+    React.useState<TodayAgendaData>(emptyToday);
+  const [weeklyOverviewData, setWeeklyOverviewData] =
+    React.useState<WeeklyOverviewData>(emptyWeekly);
+  const [nextSession, setNextSession] =
+    React.useState<SpecialistNextSession | null>(null);
 
   React.useEffect(() => {
     let cancelled = false;
 
     (async () => {
       try {
-        const data = await fetchSpecialistDashboard();
+        const [dashboard, session] = await Promise.all([
+          fetchSpecialistDashboard(),
+          fetchNextSpecialistSession(),
+        ]);
         if (cancelled) return;
-        setTodayAgendaData(data.today);
-        setWeeklyOverviewData(data.weekly);
+        setTodayAgendaData(dashboard.today);
+        setWeeklyOverviewData(dashboard.weekly);
+        setNextSession(session);
       } catch {
         if (!cancelled) {
           toast.error("Não foi possível carregar o resumo da agenda.");
+          setTodayAgendaData(emptyToday);
+          setWeeklyOverviewData(emptyWeekly);
+          setNextSession(null);
         }
       } finally {
         if (!cancelled) setIsLoading(false);
@@ -40,14 +67,20 @@ export default function HomeController() {
     };
   }, []);
 
+  const greeting = getTimeGreeting();
+  const firstName = getFirstName(user?.name);
+
   if (isLoading) {
     return <HomeSkeleton />;
   }
 
   return (
     <Home
+      greeting={greeting}
+      userFirstName={firstName}
       todayAgendaData={todayAgendaData}
       weeklyOverviewData={weeklyOverviewData}
+      nextSession={nextSession}
     />
   );
 }

@@ -10,6 +10,67 @@ import type { DayAvailability } from "../availability/types";
 import type { ProfileFormData } from "../settings/hooks/useProfileForm";
 import type { ProfileDetailsData } from "../settings/hooks/useProfileDetailsForm";
 import { buildSessionWindow } from "@/utils/sessionSchedule";
+import {
+  daysUntil,
+  formatSessionDatePt,
+  formatSessionTimePt,
+} from "@/utils/sessionSchedule";
+
+export type SpecialistNextSession = {
+  profilePictureUrl?: string;
+  name: string;
+  description: string;
+  phoneNumber: string;
+  daysCount: number;
+  sessionDate: string;
+  sessionTime: string;
+};
+
+function appointmentStartIso(appointment: AppointmentData): string {
+  const time =
+    appointment.startTime.length === 5
+      ? `${appointment.startTime}:00`
+      : appointment.startTime;
+  return `${appointment.date}T${time}`;
+}
+
+export function pickNextAppointment(
+  appointments: AppointmentData[],
+  now = new Date(),
+): AppointmentData | null {
+  const upcoming = appointments
+    .map((item) => ({
+      item,
+      start: new Date(appointmentStartIso(item)),
+    }))
+    .filter(({ start }) => !Number.isNaN(start.getTime()) && start >= now)
+    .sort((a, b) => a.start.getTime() - b.start.getTime());
+
+  return upcoming[0]?.item ?? null;
+}
+
+export function mapAppointmentToNextSession(
+  appointment: AppointmentData,
+): SpecialistNextSession {
+  const startIso = appointmentStartIso(appointment);
+  return {
+    name: appointment.patientName,
+    description: appointment.type || "Sessão",
+    phoneNumber: appointment.phone.replace(/\D/g, "") || appointment.phone,
+    daysCount: daysUntil(startIso),
+    sessionDate: formatSessionDatePt(startIso),
+    sessionTime: formatSessionTimePt(startIso),
+  };
+}
+
+export async function fetchNextSpecialistSession(): Promise<SpecialistNextSession | null> {
+  const appointments = await fetchSpecialistCalendar({
+    viewMode: "semana",
+    referenceDate: new Date(),
+  });
+  const next = pickNextAppointment(appointments);
+  return next ? mapAppointmentToNextSession(next) : null;
+}
 
 async function parseError(res: Response): Promise<string> {
   try {
