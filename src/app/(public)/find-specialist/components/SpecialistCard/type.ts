@@ -1,5 +1,6 @@
 
 export type SpecialistType = {
+  id: string;
   name: string;
   role: string;
   crm: string;

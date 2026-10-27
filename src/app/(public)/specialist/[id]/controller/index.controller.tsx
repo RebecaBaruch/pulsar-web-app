@@ -1,16 +1,18 @@
 "use client";
 
 import React from "react";
+import { toast } from "sonner";
 import SpecialistDetailsView from "../view/index.view";
 import { useAuth } from "@/auth/useAuth";
 import { useParams, useRouter } from "next/navigation";
-import { specialistsMock } from "@/app/(public)/find-specialist/mock/mocks";
 import { reviewsMock } from "../mock/reviews";
 import {
-  fetchAvailableDates,
-  fetchAvailableTimes,
-} from "../services/availabilityService";
+  fetchAvailabilityDates,
+  fetchAvailabilityTimes,
+  fetchSpecialistById,
+} from "../../../services/publicSpecialistApi";
 import { useBooking } from "@/context/BookingContext";
+import type { SpecialistType } from "@/app/(public)/find-specialist/components/SpecialistCard/type";
 
 export default function SpecialistDetailsController() {
   return <SpecialistDetailsControllerInner />;
@@ -21,6 +23,9 @@ function SpecialistDetailsControllerInner() {
   const router = useRouter();
   const specialistId = params?.id as string;
   const [loading, setLoading] = React.useState(true);
+  const [specialist, setSpecialist] = React.useState<SpecialistType | null>(
+    null,
+  );
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = React.useState<string | null>(null);
   const [currentMonth, setCurrentMonth] = React.useState<Date>(new Date());
@@ -31,28 +36,34 @@ function SpecialistDetailsControllerInner() {
   const [open, setOpen] = React.useState(false);
   const closeLoginModal = () => setOpen(false);
 
-  // Find specialist by id (using index for now from mock data)
-  const specialist = React.useMemo(() => {
-    const index = parseInt(specialistId, 10);
-    return specialistsMock[index] || null;
+  React.useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const details = await fetchSpecialistById(specialistId);
+        if (!cancelled) setSpecialist(details);
+      } catch {
+        if (!cancelled) {
+          toast.error("Não foi possível carregar o especialista.");
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [specialistId]);
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Fetch available dates whenever month changes
   React.useEffect(() => {
     if (!specialist) return;
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
-    fetchAvailableDates(String(specialistId), year, month).then(
-      setAvailableDates
-    );
+    fetchAvailabilityDates(specialistId, year, month).then(setAvailableDates);
   }, [currentMonth, specialist, specialistId]);
 
-  // Fetch available times when a date is selected
   React.useEffect(() => {
     if (!selectedDate || !specialist) {
       setTimeSlots([]);
@@ -60,7 +71,7 @@ function SpecialistDetailsControllerInner() {
     }
     const iso = selectedDate.toISOString().slice(0, 10);
     setTimeLoading(true);
-    fetchAvailableTimes(String(specialistId), iso)
+    fetchAvailabilityTimes(specialistId, iso)
       .then(setTimeSlots)
       .finally(() => setTimeLoading(false));
   }, [selectedDate, specialist, specialistId]);
@@ -72,8 +83,7 @@ function SpecialistDetailsControllerInner() {
       setOpen(true);
       return;
     }
-    if (selectedDate && selectedTime && isAuthenticated && specialist) {
-      // Set booking details in context
+    if (selectedDate && selectedTime && specialist) {
       setBooking({
         specialistId,
         specialistName: specialist.name,
@@ -85,7 +95,7 @@ function SpecialistDetailsControllerInner() {
       });
       router.push(`/client-user/checkout`);
     } else {
-      alert("Por favor, selecione uma data e horário");
+      toast.error("Selecione uma data e horário.");
     }
   };
 

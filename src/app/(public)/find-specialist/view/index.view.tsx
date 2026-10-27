@@ -43,8 +43,8 @@ export default function FindSpecialistView({
               {loading ? (
                 <FindSpecialistSkeleton length={6} />
               ) : specialists.length > 0 ? (
-                specialists.map((s, i) => (
-                  <SpecialistCard key={i} {...s} index={i} />
+                specialists.map((s) => (
+                  <SpecialistCard key={s.id} {...s} />
                 ))
               ) : (
                 <p className="text-gray-500 col-span-full text-center">

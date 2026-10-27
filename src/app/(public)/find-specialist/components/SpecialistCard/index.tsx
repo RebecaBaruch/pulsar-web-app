@@ -13,7 +13,8 @@ import { useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
 import LinkButton from "@/components/LinkButton";
 
-const SpecialistCard: React.FC<SpecialistType & { index?: number }> = ({
+const SpecialistCard: React.FC<SpecialistType> = ({
+  id,
   name,
   role,
   crm,
@@ -22,13 +23,12 @@ const SpecialistCard: React.FC<SpecialistType & { index?: number }> = ({
   approach,
   price,
   imgSrc,
-  index,
 }) => {
   const MAX_VISIBLE_BADGES = 3;
   const router = useRouter();
 
   const handleScheduleClick = () => {
-    router.push(`${RoutesUrls.SPECIALIST_DETAILS}/${index}`);
+    router.push(`${RoutesUrls.SPECIALIST_DETAILS}/${id}`);
   };
 
   return (
@@ -90,7 +90,7 @@ const SpecialistCard: React.FC<SpecialistType & { index?: number }> = ({
           <p className="text-xs text-gray-600">/50min</p>
         </div>
         <LinkButton
-          href={`${RoutesUrls.SPECIALIST_DETAILS}/${index}`}
+          href={`${RoutesUrls.SPECIALIST_DETAILS}/${id}`}
           text="Agendar sessão"
           icon={faChevronRight}
           color="blue"
