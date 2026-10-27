@@ -59,9 +59,10 @@ export const useProfileDetailsForm = (initialData: ProfileDetailsData) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      // Simulation of API call
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      console.log("Dados salvos:", formData);
+      const { toast } = await import("sonner");
+      toast.info(
+        "A API ainda não expõe atualização de apresentação/preço. Dados exibidos vêm do backend.",
+      );
     } finally {
       setIsSubmitting(false);
     }

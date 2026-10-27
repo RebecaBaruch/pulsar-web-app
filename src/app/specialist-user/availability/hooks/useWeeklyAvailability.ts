@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { DayAvailability } from "../types";
 
-export function useWeeklyAvailability() {
-  const [weeklyDays, setWeeklyDays] = useState<DayAvailability[]>([
+const DEFAULT_WEEK: DayAvailability[] = [
     {
       dayName: "Segunda",
       enabled: true,
@@ -45,7 +44,10 @@ export function useWeeklyAvailability() {
       isOpen: false,
       ranges: [{ id: "7", start: "09:00", end: "13:00" }],
     },
-  ]);
+];
+
+export function useWeeklyAvailability() {
+  const [weeklyDays, setWeeklyDays] = useState<DayAvailability[]>(DEFAULT_WEEK);
 
   // Altera o switch Ativo/Inativo do dia e fecha o accordion se desativado
   const toggleDay = (index: number) => {
@@ -122,6 +124,7 @@ export function useWeeklyAvailability() {
 
   return {
     weeklyDays,
+    setWeeklyDays,
     toggleDay,
     toggleAccordion,
     addRange,
