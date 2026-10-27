@@ -20,6 +20,7 @@ type CheckoutViewProps = {
   price: number;
   discount?: number;
   onPaymentClick?: () => void;
+  submitting?: boolean;
 };
 
 export default function CheckoutView({
@@ -28,6 +29,7 @@ export default function CheckoutView({
   price,
   discount,
   onPaymentClick,
+  submitting,
   paymentMethod,
   onPaymentMethodChange,
 }: CheckoutViewProps & {
@@ -36,7 +38,7 @@ export default function CheckoutView({
 }) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (onPaymentClick) onPaymentClick();
+    if (onPaymentClick && !submitting) onPaymentClick();
   };
   return (
     <ClientPageShell>
@@ -73,7 +75,11 @@ export default function CheckoutView({
               benefitDiscount={benefitDetails.benefitDiscount}
             />
             <CheckoutCard price={price} discount={discount} />
-            <PrimaryButton text="Ir para o pagamento" type="submit" />
+            <PrimaryButton
+              text={submitting ? "Processando…" : "Ir para o pagamento"}
+              type="submit"
+              isDisabled={submitting}
+            />
           </div>
         </div>
       </form>

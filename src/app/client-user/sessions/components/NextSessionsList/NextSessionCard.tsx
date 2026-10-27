@@ -14,6 +14,7 @@ export type NextSessionCardProps = {
   specialistWpp: string;
   sessionDate: string;
   sessionTime: string;
+  startTimeIso?: string;
   isPriority?: boolean;
 };
 
