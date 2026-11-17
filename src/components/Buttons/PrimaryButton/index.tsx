@@ -12,6 +12,8 @@ type PrimaryButtonProps = {
   onClick?: () => void;
   isDisabled?: boolean;
   color?: ColorOption;
+  size?: "default" | "compact";
+  fullWidth?: boolean;
 };
 
 const colorStyles: Record<ColorOption, string> = {
@@ -53,6 +55,11 @@ const colorStyles: Record<ColorOption, string> = {
   `,
 };
 
+const sizeStyles = {
+  default: "p-3 py-4 lg:py-3 text-xs lg:text-sm",
+  compact: "px-3 py-2 text-[11px] md:px-3 md:py-3 md:text-xs lg:text-sm",
+};
+
 const PrimaryButton = ({
   type = "button",
   icon,
@@ -61,6 +68,8 @@ const PrimaryButton = ({
   onClick,
   isDisabled,
   color = "blue",
+  size = "default",
+  fullWidth = true,
 }: PrimaryButtonProps) => {
   return (
     <button
@@ -69,15 +78,13 @@ const PrimaryButton = ({
       disabled={isDisabled}
       aria-disabled={isDisabled}
       className={`
-        w-full
+        ${fullWidth ? "w-full" : "w-auto"}
         flex
         items-center
         justify-center
         gap-2
-        text-xs
-        lg:text-sm
         font-semibold
-        p-3 py-4 lg:py-3
+        ${sizeStyles[size]}
         rounded
         cursor-pointer
         disabled:opacity-50

@@ -13,7 +13,11 @@ export default function NextSessionsList({ sessions }: NextSessionsListProps) {
     return <SessionsSkeleton />;
   }
   if (sessions.length === 0) {
-    return <EmptyStateScreen type="next" />;
+    return (
+      <div className="px-4">
+        <EmptyStateScreen type="next" />
+      </div>
+    );
   }
 
   return (
