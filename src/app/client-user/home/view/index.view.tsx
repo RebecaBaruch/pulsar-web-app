@@ -35,7 +35,7 @@ export default function HomeView({
 
   return (
     <ClientPageShell width="wide" contentClassName="gap-12">
-      <div className="flex w-full flex-col gap-6">
+      <div className="flex w-full flex-col gap-3 md:gap-6">
         <h1 className="text-2xl font-semibold text-gray-darkest">
           Olá, {userName} 👋
         </h1>

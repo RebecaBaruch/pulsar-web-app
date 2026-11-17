@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import FooterSkeleton from "./FooterSkeleton";
+import { RoutesUrls } from "@/utils/enum/routes-url";
 
 export default function Footer() {
   const [loading, setLoading] = React.useState(true);
@@ -133,7 +134,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-gray-500">
               <li>
                 <Link
-                  href="#"
+                  href={RoutesUrls.FIND_SPECIALIST}
                   className="hover:text-gray-900 transition-colors"
                 >
                   Agendar uma sessão

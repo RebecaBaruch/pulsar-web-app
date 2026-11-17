@@ -15,7 +15,11 @@ export default function HistorySessionsList({ sessions }: HistorySessionsListPro
     return <SessionsSkeleton />;
   }
   if (sessions.length === 0) {
-    return <EmptyStateScreen type="history" />;
+    return (
+      <div className="px-4">
+        <EmptyStateScreen type="history" />
+      </div>
+    );
   }
 
   return (

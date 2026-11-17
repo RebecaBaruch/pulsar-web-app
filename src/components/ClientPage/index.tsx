@@ -62,7 +62,7 @@ export const clientStickyHeaderClass =
 
 /** Default elevated surface for forms and grouped content in the client app. */
 export const clientCardClass =
-  "rounded-lg border border-gray-light bg-white shadow-sm";
+  "rounded-lg border border-gray-light bg-white";
 
 type ClientCardProps = React.PropsWithChildren<{
   className?: string;

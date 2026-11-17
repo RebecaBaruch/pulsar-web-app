@@ -1,16 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { backendFetch, readBackendError } from "@/lib/api/server/backendClient";
-import { requireSession } from "@/lib/api/server/requireSession";
 
 export async function GET(req: NextRequest) {
-  const session = await requireSession();
-  if (!session) {
-    return NextResponse.json(
-      { error: "Faça login para ver especialistas" },
-      { status: 401 },
-    );
-  }
-
   const { searchParams } = req.nextUrl;
   const query = searchParams.toString();
   const path = query ? `/api/specialists?${query}` : "/api/specialists";
