@@ -1,18 +1,30 @@
 import { NextResponse } from "next/server";
 import { AuthUser } from "@/auth/authTypes";
-import { getSessionCookie, setSession } from "@/auth/services/sessionService";
+import {
+  getSessionAccessToken,
+  getSessionCookie,
+  setSession,
+} from "@/auth/services/sessionService";
 import { backendFetch, readBackendError } from "@/lib/api/server/backendClient";
 import {
+  coerceProfileUpdateBody,
+  isBackendClientProfilePatch,
   localUserToUpdatePayload,
+  parseBackendClientProfile,
   profileToLocalUser,
 } from "@/app/client-user/services/profileMapper";
 import type { BackendClientProfile } from "@/types/backend";
-import type { LocalUser } from "@/app/client-user/profile/hooks/useAutoSaveProfileForm";
+import type { LocalUser } from "@/app/client-user/profile/profile-types";
+import {
+  profileFormCanSave,
+  validateProfileForm,
+} from "@/app/client-user/profile/profile-form-validation";
 
 async function fetchBackendProfile(): Promise<BackendClientProfile | null> {
   const res = await backendFetch("/api/users/me");
   if (!res.ok) return null;
-  return (await res.json()) as BackendClientProfile;
+  const json: unknown = await res.json();
+  return parseBackendClientProfile(json);
 }
 
 function toAuthUser(sessionUser: AuthUser, profile: LocalUser): AuthUser {
@@ -33,7 +45,7 @@ export async function GET() {
   }
 
   try {
-    const profile = session.accessToken
+    const profile = getSessionAccessToken(session)
       ? await fetchBackendProfile()
       : null;
 
@@ -49,7 +61,7 @@ export async function GET() {
 export async function PATCH(req: Request) {
   const session = await getSessionCookie();
 
-  if (!session?.user || !session.accessToken) {
+  if (!session?.user || !getSessionAccessToken(session)) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
@@ -58,8 +70,27 @@ export async function PATCH(req: Request) {
   }
 
   try {
-    const form = (await req.json()) as LocalUser;
-    const payload = localUserToUpdatePayload(form);
+    const body: unknown = await req.json();
+    const form = coerceProfileUpdateBody(body);
+
+    const fieldErrors = validateProfileForm(form);
+    if (!profileFormCanSave(form)) {
+      const firstError =
+        Object.values(fieldErrors).find(Boolean) ??
+        "Corrija os campos destacados antes de salvar.";
+      return NextResponse.json({ error: firstError }, { status: 400 });
+    }
+
+    const payload = isBackendClientProfilePatch(body)
+      ? body
+      : localUserToUpdatePayload(form);
+
+    if (Object.keys(payload).length === 0) {
+      return NextResponse.json(
+        { error: "Nenhum dado válido para atualizar." },
+        { status: 400 },
+      );
+    }
 
     const res = await backendFetch("/api/users/me", {
       method: "PATCH",
