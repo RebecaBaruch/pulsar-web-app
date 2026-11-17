@@ -223,19 +223,27 @@ export async function fetchSpecialistSettings(): Promise<SpecialistSettingsPaylo
 export async function saveSpecialistPersonalProfile(
   profile: ProfileFormData,
 ): Promise<void> {
+  const { localUserToUpdatePayload } = await import(
+    "@/app/client-user/services/profileMapper"
+  );
+
   const res = await fetch("/api/me", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: profile.name,
-      email: profile.email,
-      phone: profile.phone,
-      cep: profile.cep,
-      street: profile.street,
-      neighborhood: profile.neighborhood,
-      city: profile.city,
-      uf: profile.uf,
-    }),
+    body: JSON.stringify(
+      localUserToUpdatePayload({
+        name: profile.name,
+        email: profile.email,
+        phone: profile.phone,
+        cpf: profile.cpf,
+        birthDate: profile.birthDate,
+        cep: profile.cep,
+        street: profile.street,
+        neighborhood: profile.neighborhood,
+        city: profile.city,
+        uf: profile.uf,
+      }),
+    ),
   });
   if (!res.ok) throw new Error(await parseError(res));
 }

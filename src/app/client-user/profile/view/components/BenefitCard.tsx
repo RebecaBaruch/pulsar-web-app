@@ -34,7 +34,7 @@ export default function BenefitCard() {
           onChange={(v) => setBenefit(v)}
         />
         <PrimaryButton
-          text={submitting ? "Enviando…" : "Solicitar código por e-mail"}
+          text={submitting ? "Enviando…" : "Solicitar benefício"}
           color="blue"
           isDisabled={submitting}
           onClick={async () => {
@@ -48,7 +48,7 @@ export default function BenefitCard() {
               });
               if (!res.ok) {
                 const data = await res.json().catch(() => ({}));
-                throw new Error(data.error ?? "Falha ao solicitar código");
+                throw new Error(data.error ?? "Falha ao solicitar benefício");
               }
               toast.success("Verifique seu e-mail para ativar o benefício.");
             } catch (error) {

@@ -5,7 +5,7 @@ import type {
   ScheduleSessionRequest,
   ScheduleSessionResponse,
 } from "@/types/backend";
-import type { LocalUser } from "../profile/hooks/useAutoSaveProfileForm";
+import type { LocalUser } from "../profile/profile-types";
 import type { NextSessionCardProps } from "../sessions/components/NextSessionsList/NextSessionCard";
 import type { HistorySessionCardProps } from "../sessions/components/HistorySessionsList/HistorySessionCard";
 import type { PaymentMethod } from "../checkout/components/PaymentOptions";

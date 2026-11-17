@@ -42,24 +42,40 @@ export type BackendSpecialistDetails = {
   };
 };
 
+export type BackendAddressResponse = {
+  street?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
+  neighbourhood?: string;
+};
+
+export type BackendEmergencyContact = {
+  name?: string;
+  phoneNumber?: string;
+  relationshipDegree?: string;
+};
+
+/** Contrato de leitura `GET /api/users/me` (Java). */
 export type BackendClientProfile = {
   name?: string;
   email?: string;
   telephone?: string;
   cpf?: string;
   birthday?: string;
-  emergencyContact?: {
-    name?: string;
-    phoneNumber?: string;
-    relationshipDegree?: string;
-  };
-  addressResponse?: {
-    street?: string;
-    city?: string;
-    state?: string;
-    zipcode?: string;
-    neighbourhood?: string;
-  };
+  emergencyContact?: BackendEmergencyContact;
+  addressResponse?: BackendAddressResponse;
+};
+
+/** Contrato de escrita `PATCH /api/users/me` — mesmos nomes do backend. */
+export type BackendClientProfilePatch = {
+  name?: string;
+  email?: string;
+  telephone?: string;
+  cpf?: string;
+  birthday?: string;
+  emergencyContact?: BackendEmergencyContact;
+  addressResponse?: BackendAddressResponse;
 };
 
 export type PaymentMethodBackend =

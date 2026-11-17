@@ -66,21 +66,36 @@ export async function POST(req: Request) {
     }
 
     const authData = await backendResponse.json();
-    let decodedToken: any = {};
+    const accessToken =
+      (typeof authData.accessToken === "string" && authData.accessToken) ||
+      (typeof authData.token === "string" && authData.token) ||
+      "";
+
+    let decodedToken: Record<string, unknown> = {};
 
     try {
-      decodedToken = jwtDecode(authData.accessToken);
+      if (accessToken) {
+        decodedToken = jwtDecode(accessToken) as Record<string, unknown>;
+      }
     } catch (e) {
       console.error("Error decoding JWT:", e);
     }
 
+    const decodedName =
+      typeof decodedToken.name === "string"
+        ? decodedToken.name
+        : typeof decodedToken.fullName === "string"
+          ? decodedToken.fullName
+          : undefined;
+
     const enrichedAuthData: AuthResponse = {
       ...authData,
+      accessToken,
       user: {
-        id: decodedToken.sub || authData.subject,
+        id: String(decodedToken.sub ?? authData.subject ?? ""),
         email,
-        name: decodedToken.email || email,
-        role: normalizeRole(decodedToken.role || authData.role),
+        name: decodedName || email,
+        role: normalizeRole(decodedToken.role ?? authData.role),
       },
     };
 

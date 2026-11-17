@@ -57,6 +57,7 @@ export default function SelectInput({
       ? options.filter((o) => value.includes(o.value))
       : options.find((o) => o.value === value);
   const widthClass = width === "fit" ? "w-fit" : "w-full";
+  const displayError = errorMessage || error;
 
   const validateField = (current?: string) => {
     let err: string | undefined;
@@ -132,7 +133,7 @@ export default function SelectInput({
           if (!isDisabled) setOpen((s) => !s);
         }}
         className={`flex items-center justify-between w-full border rounded p-3 bg-blue-lightest text-left focus:outline-none
-          ${error ? "border-red-500" : "border-gray-light"} ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+          ${displayError ? "border-red-500" : "border-gray-light"} ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
       >
         {isMulti ? (
           Array.isArray(selected) && selected.length > 0 && showResult ? (
@@ -153,7 +154,12 @@ export default function SelectInput({
         {icon ? (
           <FontAwesomeIcon icon={icon} className="ml-2 text-xs" />
         ) : (
-          <FontAwesomeIcon icon={faChevronDown} className="ml-2 text-xs" />
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className={`ml-2 text-xs transition-transform duration-200 ${
+              open ? "rotate-180" : ""
+            }`}
+          />
         )}
       </button>
 
@@ -200,7 +206,9 @@ export default function SelectInput({
         </ul>
       )}
 
-      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+      {displayError && (
+        <p className="mt-1 text-sm text-red-500">{displayError}</p>
+      )}
     </div>
   );
 }

@@ -1,4 +1,7 @@
-import { getSessionCookie } from "@/auth/services/sessionService";
+import {
+  getSessionAccessToken,
+  getSessionCookie,
+} from "@/auth/services/sessionService";
 
 export function getBackendUrl(): string {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -13,7 +16,7 @@ export async function backendFetch(
   init: RequestInit = {},
 ): Promise<Response> {
   const session = await getSessionCookie();
-  const token = session?.accessToken as string | undefined;
+  const token = getSessionAccessToken(session);
 
   const headers = new Headers(init.headers);
   headers.set("Accept", "application/json");
