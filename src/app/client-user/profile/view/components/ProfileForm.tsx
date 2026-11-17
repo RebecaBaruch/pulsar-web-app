@@ -127,9 +127,8 @@ export default function ProfileForm() {
                 type="cpf"
                 placeholder="665.025.670-61"
                 value={form.cpf ?? ""}
-                errorMessage={fieldErrors.cpf}
-                onChange={(v) => handleChange("cpf", v)}
-                isDisabled={isSubmitting}
+                onChange={() => {}}
+                isDisabled
                 className="w-full"
               />
             </div>

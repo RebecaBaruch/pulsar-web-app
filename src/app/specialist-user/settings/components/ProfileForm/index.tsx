@@ -90,9 +90,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ initialData }) => {
             type="cpf"
             placeholder="000.000.000-00"
             value={formData.cpf}
-            onChange={(val) => handleChange("cpf", val)}
-            required
-            shouldValidate={shouldValidate}
+            onChange={() => {}}
+            isDisabled
           />
           <InputField
             label="Data de nascimento"

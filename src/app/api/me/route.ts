@@ -10,6 +10,7 @@ import {
   coerceProfileUpdateBody,
   isBackendClientProfilePatch,
   localUserToUpdatePayload,
+  mergeCpfFromUserIdentity,
   parseBackendClientProfile,
   profileToLocalUser,
 } from "@/app/client-user/services/profileMapper";
@@ -20,11 +21,22 @@ import {
   validateProfileForm,
 } from "@/app/client-user/profile/profile-form-validation";
 
-async function fetchBackendProfile(): Promise<BackendClientProfile | null> {
+async function fetchBackendProfile(
+  userId: string,
+): Promise<BackendClientProfile | null> {
   const res = await backendFetch("/api/users/me");
   if (!res.ok) return null;
   const json: unknown = await res.json();
-  return parseBackendClientProfile(json);
+  let profile = parseBackendClientProfile(json);
+
+  if (!profile?.cpf?.trim() && userId) {
+    const userRes = await backendFetch(`/api/users/${userId}`);
+    if (userRes.ok) {
+      profile = mergeCpfFromUserIdentity(profile, await userRes.json());
+    }
+  }
+
+  return profile;
 }
 
 function toAuthUser(sessionUser: AuthUser, profile: LocalUser): AuthUser {
@@ -46,7 +58,7 @@ export async function GET() {
 
   try {
     const profile = getSessionAccessToken(session)
-      ? await fetchBackendProfile()
+      ? await fetchBackendProfile(session.user.id)
       : null;
 
     const user = profileToLocalUser(session.user, profile);
@@ -104,7 +116,7 @@ export async function PATCH(req: Request) {
       );
     }
 
-    const profile = await fetchBackendProfile();
+    const profile = await fetchBackendProfile(session.user.id);
     const user = profileToLocalUser(session.user, profile);
 
     const updatedSession = {

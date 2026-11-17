@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { backendFetch, readBackendError } from "@/lib/api/server/backendClient";
 import { requireSpecialistSession } from "@/lib/api/server/requireSpecialistSession";
+import { mergeCpfFromUserIdentity } from "@/app/client-user/services/profileMapper";
 import {
   mapSpecialistSettings,
   type BackendSpecialistProfile,
@@ -20,7 +21,17 @@ export async function GET() {
         { status: profileRes.status },
       );
     }
-    const profile = (await profileRes.json()) as BackendSpecialistProfile;
+    let profile = (await profileRes.json()) as BackendSpecialistProfile;
+
+    if (!profile.cpf?.trim()) {
+      const userRes = await backendFetch(`/api/users/${session.user.id}`);
+      if (userRes.ok) {
+        const withCpf = mergeCpfFromUserIdentity(null, await userRes.json());
+        if (withCpf?.cpf) {
+          profile = { ...profile, cpf: withCpf.cpf };
+        }
+      }
+    }
 
     let detailsExtra: Record<string, unknown> = {};
     const detailsRes = await backendFetch(

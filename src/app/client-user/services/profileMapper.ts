@@ -11,11 +11,7 @@ import {
   formatCepBr,
   isCepComplete,
 } from "@/utils/cep-br";
-import {
-  cpfToStorage,
-  formatCpfBr,
-  isCpfComplete,
-} from "@/utils/cpf-br";
+import { formatCpfBr } from "@/utils/cpf-br";
 import { validateProfileForm } from "../profile/profile-form-validation";
 import type { ProfileFormFieldKey } from "../profile/profile-form-validation";
 import { normalizeRelationshipDegree } from "@/utils/relate-degree-values";
@@ -138,6 +134,20 @@ export function parseBackendClientProfile(
   return hasScalar || hasNested ? profile : null;
 }
 
+/** O Java não expõe CPF em `GET /api/users/me`; vem em `GET /api/users/{userId}`. */
+export function mergeCpfFromUserIdentity(
+  profile: BackendClientProfile | null,
+  identityRaw: unknown,
+): BackendClientProfile | null {
+  const source = unwrapBackendProfileBody(identityRaw);
+  if (!source) return profile;
+  const cpf = readProfileString(source, "cpf");
+  if (!cpf) return profile;
+  if (!profile) return { cpf };
+  if (profile.cpf?.trim()) return profile;
+  return { ...profile, cpf };
+}
+
 export function mergeProfileWithAuth(
   profile: LocalUser | null | undefined,
   authUser: AuthUser | null | undefined,
@@ -207,13 +217,6 @@ export function localUserToUpdatePayload(
   }
   if (form.email?.trim() && fieldIsValid(errors, "email")) {
     payload.email = form.email.trim();
-  }
-  if (
-    form.cpf?.trim() &&
-    fieldIsValid(errors, "cpf") &&
-    isCpfComplete(form.cpf)
-  ) {
-    payload.cpf = cpfToStorage(form.cpf);
   }
   if (
     form.phone?.trim() &&
