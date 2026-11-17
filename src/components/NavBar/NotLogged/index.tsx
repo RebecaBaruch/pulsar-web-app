@@ -160,7 +160,7 @@ export default function NotLoggedNav() {
             Entrar
           </Link>
           <Link
-            href="/"
+            href={RoutesUrls.FIND_SPECIALIST}
             className="text-blue hover:text-blue-dark flex items-center gap-2"
           >
             Agendar uma consulta <FontAwesomeIcon icon={faCalendar} />

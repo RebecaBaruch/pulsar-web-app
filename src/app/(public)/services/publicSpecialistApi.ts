@@ -33,10 +33,6 @@ export async function fetchSpecialistsList(params?: {
     cache: "no-store",
   });
 
-  if (res.status === 401) {
-    throw new Error("AUTH_REQUIRED");
-  }
-
   if (!res.ok) {
     throw new Error(await parseError(res));
   }
