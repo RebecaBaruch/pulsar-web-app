@@ -13,14 +13,21 @@ import {
   runValidators,
 } from "../../utils/inputs-validation";
 import { formatCpf, formatPhone } from "../../utils/input-formatting";
+import {
+  formatPhoneIntlBr,
+  validatePhoneIntlBr,
+} from "../../utils/phone-intl-br";
+import { formatCepBr, validateCepBr } from "../../utils/cep-br";
 
 type InputType =
   | "text"
   | "cpf"
+  | "cep"
   | "password"
   | "email"
   | "number"
   | "tel"
+  | "tel-intl-br"
   | "url"
   | "date";
 
@@ -99,6 +106,12 @@ const InputField = ({
         case "tel":
           validators.push(validatePhone);
           break;
+        case "tel-intl-br":
+          validators.push(validatePhoneIntlBr);
+          break;
+        case "cep":
+          validators.push(validateCepBr);
+          break;
       }
     }
 
@@ -141,6 +154,10 @@ const InputField = ({
       newValue = formatCpf(newValue);
     } else if (type === "tel") {
       newValue = formatPhone(newValue);
+    } else if (type === "tel-intl-br") {
+      newValue = formatPhoneIntlBr(newValue);
+    } else if (type === "cep") {
+      newValue = formatCepBr(newValue);
     }
 
     onChange?.(newValue);
@@ -169,7 +186,7 @@ const InputField = ({
       ? showPassword
         ? "text"
         : "password"
-      : type === "cpf"
+      : type === "cpf" || type === "cep" || type === "tel-intl-br"
       ? "text"
       : type;
 
