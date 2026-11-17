@@ -1,6 +1,5 @@
 import type { LocalUser } from "./profile-types";
 import { validateCepBr } from "@/utils/cep-br";
-import { validateCpfBr } from "@/utils/cpf-br";
 import { validateEmail } from "@/utils/inputs-validation";
 import {
   isRelationshipDegree,
@@ -11,7 +10,6 @@ import { validatePhoneIntlBr } from "@/utils/phone-intl-br";
 export const PROFILE_FORM_FIELD_KEYS = [
   "name",
   "email",
-  "cpf",
   "phone",
   "emergencyName",
   "emergencyRelation",
@@ -51,8 +49,6 @@ export function validateProfileField(
       return minText(value);
     case "email":
       return validateEmail(value);
-    case "cpf":
-      return validateCpfBr(rawValue);
     case "phone":
     case "emergencyPhone":
       return validatePhoneIntlBr(rawValue);

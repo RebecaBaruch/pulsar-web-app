@@ -56,7 +56,10 @@ export type BackendEmergencyContact = {
   relationshipDegree?: string;
 };
 
-/** Contrato de leitura `GET /api/users/me` (Java). */
+/**
+ * Contrato de leitura `GET /api/users/me` (Java).
+ * O CPF não vem nesse endpoint; o BFF complementa via `GET /api/users/{userId}`.
+ */
 export type BackendClientProfile = {
   name?: string;
   email?: string;
