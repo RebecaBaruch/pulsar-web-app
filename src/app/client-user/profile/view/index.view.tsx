@@ -12,7 +12,7 @@ export default function ProfileView() {
     <ClientPageShell>
       <ClientPageHeader
         title="Meu Perfil"
-        description="Alterações são salvas automaticamente."
+        description="Edite seus dados e salve para confirmar as alterações."
       />
       <ProfileForm />
     </ClientPageShell>
