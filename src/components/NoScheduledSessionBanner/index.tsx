@@ -40,12 +40,12 @@ export default function NoScheduledSessionBanner({
       <img
         src={imageSrc}
         alt={imageAlt}
-        className="order-2 h-[4.5rem] w-[4.5rem] shrink-0 object-contain md:order-1 md:h-20 md:w-20"
+        className="order-2 h-[4.5rem] w-[4.5rem] shrink-0 object-contain md:order-1 md:h-15 md:w-15"
       />
 
       <div className="order-1 flex min-w-0 flex-1 flex-col gap-2 text-left md:order-2 md:gap-1">
         <div>
-          <h2 className="text-base font-semibold leading-tight text-gray-darkest md:text-lg">
+          <h2 className="text-sm font-semibold leading-tight text-gray-darkest md:text-base">
             {title}
           </h2>
           <p className="mt-0.5 text-xs leading-snug text-gray-dark md:mt-1 md:text-sm">
