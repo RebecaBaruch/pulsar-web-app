@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 
-type RegisterData = {
+export type RegisterData = {
   email: string;
   personal: {
     name: string;

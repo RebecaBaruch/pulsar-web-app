@@ -31,7 +31,7 @@ export function CustomCheckbox({
 
       <div
         className={`
-          h-5 w-5 rounded border 
+          h-4 w-4 rounded border 
           flex items-center justify-center
           transition-colors
           border-gray-400
@@ -53,7 +53,7 @@ export function CustomCheckbox({
         </svg>
       </div>
 
-      {label && <span className="text-sm">{label}</span>}
+      {label && <span className="text-xs">{label}</span>}
     </label>
   );
 }

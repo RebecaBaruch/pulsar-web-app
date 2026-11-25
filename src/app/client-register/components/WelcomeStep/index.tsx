@@ -30,31 +30,36 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
   };
 
   return (
-    <div className="flex w-full flex-col gap-6 sm:gap-8">
-      <div className="flex flex-col gap-1.5">
-        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-2xl font-bold text-black md:text-3xl lg:text-xl">
           Bem-vindo à Pulsar!
         </h1>
-        <p className="text-sm text-gray-darkest">
+        <p className="text-sm text-gray-darkest md:text-xs">
           Dê o primeiro passo para uma vida com mais equilíbrio, cuidado e
           bem-estar.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <InputField
-          label="E-mail"
-          type="email"
-          placeholder="Digite seu e-mail"
-          value={data.email}
-          onChange={(v) => update({ email: v })}
-          required
-          shouldValidate={submitted}
-          onValidationChange={setEmailValidationError}
-          errorMessage={submitted ? emailValidationError : undefined}
-        />
+      <div className="flex flex-col gap-6">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center gap-6"
+        >
+          <div className="flex w-full flex-col gap-4">
+            <InputField
+              label="E-mail"
+              type="email"
+              placeholder="Digite seu e-mail"
+              value={data.email}
+              onChange={(v) => update({ email: v })}
+              required
+              shouldValidate={submitted}
+              onValidationChange={setEmailValidationError}
+              errorMessage={submitted ? emailValidationError : undefined}
+            />
+          </div>
 
-        <div className="mt-1 flex flex-col items-center gap-4">
           <PrimaryButton
             type="submit"
             text="Próximo"
@@ -71,7 +76,7 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
             da Pulsar.
           </p>
 
-          <p className="text-center text-sm text-gray-darkest">
+          <div className="text-center text-xs">
             Já possui uma conta?{" "}
             <a
               href={RoutesUrls.LOGIN}
@@ -79,9 +84,9 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
             >
               Entrar
             </a>
-          </p>
-        </div>
-      </form>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
