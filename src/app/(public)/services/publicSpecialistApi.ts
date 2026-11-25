@@ -1,9 +1,6 @@
 import type { SpecialistType } from "../find-specialist/components/SpecialistCard/type";
-import { mapBackendDetails, mapBackendListItem } from "./specialistMapper";
-
-type PagedSpecialists = {
-  content?: unknown[];
-};
+import { mapBackendDetails } from "./specialistMapper";
+import { specialistsFromApiPayload } from "./specialistsList";
 
 async function parseError(res: Response): Promise<string> {
   try {
@@ -31,15 +28,15 @@ export async function fetchSpecialistsList(params?: {
   const qs = search.toString();
   const res = await fetch(`/api/specialists${qs ? `?${qs}` : ""}`, {
     cache: "no-store",
+    credentials: "include",
   });
 
   if (!res.ok) {
     throw new Error(await parseError(res));
   }
 
-  const data = (await res.json()) as PagedSpecialists | unknown[];
-  const content = Array.isArray(data) ? data : (data.content ?? []);
-  return content.map((item) => mapBackendListItem(item as Parameters<typeof mapBackendListItem>[0]));
+  const data = await res.json();
+  return specialistsFromApiPayload(data);
 }
 
 export async function fetchSpecialistById(
