@@ -5,13 +5,18 @@ import ResetPasswordView from "../view/index.view";
 import { validatePassword } from "@/utils/inputs-validation";
 import { passwordService } from "@/auth/services/passwordService";
 import { RoutesUrls } from "@/utils/enum/routes-url";
-import { useAuth } from "@/auth/useAuth";
 import { useSearchParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-export default function ResetPasswordController() {
+type ResetPasswordControllerProps = {
+  tokenFromPath?: string;
+};
+
+export default function ResetPasswordController({
+  tokenFromPath,
+}: ResetPasswordControllerProps) {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [disabled, setDisabled] = React.useState(true);
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [validationErrors, setValidationErrors] = React.useState<{
@@ -20,20 +25,31 @@ export default function ResetPasswordController() {
   }>({});
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { user, isAuthenticated } = useAuth();
+  const token = tokenFromPath || searchParams.get("token") || "";
+
+  React.useEffect(() => {
+    if (!token) {
+      router.replace(RoutesUrls.FORGOT_PASSWORD);
+    }
+  }, [token, router]);
 
   const validateMainPassword = (value: string) => {
-    const err = validatePassword(value);
+    const err = !value
+      ? "Informe a nova senha."
+      : validatePassword(value);
     setValidationErrors((prev) => ({ ...prev, password: err }));
     return err;
   };
 
-  const validateConfirmPassword = (value: string) => {
+  const validateConfirmPassword = (
+    value: string,
+    currentPassword = password,
+  ) => {
     let err: string | undefined;
 
     if (!value) {
       err = "Confirme sua senha.";
-    } else if (value !== password) {
+    } else if (value !== currentPassword) {
       err = "As senhas não coincidem.";
     }
 
@@ -46,7 +62,7 @@ export default function ResetPasswordController() {
     validateMainPassword(value);
 
     if (confirmPassword.length > 0) {
-      validateConfirmPassword(confirmPassword);
+      validateConfirmPassword(confirmPassword, value);
     }
   };
 
@@ -55,51 +71,47 @@ export default function ResetPasswordController() {
     validateConfirmPassword(value);
   };
 
-  React.useEffect(() => {
-    const noErrors =
-      !validationErrors.password &&
-      !validationErrors.confirmPassword &&
-      validatePassword(password) &&
-      password === confirmPassword;
-
-    setDisabled(!noErrors);
-  }, [password, confirmPassword, validationErrors]);
+  const isPasswordValid =
+    password.length > 0 && validatePassword(password) === undefined;
+  const isConfirmValid =
+    confirmPassword.length > 0 && confirmPassword === password;
+  const isDisabled =
+    loading ||
+    !isPasswordValid ||
+    !isConfirmValid ||
+    !!validationErrors.password ||
+    !!validationErrors.confirmPassword;
 
   const onSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
     setError("");
-    setLoading(true);
+
     const passErr = validateMainPassword(password);
     const confirmErr = validateConfirmPassword(confirmPassword);
     if (passErr || confirmErr) {
-      setLoading(false);
       return;
     }
-    // Get token from URL
-    const token = searchParams.get("token");
+
+    if (!token) {
+      router.push(RoutesUrls.FORGOT_PASSWORD);
+      return;
+    }
+
+    setLoading(true);
     try {
-      if (token) {
-        // Token-based reset (user from email link)
-        await passwordService.resetPassword({ token, newPassword: password });
-      } else if (isAuthenticated && user) {
-        // Authenticated user, mock userId as token
-        await passwordService.resetPassword({
-          token: user.id,
-          newPassword: password,
-        });
-      } else {
-        // Not authenticated and no token, redirect to login
-        router.push(RoutesUrls.LOGIN);
-        return;
-      }
+      await passwordService.resetPassword({ token, newPassword: password });
+      toast.success("Senha atualizada com sucesso!");
       router.push(RoutesUrls.USER_TYPE);
     } catch (err) {
-      setError("Erro ao redefinir senha.");
-      console.error("Erro ao redefinir senha:", err);
+      setError(
+        err instanceof Error ? err.message : "Erro ao redefinir senha.",
+      );
     } finally {
       setLoading(false);
     }
   };
+
+  if (!token) return null;
 
   return (
     <ResetPasswordView
@@ -108,7 +120,7 @@ export default function ResetPasswordController() {
       validationErrors={validationErrors}
       onPasswordChange={onPasswordChange}
       onConfirmPasswordChange={onConfirmPasswordChange}
-      isDisabled={disabled || loading}
+      isDisabled={isDisabled}
       onSubmit={onSubmit}
       error={error}
     />

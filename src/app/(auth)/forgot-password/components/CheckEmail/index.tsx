@@ -20,14 +20,14 @@ export default function CheckEmail() {
             className="text-green"
           />
         </div>
-        <p className="text-sm md:text-xs text-gray-darkest">
+        <p className="text-sm text-gray-darkest">
           Caso o e-mail exista, te enviamos um link com os passos para
           recuperação.
         </p>
       </div>
       <Link
         href={RoutesUrls.BASE_URL}
-        className="text-blue font-semibold hover:underline"
+        className="text-xs text-blue font-semibold hover:underline"
       >
         Voltar à página inicial
       </Link>

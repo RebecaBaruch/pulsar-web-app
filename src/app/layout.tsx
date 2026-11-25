@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Work_Sans } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 import AuthProvider from "@/auth/provider";
 import A11yDevChecks from "@/components/A11yDevChecks";
@@ -37,7 +38,7 @@ export default function RootLayout({
       <body
         className={`${workSans.variable} ${inter.variable} antialiased`}
       >
-        <a href="#main-content" className="skip-link">
+        <a href="#main-content" className="skip-link" suppressHydrationWarning>
           Pular para conteúdo principal
         </a>
         <AuthProvider>
@@ -46,6 +47,7 @@ export default function RootLayout({
             <main id="main-content" tabIndex={-1}>
               {children}
             </main>
+            <Toaster position="top-center" richColors />
           </BookingProvider>
         </AuthProvider>
       </body>

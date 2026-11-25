@@ -17,6 +17,8 @@ export enum RoutesUrls {
   SPECIALIST_SETTINGS = "/specialist-user/settings",
   AUTH_SIGNIN = "/api/auth/signin",
   AUTH_REGISTER = "/api/auth/register",
+  AUTH_RESET_PASSWORD_REQUEST = "/api/auth/reset-password/request",
+  AUTH_RESET_PASSWORD_CONFIRM = "/api/auth/reset-password/confirm",
 }
 
 export type RouteUrl =
@@ -37,4 +39,6 @@ export type RouteUrl =
   | RoutesUrls.SPECIALIST_AVAILABILITY
   | RoutesUrls.SPECIALIST_SETTINGS
   | RoutesUrls.AUTH_SIGNIN
-  | RoutesUrls.AUTH_REGISTER;
+  | RoutesUrls.AUTH_REGISTER
+  | RoutesUrls.AUTH_RESET_PASSWORD_REQUEST
+  | RoutesUrls.AUTH_RESET_PASSWORD_CONFIRM;
