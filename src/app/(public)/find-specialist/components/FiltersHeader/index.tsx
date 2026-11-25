@@ -35,7 +35,6 @@ export default function FiltersHeader({
     <div className="w-full flex flex-col gap-2">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full">
         <span className="text-sm text-gray-700">{expertsCount} resultados</span>
-
         <div className="flex w-full md:w-fit items-center gap-3">
           <SelectInput
             placeholder="Especialidade"
