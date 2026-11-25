@@ -5,6 +5,7 @@ import { SpecialistCard } from "../SpecialistCard";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import LinkButton from "@/components/LinkButton";
 import { RoutesUrls } from "@/utils/enum/routes-url";
+import { findSpecialistHref } from "@/utils/findSpecialistRoute";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faComments,
@@ -18,15 +19,26 @@ import {
 // extract the type of the icon prop from the Icon component
 type IconNameType = IconProp;
 
-const specialists: Array<{ title: string; icon: IconNameType; href: string }> =
-  [
-    { title: "Psicólogo", icon: faComments, href: "/" },
-    { title: "Psiquiatra", icon: faStethoscope, href: "/" },
-    { title: "Terapeuta", icon: faHandHoldingHeart, href: "/" },
-    { title: "Educador Físico", icon: faDumbbell, href: "/" },
-    { title: "Nutricionista", icon: faAppleWhole, href: "/" },
-    { title: "Assessor Financeiro", icon: faChartLine, href: "/" },
-  ];
+const specialists: Array<{
+  title: string;
+  icon: IconNameType;
+  filterValue: string;
+}> = [
+  { title: "Psicólogo", icon: faComments, filterValue: "Psicólogo" },
+  { title: "Psiquiatra", icon: faStethoscope, filterValue: "Psiquiatra" },
+  { title: "Terapeuta", icon: faHandHoldingHeart, filterValue: "Terapeuta" },
+  {
+    title: "Educador Físico",
+    icon: faDumbbell,
+    filterValue: "Educador físico",
+  },
+  { title: "Nutricionista", icon: faAppleWhole, filterValue: "Nutricionista" },
+  {
+    title: "Assessor Financeiro",
+    icon: faChartLine,
+    filterValue: "Assessor financeiro",
+  },
+];
 
 export default function SpecialistsSection() {
   return (
@@ -48,7 +60,7 @@ export default function SpecialistsSection() {
             key={item.title}
             title={item.title}
             icon={item.icon}
-            href={item.href}
+            href={findSpecialistHref(item.filterValue)}
           />
         ))}
       </div>
@@ -67,7 +79,7 @@ export default function SpecialistsSection() {
             key={item.title}
             title={item.title}
             icon={item.icon}
-            href={item.href}
+            href={findSpecialistHref(item.filterValue)}
           />
         ))}
       </div>

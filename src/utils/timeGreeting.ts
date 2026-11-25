@@ -6,8 +6,11 @@ export function getTimeGreeting(date = new Date()): string {
   return "Boa noite";
 }
 
-export function getFirstName(fullName?: string | null): string {
+export function getFirstName(
+  fullName?: string | null,
+  fallback = "Especialista",
+): string {
   const trimmed = fullName?.trim();
-  if (!trimmed) return "Especialista";
+  if (!trimmed) return fallback;
   return trimmed.split(/\s+/)[0] ?? trimmed;
 }

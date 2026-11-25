@@ -11,6 +11,7 @@ import {
 } from "../../services/clientUserApi";
 import type { NextSessionCardProps } from "../../sessions/components/NextSessionsList/NextSessionCard";
 import { daysUntil } from "@/utils/sessionSchedule";
+import { getFirstName } from "@/utils/timeGreeting";
 
 const LOAD_ERROR_FALLBACK =
   "Tente novamente em instantes. Se o problema continuar, entre em contato com o suporte.";
@@ -100,7 +101,7 @@ export default function HomeController() {
 
   return (
     <Home
-      userName={user?.name}
+      userName={getFirstName(user?.name, "você")}
       sessionsLoading={sessionsLoading}
       sessionsLoadError={sessionsLoadError}
       onRetrySessions={handleRetrySessions}
