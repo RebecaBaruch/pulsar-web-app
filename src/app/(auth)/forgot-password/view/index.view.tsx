@@ -8,7 +8,7 @@ import CheckEmail from "../components/CheckEmail";
 type ForgotPasswordProps = {
   email: string;
   error?: string;
-  // isLoading: boolean;
+  isLoading: boolean;
   sent: boolean;
   onEmailChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -17,6 +17,8 @@ type ForgotPasswordProps = {
 export default function ForgotPasswordView({
   email,
   sent,
+  error,
+  isLoading,
   onEmailChange,
   onSubmit,
 }: ForgotPasswordProps) {
@@ -44,6 +46,11 @@ export default function ForgotPasswordView({
             </div>
 
             <div className="flex flex-col gap-6">
+              {error && (
+                <div className="text-red-600 text-center text-sm font-medium">
+                  {error}
+                </div>
+              )}
               <form
                 onSubmit={onSubmit}
                 className="flex flex-col items-center gap-6"
@@ -55,10 +62,16 @@ export default function ForgotPasswordView({
                     value={email}
                     onChange={onEmailChange}
                     required
+                    error={!!error}
+                    isDisabled={isLoading}
                   />
                 </div>
 
-                <PrimaryButton type="submit" text="Enviar" />
+                <PrimaryButton
+                  type="submit"
+                  text={isLoading ? "Enviando..." : "Enviar"}
+                  isDisabled={isLoading}
+                />
               </form>
             </div>
           </>

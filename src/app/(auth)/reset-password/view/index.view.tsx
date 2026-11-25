@@ -13,7 +13,7 @@ type ResetPasswordViewProps = {
   };
   onPasswordChange: (value: string) => void;
   onConfirmPasswordChange: (value: string) => void;
-  onSubmit: () => void;
+  onSubmit: (e?: React.FormEvent) => void;
   isDisabled: boolean;
   error?: string;
 };
@@ -85,7 +85,6 @@ export default function ResetPasswordView({
               <PrimaryButton
                 type="submit"
                 text="Redefinir senha"
-                onClick={onSubmit}
                 isDisabled={isDisabled}
               />
             </div>

@@ -11,13 +11,16 @@ export function getBackendUrl(): string {
   return url.replace(/\/$/, "");
 }
 
+type BackendFetchOptions = {
+  /** Rotas públicas (login/register/reset) não devem enviar o JWT da sessão. */
+  skipAuth?: boolean;
+};
+
 export async function backendFetch(
   path: string,
   init: RequestInit = {},
+  options: BackendFetchOptions = {},
 ): Promise<Response> {
-  const session = await getSessionCookie();
-  const token = getSessionAccessToken(session);
-
   const headers = new Headers(init.headers);
   headers.set("Accept", "application/json");
 
@@ -25,8 +28,12 @@ export async function backendFetch(
     headers.set("Content-Type", "application/json");
   }
 
-  if (token) {
-    headers.set("Authorization", `Bearer ${token}`);
+  if (!options.skipAuth) {
+    const session = await getSessionCookie();
+    const token = getSessionAccessToken(session);
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
   }
 
   return fetch(`${getBackendUrl()}${path}`, {

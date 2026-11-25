@@ -148,3 +148,14 @@ export type BackendClientRegistrationRequest = {
 export type BackendClientRegistrationResponse = {
   userId: string;
 };
+
+/** `POST /api/auth/reset-password/request` — dispara o e-mail de recuperação. */
+export type BackendResetPasswordEmailRequest = {
+  email: string;
+};
+
+/** `POST /api/auth/reset-password/confirm` — define a nova senha com o token do e-mail. */
+export type BackendResetPasswordRequest = {
+  token: string;
+  newPassword: string;
+};
