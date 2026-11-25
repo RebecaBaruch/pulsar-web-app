@@ -52,17 +52,13 @@ function toAuthUser(sessionUser: AuthUser, profile: LocalUser): AuthUser {
 export async function GET() {
   const session = await getSessionCookie();
 
-  if (!session?.user) {
+  if (!session?.user || !getSessionAccessToken(session)) {
     return NextResponse.json({ user: null }, { status: 401 });
   }
 
   try {
-    const profile = getSessionAccessToken(session)
-      ? await fetchBackendProfile(session.user.id)
-      : null;
-
+    const profile = await fetchBackendProfile(session.user.id);
     const user = profileToLocalUser(session.user, profile);
-
     return NextResponse.json({ user });
   } catch (error) {
     console.error("GET /api/me", error);
