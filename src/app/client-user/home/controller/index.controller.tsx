@@ -1,19 +1,33 @@
 "use client";
 
 import React from "react";
-import { toast } from "sonner";
 import Home from "../view/index.view";
 import { useAuth } from "@/auth/useAuth";
 import { useRouter } from "next/navigation";
 import { RoutesUrls } from "@/utils/enum/routes-url";
-import { fetchClientSessions } from "../../services/clientUserApi";
+import {
+  ClientUserApiError,
+  fetchClientSessions,
+} from "../../services/clientUserApi";
 import type { NextSessionCardProps } from "../../sessions/components/NextSessionsList/NextSessionCard";
 import { daysUntil } from "@/utils/sessionSchedule";
+
+const LOAD_ERROR_FALLBACK =
+  "Tente novamente em instantes. Se o problema continuar, entre em contato com o suporte.";
+
+/** Listagem indisponível no backend: na home tratamos como “sem próxima sessão”. */
+function isSessionsListUnavailable(error: unknown): boolean {
+  return error instanceof ClientUserApiError && error.status === 503;
+}
 
 export default function HomeController() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [sessionsLoading, setSessionsLoading] = React.useState(true);
+  const [sessionsLoadError, setSessionsLoadError] = React.useState<
+    string | null
+  >(null);
+  const [retryCount, setRetryCount] = React.useState(0);
   const [nextSession, setNextSession] =
     React.useState<NextSessionCardProps | null>(null);
 
@@ -29,13 +43,29 @@ export default function HomeController() {
     let cancelled = false;
 
     (async () => {
+      setSessionsLoading(true);
       try {
         const data = await fetchClientSessions();
         if (cancelled) return;
+        setSessionsLoadError(null);
         setNextSession(data.nextSessions[0] ?? null);
-      } catch {
-        if (!cancelled) {
-          toast.error("Não foi possível carregar sua próxima sessão.");
+      } catch (error) {
+        if (cancelled) return;
+        if (
+          error instanceof ClientUserApiError &&
+          (error.status === 401 || error.status === 403)
+        ) {
+          return;
+        }
+        setNextSession(null);
+        if (isSessionsListUnavailable(error)) {
+          setSessionsLoadError(null);
+        } else {
+          setSessionsLoadError(
+            error instanceof ClientUserApiError
+              ? error.message
+              : LOAD_ERROR_FALLBACK,
+          );
         }
       } finally {
         if (!cancelled) setSessionsLoading(false);
@@ -45,7 +75,12 @@ export default function HomeController() {
     return () => {
       cancelled = true;
     };
-  }, [loading, user]);
+  }, [loading, user, retryCount]);
+
+  const handleRetrySessions = React.useCallback(() => {
+    setSessionsLoadError(null);
+    setRetryCount((n) => n + 1);
+  }, []);
 
   if (loading) return <Home loading={true} />;
 
@@ -67,6 +102,8 @@ export default function HomeController() {
     <Home
       userName={user?.name}
       sessionsLoading={sessionsLoading}
+      sessionsLoadError={sessionsLoadError}
+      onRetrySessions={handleRetrySessions}
       nextSession={nextSessionMeta}
     />
   );

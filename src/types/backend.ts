@@ -25,6 +25,8 @@ export type SpecialistType =
 export type BackendSpecialistDetails = {
   id: string;
   name: string;
+  telephone?: string;
+  phone?: string;
   registrationNumber?: string;
   city?: string;
   state?: string;

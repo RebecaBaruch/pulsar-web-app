@@ -19,6 +19,16 @@ type SessionsListResponse = {
   historySessions: HistorySessionCardProps[];
 };
 
+export class ClientUserApiError extends Error {
+  readonly status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ClientUserApiError";
+    this.status = status;
+  }
+}
+
 async function parseError(res: Response): Promise<string> {
   try {
     const data = await res.json();
@@ -51,7 +61,7 @@ export async function patchClientProfile(form: LocalUser): Promise<LocalUser> {
 export async function fetchClientSessions(): Promise<SessionsListResponse> {
   const res = await fetch("/api/sessions", { cache: "no-store" });
   if (!res.ok) {
-    throw new Error(await parseError(res));
+    throw new ClientUserApiError(await parseError(res), res.status);
   }
   return res.json();
 }

@@ -26,7 +26,7 @@ export function ClientPageShell({
       className={`flex w-full overflow-x-hidden min-h-screen justify-center pt-10 pb-10 ${className}`.trim()}
     >
       <div
-        className={`mx-auto flex w-full flex-col gap-8 ${widthClasses[width]} ${contentClassName}`.trim()}
+        className={`mx-auto flex w-full flex-col ${widthClasses[width]} ${contentClassName || "gap-8"}`.trim()}
       >
         {children}
       </div>

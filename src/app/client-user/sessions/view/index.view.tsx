@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ClientPageShell } from "@/components/ClientPage";
+import { clientCardClass, ClientPageShell } from "@/components/ClientPage";
 import SessionsHeader, { ActiveTab } from "../components/SessionsHeader";
 import NextSessionsList from "../components/NextSessionsList";
 import HistorySessionsList from "../components/HistorySessionsList";
@@ -11,28 +11,47 @@ import { HistorySessionCardProps } from "../components/HistorySessionsList/Histo
 
 interface SessionsViewProps {
   loading: boolean;
+  loadError?: string | null;
+  onRetry?: () => void;
   nextSessions: NextSessionCardProps[];
   historySessions: HistorySessionCardProps[];
 }
 
 export default function SessionsView({
   loading,
+  loadError = null,
+  onRetry,
   nextSessions,
   historySessions,
 }: SessionsViewProps) {
   const [activeTab, setActiveTab] = React.useState<ActiveTab>("next");
+
+  const listContent = loading ? (
+    <SessionsSkeleton />
+  ) : activeTab === "next" ? (
+    <NextSessionsList
+      sessions={nextSessions}
+      loadError={loadError}
+      onRetry={onRetry}
+    />
+  ) : (
+    <HistorySessionsList
+      sessions={historySessions}
+      loadError={loadError}
+      onRetry={onRetry}
+    />
+  );
+
   return (
-    <ClientPageShell
-      contentClassName="overflow-y-auto h-[calc(100vh-7rem)] scrollbar-hidden transition-all duration-300 ease-in-out"
-    >
+    <ClientPageShell contentClassName="flex flex-col gap-4">
       <SessionsHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-      {loading ? (
-        <SessionsSkeleton />
-      ) : activeTab === "next" ? (
-        <NextSessionsList sessions={nextSessions} />
-      ) : (
-        <HistorySessionsList sessions={historySessions} />
-      )}
+
+      <div
+        className={`${clientCardClass} max-h-[calc(100dvh-17rem)] overflow-x-hidden overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-gray-300 transition-all duration-300 ease-in-out md:max-h-[calc(100dvh-14rem)]`}
+        aria-label="Lista de sessões"
+      >
+        {listContent}
+      </div>
     </ClientPageShell>
   );
 }

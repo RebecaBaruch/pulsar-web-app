@@ -7,11 +7,14 @@ import MySessions from "../components/MySessions";
 import SpecialistsSection from "../components/SpecialistsSection";
 import HomeSkeleton from "../components/HomeSkeleton";
 import NoSessionHeader from "../components/NoSessionHeader";
+import NextSessionLoadErrorHeader from "../components/NextSessionLoadErrorHeader";
 
 interface HomeViewProps {
   loading?: boolean;
   userName?: string;
   sessionsLoading?: boolean;
+  sessionsLoadError?: string | null;
+  onRetrySessions?: () => void;
   nextSession?: {
     profilePictureUrl?: string;
     name: string;
@@ -27,6 +30,8 @@ export default function HomeView({
   loading,
   userName,
   sessionsLoading,
+  sessionsLoadError = null,
+  onRetrySessions,
   nextSession,
 }: HomeViewProps) {
   if (loading) {
@@ -42,6 +47,11 @@ export default function HomeView({
 
         {sessionsLoading ? (
           <div className="h-32 animate-pulse rounded-lg bg-gray-light" />
+        ) : sessionsLoadError ? (
+          <NextSessionLoadErrorHeader
+            detail={sessionsLoadError}
+            onRetry={onRetrySessions}
+          />
         ) : nextSession ? (
           <NextSessionHeader
             profilePictureUrl={nextSession.profilePictureUrl}

@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { backendFetch, readBackendError } from "@/lib/api/server/backendClient";
 import { requireClientSession } from "@/lib/api/server/requireClientSession";
-import { fetchClientSessionsFromBackend } from "@/lib/api/server/clientSessions";
+import {
+  ClientSessionsFetchError,
+  fetchClientSessionsFromBackend,
+} from "@/lib/api/server/clientSessions";
 import type { ScheduleSessionRequest } from "@/types/backend";
 
 export async function GET() {
@@ -14,6 +17,12 @@ export async function GET() {
     const data = await fetchClientSessionsFromBackend();
     return NextResponse.json(data);
   } catch (error) {
+    if (error instanceof ClientSessionsFetchError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status },
+      );
+    }
     console.error("GET /api/sessions", error);
     return NextResponse.json(
       { error: "Erro ao carregar sessões" },
