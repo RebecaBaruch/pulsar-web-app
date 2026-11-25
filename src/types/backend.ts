@@ -117,3 +117,34 @@ export type ScheduleSessionResponse = {
   startTime: string;
   endTime: string;
 };
+
+/** `POST /api/auth/register` — cadastro de cliente (Java). */
+export type BackendRegistrationAddress = {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  neighbourhood: string;
+};
+
+export type BackendRegistrationEmergencyContact = {
+  name: string;
+  phoneNumber: string;
+  relationshipDegree?: string;
+};
+
+export type BackendClientRegistrationRequest = {
+  name: string;
+  cpf: string;
+  telephone: string;
+  email: string;
+  password: string;
+  role: "CLIENT";
+  dateOfBirth: string;
+  address: BackendRegistrationAddress;
+  emergencyContact: BackendRegistrationEmergencyContact;
+};
+
+export type BackendClientRegistrationResponse = {
+  userId: string;
+};

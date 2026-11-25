@@ -16,6 +16,7 @@ export enum RoutesUrls {
   SPECIALIST_AVAILABILITY = "/specialist-user/availability",
   SPECIALIST_SETTINGS = "/specialist-user/settings",
   AUTH_SIGNIN = "/api/auth/signin",
+  AUTH_REGISTER = "/api/auth/register",
 }
 
 export type RouteUrl =
@@ -35,4 +36,5 @@ export type RouteUrl =
   | RoutesUrls.SPECIALIST_SCHEDULE
   | RoutesUrls.SPECIALIST_AVAILABILITY
   | RoutesUrls.SPECIALIST_SETTINGS
-  | RoutesUrls.AUTH_SIGNIN;
+  | RoutesUrls.AUTH_SIGNIN
+  | RoutesUrls.AUTH_REGISTER;

@@ -4,8 +4,12 @@ import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import InputField from "@/components/InputField";
 import React, { useMemo } from "react";
+import { useLogin } from "@/auth/hooks/useLogin";
 import { isRequired } from "@/utils/inputs-validation";
 import { useRegister } from "../../context/RegisterContext";
+import { registerClient, ClientRegisterApiError } from "../../services/clientRegisterApi";
+
+const REGISTER_STEP_KEY = "register_step";
 
 type ChoosePasswordFormProps = {
   onNext: () => void;
@@ -28,10 +32,10 @@ const validatePasswordMatch = (
 };
 
 export default function ChoosePasswordForm({
-  onNext,
   onBack,
 }: ChoosePasswordFormProps) {
   const { data, updateNested } = useRegister();
+  const { login } = useLogin({ redirectOnSuccess: true });
 
   const password = data.security.password || "";
   const confirmPassword = data.security.confirmPassword || "";
@@ -39,6 +43,8 @@ export default function ChoosePasswordForm({
   const [validationErrors, setValidationErrors] = React.useState<FieldErrors>(
     {}
   );
+  const [submitting, setSubmitting] = React.useState(false);
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
 
   const handleValidationChange = (
     field: keyof FieldErrors,
@@ -86,9 +92,29 @@ export default function ChoosePasswordForm({
     );
   }, [password, confirmPassword, validationErrors]);
 
-  const handleSubmit = () => {
-    if (!isFormValid) return;
-    onNext();
+  const handleSubmit = async () => {
+    if (!isFormValid || submitting) return;
+
+    setSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      await registerClient(data);
+      try {
+        sessionStorage.removeItem(REGISTER_STEP_KEY);
+      } catch {
+        /* ignore */
+      }
+      await login(data.email, data.security.password);
+    } catch (error) {
+      const message =
+        error instanceof ClientRegisterApiError
+          ? error.message
+          : "Não foi possível concluir o cadastro. Tente novamente.";
+      setSubmitError(message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -145,10 +171,16 @@ export default function ChoosePasswordForm({
             />
           </div>
 
+          {submitError && (
+            <p className="w-full text-center text-sm text-red-600" role="alert">
+              {submitError}
+            </p>
+          )}
+
           <PrimaryButton
             type="submit"
-            text="Próximo"
-            isDisabled={!isFormValid}
+            text={submitting ? "Criando conta..." : "Concluir cadastro"}
+            isDisabled={!isFormValid || submitting}
           />
           <SecondaryButton text="Voltar" onClick={onBack} />
         </form>
