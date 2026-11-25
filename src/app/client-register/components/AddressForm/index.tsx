@@ -78,26 +78,25 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
   };
 
   return (
-    <div className="flex flex-col gap-6 sm:gap-8">
-      <div className="flex flex-col gap-1.5">
-        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-2xl font-bold text-black md:text-3xl lg:text-xl">
           Endereço
         </h1>
-        <p className="text-sm text-gray-darkest">
+        <p className="text-sm text-gray-darkest md:text-xs">
           Nos diga onde você está. Essas informações nos ajudam a oferecer um
           atendimento mais completo.
         </p>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         <form
           ref={formRef}
           onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col gap-4"
+          className="flex flex-col items-center gap-6"
         >
-          <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-end">
+          <div className="flex w-full flex-col gap-4">
             <InputField
-              className="w-full"
               label="Código postal"
               type="text"
               placeholder="XXXXX-XXX"
@@ -119,117 +118,115 @@ export default function AddressForm({ onNext, onBack }: AddressFormProps) {
               value={address.countryName}
               onChange={(v) => updateNested("address", { countryName: v })}
             />
-          </div>
 
-          <InputField
-            label="Estado/Província"
-            placeholder="Digite o estado/província"
-            value={address.state}
-            onChange={(v) => updateNested("address", { state: v })}
-            required
-            onValidationChange={(err) => handleValidationChange("state", err)}
-            errorMessage={validationErrors.state}
-          />
+            <InputField
+              label="Estado/Província"
+              placeholder="Digite o estado/província"
+              value={address.state}
+              onChange={(v) => updateNested("address", { state: v })}
+              required
+              onValidationChange={(err) => handleValidationChange("state", err)}
+              errorMessage={validationErrors.state}
+            />
 
-          <InputField
-            label="Cidade"
-            type="text"
-            placeholder="Digite a cidade"
-            value={address.city}
-            onChange={(v) => updateNested("address", { city: v })}
-            required
-            onValidationChange={(err) => handleValidationChange("city", err)}
-            errorMessage={validationErrors.city}
-          />
+            <InputField
+              label="Cidade"
+              type="text"
+              placeholder="Digite a cidade"
+              value={address.city}
+              onChange={(v) => updateNested("address", { city: v })}
+              required
+              onValidationChange={(err) => handleValidationChange("city", err)}
+              errorMessage={validationErrors.city}
+            />
 
-          <InputField
-            label="Bairro/Distrito"
-            type="text"
-            placeholder="Digite o bairro/distrito"
-            value={address.district}
-            onChange={(v) => updateNested("address", { district: v })}
-            required
-            onValidationChange={(err) =>
-              handleValidationChange("district", err)
-            }
-            errorMessage={validationErrors.district}
-          />
+            <InputField
+              label="Bairro/Distrito"
+              type="text"
+              placeholder="Digite o bairro/distrito"
+              value={address.district}
+              onChange={(v) => updateNested("address", { district: v })}
+              required
+              onValidationChange={(err) =>
+                handleValidationChange("district", err)
+              }
+              errorMessage={validationErrors.district}
+            />
 
-          <div className="flex flex-col gap-3 items-end w-full">
-            <div className="flex w-full flex-col gap-4 sm:flex-row">
-              <InputField
-                className="w-full sm:flex-[4]"
-                label="Rua"
-                type="text"
-                placeholder="Digite a rua"
-                value={address.street}
-                onChange={(v) => updateNested("address", { street: v })}
-                required
-                onValidationChange={(err) =>
-                  handleValidationChange("street", err)
-                }
-                errorMessage={validationErrors.street}
-              />
+            <div className="flex w-full flex-col items-end gap-3">
+              <div className="flex w-full items-end gap-4">
+                <InputField
+                  className="min-w-0 flex-1"
+                  label="Rua"
+                  type="text"
+                  placeholder="Digite a rua"
+                  value={address.street}
+                  onChange={(v) => updateNested("address", { street: v })}
+                  required
+                  onValidationChange={(err) =>
+                    handleValidationChange("street", err)
+                  }
+                  errorMessage={validationErrors.street}
+                />
 
-              <InputField
-                className="w-full sm:flex-1 sm:max-w-[120px]"
-                label="N°"
-                type="number"
-                placeholder="XXX"
-                value={address.number}
-                onChange={(v) => updateNested("address", { number: v })}
-                isDisabled={address.noNumber}
-                required={!address.noNumber}
-                onValidationChange={(err) =>
-                  handleValidationChange("number", err)
-                }
-                errorMessage={validationErrors.number}
+                <InputField
+                  className="w-[5.5rem] shrink-0"
+                  label="N°"
+                  type="number"
+                  placeholder="XXX"
+                  value={address.number}
+                  onChange={(v) => updateNested("address", { number: v })}
+                  isDisabled={address.noNumber}
+                  required={!address.noNumber}
+                  onValidationChange={(err) =>
+                    handleValidationChange("number", err)
+                  }
+                  errorMessage={validationErrors.number}
+                />
+              </div>
+
+              <CustomCheckbox
+                label="Endereço sem número"
+                checked={address.noNumber}
+                onChange={(checked) => {
+                  updateNested("address", { noNumber: checked });
+
+                  handleValidationChange("number", undefined);
+
+                  if (checked) {
+                    handleValidationChange(
+                      "complement",
+                      isRequired(address.complement),
+                    );
+                  } else {
+                    handleValidationChange("complement", undefined);
+                  }
+                }}
               />
             </div>
 
-            <CustomCheckbox
-              label="Endereço sem número"
-              checked={address.noNumber}
-              onChange={(checked) => {
-                updateNested("address", { noNumber: checked });
-
-                handleValidationChange("number", undefined);
-
-                if (checked) {
-                  handleValidationChange(
-                    "complement",
-                    isRequired(address.complement)
-                  );
-                } else {
-                  handleValidationChange("complement", undefined);
-                }
-              }}
+            <InputField
+              label={`Complemento ${isComplementRequired ? "" : "(opcional)"}`}
+              type="text"
+              placeholder="Digite o complemento"
+              value={address.complement}
+              onChange={(v) => updateNested("address", { complement: v })}
+              required={isComplementRequired}
+              onValidationChange={(err) =>
+                handleValidationChange("complement", err)
+              }
+              errorMessage={validationErrors.complement}
             />
           </div>
 
-          <InputField
-            label={`Complemento ${isComplementRequired ? "" : "(opcional)"}`}
-            type="text"
-            placeholder="Digite o complemento"
-            value={address.complement}
-            onChange={(v) => updateNested("address", { complement: v })}
-            required={isComplementRequired}
-            onValidationChange={(err) =>
-              handleValidationChange("complement", err)
-            }
-            errorMessage={validationErrors.complement}
-          />
-        </form>
-
-        <div className="mt-1 flex flex-col items-center justify-center gap-3">
           <PrimaryButton
-            type="submit"
+            type="button"
             text="Próximo"
             onClick={handleSubmit}
             isDisabled={!isFormValid}
           />
           <SecondaryButton text="Voltar" onClick={onBack} />
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -92,61 +92,66 @@ export default function ChoosePasswordForm({
   };
 
   return (
-    <div className="flex flex-col gap-6 sm:gap-8">
-      <div className="flex flex-col gap-1.5">
-        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-2xl font-bold text-black md:text-3xl lg:text-xl">
           Defina a sua senha
         </h1>
-        <p className="text-sm text-gray-darkest">
+        <p className="text-sm text-gray-darkest md:text-xs">
           A senha deve ter pelo menos 8 caracteres, com letras, números e um
           caractere especial.
         </p>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <InputField
-            label="Senha"
-            type="password"
-            placeholder="Digite a senha"
-            value={password}
-            onChange={(v) => {
-              updateNested("security", { password: v });
-              validateField("password", v);
-            }}
-            required
-            errorMessage={validationErrors.password}
-          />
+      <div className="flex flex-col gap-6">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+          className="flex flex-col items-center gap-6"
+        >
+          <div className="flex w-full flex-col gap-4">
+            <InputField
+              label="Senha"
+              type="password"
+              placeholder="Digite a senha"
+              value={password}
+              onChange={(v) => {
+                updateNested("security", { password: v });
+                validateField("password", v);
+              }}
+              required
+              errorMessage={validationErrors.password}
+            />
 
-          <InputField
-            label="Confirme a senha"
-            type="password"
-            placeholder="Confirme a senha"
-            value={confirmPassword}
-            onChange={(v) => {
-              updateNested("security", { confirmPassword: v });
-              validateField("confirmPassword", v);
-            }}
-            required
-            errorMessage={validationErrors.confirmPassword}
-            error={!!validationErrors.confirmPassword}
-            isSuccess={
-              !validationErrors.confirmPassword &&
-              confirmPassword.length > 0 &&
-              password === confirmPassword
-            }
-          />
-        </form>
+            <InputField
+              label="Confirme a senha"
+              type="password"
+              placeholder="Confirme a senha"
+              value={confirmPassword}
+              onChange={(v) => {
+                updateNested("security", { confirmPassword: v });
+                validateField("confirmPassword", v);
+              }}
+              required
+              errorMessage={validationErrors.confirmPassword}
+              error={!!validationErrors.confirmPassword}
+              isSuccess={
+                !validationErrors.confirmPassword &&
+                confirmPassword.length > 0 &&
+                password === confirmPassword
+              }
+            />
+          </div>
 
-        <div className="mt-1 flex flex-col items-center justify-center gap-3">
           <PrimaryButton
             type="submit"
             text="Próximo"
-            onClick={handleSubmit}
             isDisabled={!isFormValid}
           />
           <SecondaryButton text="Voltar" onClick={onBack} />
-        </div>
+        </form>
       </div>
     </div>
   );

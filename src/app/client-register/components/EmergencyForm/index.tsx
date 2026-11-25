@@ -61,88 +61,91 @@ export default function EmergencyForm({ onNext, onBack }: EmergencyFormProps) {
   };
 
   return (
-    <div className="flex flex-col gap-6 sm:gap-8">
-      <div className="flex flex-col gap-1.5">
-        <h1 className="text-xl font-bold text-black sm:text-2xl lg:text-xl">
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-2xl font-bold text-black md:text-3xl lg:text-xl">
           Contato de emergência
         </h1>
-        <p className="text-sm text-gray-darkest">
+        <p className="text-sm text-gray-darkest md:text-xs">
           Em caso de emergência, entraremos em contato com alguém que você
           confia.
         </p>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         <form
           ref={formRef}
           onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col gap-4"
+          className="flex flex-col items-center gap-6"
         >
-          <InputField
-            label="Nome do contato de emergência"
-            placeholder="Digite o nome do contato"
-            value={emergency.contactName}
-            onChange={(v) => updateNested("emergency", { contactName: v })}
-            required
-            onValidationChange={(err) =>
-              handleValidationChange("contactName", err)
-            }
-            errorMessage={validationErrors.contactName}
-          />
-
-          {/* Parentesco */}
-          <SelectInput
-            label="Parentesco do contato de emergência"
-            value={emergency.relationship}
-            options={relationshipOptions}
-            onChange={(v) =>
-              updateNested("emergency", {
-                relationship: Array.isArray(v) ? v[0] : v,
-              })
-            }
-            required
-            customValidator={isRequired}
-            onValidationChange={(err) =>
-              handleValidationChange("relationship", err)
-            }
-            errorMessage={validationErrors.relationship}
-          />
-
-          {/* Telefone */}
-          <div className="flex w-full flex-row gap-4 sm:flex-row sm:items-end">
-            <CountryCodeSelect
-              className="w-fit"
-              label="Código do país"
-              value={emergency.countryCode}
-              onChange={(v) => updateNested("emergency", { countryCode: v })}
+          <div className="flex w-full flex-col gap-4">
+            <InputField
+              label="Nome do contato de emergência"
+              placeholder="Digite o nome do contato"
+              value={emergency.contactName}
+              onChange={(v) => updateNested("emergency", { contactName: v })}
+              required
+              onValidationChange={(err) =>
+                handleValidationChange("contactName", err)
+              }
+              errorMessage={validationErrors.contactName}
             />
 
-            <InputField
-              className="w-full"
-              label="Número de telefone"
-              type="tel"
-              placeholder="(XX) XXXXX-XXXX"
-              value={emergency.phone}
+            <SelectInput
+              label="Parentesco do contato de emergência"
+              value={emergency.relationship}
+              options={relationshipOptions}
               onChange={(v) =>
-                updateNested("emergency", { phone: formatPhone(v) })
+                updateNested("emergency", {
+                  relationship: Array.isArray(v) ? v[0] : v,
+                })
               }
               required
-              customValidator={validatePhone}
-              onValidationChange={(err) => handleValidationChange("phone", err)}
-              errorMessage={validationErrors.phone}
+              customValidator={isRequired}
+              onValidationChange={(err) =>
+                handleValidationChange("relationship", err)
+              }
+              errorMessage={validationErrors.relationship}
             />
-          </div>
-        </form>
 
-        <div className="mt-1 flex flex-col items-center justify-center gap-3">
+            <div className="flex w-full items-end gap-4">
+              <div className="w-[7.5rem] shrink-0">
+                <CountryCodeSelect
+                  label="Código do país"
+                  value={emergency.countryCode}
+                  onChange={(v) =>
+                    updateNested("emergency", { countryCode: v })
+                  }
+                />
+              </div>
+
+              <InputField
+                className="min-w-0 flex-1"
+                label="Número de telefone"
+                type="tel"
+                placeholder="(XX) XXXXX-XXXX"
+                value={emergency.phone}
+                onChange={(v) =>
+                  updateNested("emergency", { phone: formatPhone(v) })
+                }
+                required
+                customValidator={validatePhone}
+                onValidationChange={(err) =>
+                  handleValidationChange("phone", err)
+                }
+                errorMessage={validationErrors.phone}
+              />
+            </div>
+          </div>
+
           <PrimaryButton
-            type="submit"
+            type="button"
             text="Próximo"
             onClick={handleSubmit}
             isDisabled={!isFormValid}
           />
           <SecondaryButton text="Voltar" onClick={onBack} />
-        </div>
+        </form>
       </div>
     </div>
   );

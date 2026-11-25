@@ -29,7 +29,7 @@ export default function SimpleStepBar({
   }
 
   return (
-    <div className="mb-4 w-full">
+    <div className="w-full">
       <div className="relative h-1 w-full rounded-full bg-gray-200">
         <div
           className="h-full rounded-full bg-blue-500 transition-all duration-500"

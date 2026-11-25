@@ -252,7 +252,7 @@ const InputField = ({
         <p
           id={errorId}
           aria-live="polite"
-          className="text-red-500 text-sm mt-1"
+          className="mt-1 text-xs text-red-500"
         >
           {finalErrorMsg}
         </p>
