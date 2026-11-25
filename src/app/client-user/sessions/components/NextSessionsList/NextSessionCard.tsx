@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { openWhatsAppChat } from "../../utils/openWppChat";
 
 export type NextSessionCardProps = {
+  sessionId?: string;
   specialistId?: string;
   profilePic: string;
   specialistName: string;

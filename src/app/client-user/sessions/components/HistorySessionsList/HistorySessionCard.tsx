@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export type HistorySessionCardProps = {
+  sessionId?: string;
   specialistId: string;
   profilePic: string;
   specialistName: string;
