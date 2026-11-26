@@ -10,7 +10,7 @@ interface ReviewCardProps {
 
 export default function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <div className="w-full h-35 md:w-[350px] md:h-32 bg-white border border-gray-200 rounded-lg p-4">
+    <div className="h-full w-full bg-white border border-gray-200 rounded-lg p-4">
       <div className="flex items-start gap-3">
         <div className="w-10 h-10">
           <img
