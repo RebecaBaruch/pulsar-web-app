@@ -19,6 +19,7 @@ const SESSION_LIST_KEYS = [
   "nextSessions",
   "pastSessions",
   "historySessions",
+  "history",
 ] as const;
 
 function specialistAvatar(details?: BackendSpecialistDetails): string {
@@ -47,11 +48,48 @@ function readNestedId(
   return "";
 }
 
+function asUnknownArray(value: unknown): unknown[] {
+  return Array.isArray(value) ? value : [];
+}
+
+export function isClientSessionsResponse(
+  data: unknown,
+): data is { futureSessions?: unknown; history?: unknown } {
+  return (
+    !!data &&
+    typeof data === "object" &&
+    !Array.isArray(data) &&
+    ("futureSessions" in data || "history" in data)
+  );
+}
+
+export function extractClientSessionLists(data: unknown): {
+  future: unknown[];
+  history: unknown[];
+} {
+  if (isClientSessionsResponse(data)) {
+    return {
+      future: asUnknownArray(data.futureSessions),
+      history: asUnknownArray(data.history),
+    };
+  }
+
+  return { future: extractSessionsRawList(data), history: [] };
+}
+
 export function extractSessionsRawList(data: unknown): unknown[] {
   if (Array.isArray(data)) return data;
   if (!data || typeof data !== "object") return [];
 
   const obj = data as Record<string, unknown>;
+
+  if (isClientSessionsResponse(obj)) {
+    return [
+      ...asUnknownArray(obj.futureSessions),
+      ...asUnknownArray(obj.history),
+    ];
+  }
+
   const merged: unknown[] = [];
   let found = false;
 
@@ -77,29 +115,48 @@ export function extractEmbeddedSpecialist(
   const nested =
     s.specialist ?? s.specialistUser ?? s.professional ?? s.specialistDetails;
 
-  if (!nested || typeof nested !== "object") return null;
-  const specialist = nested as Record<string, unknown>;
-  const id = readNestedId(specialist, "id", "specialistId", "userId");
-  if (!id) return null;
+  if (nested && typeof nested === "object") {
+    const specialist = nested as Record<string, unknown>;
+    const nestedId = readNestedId(specialist, "id", "specialistId", "userId");
+    if (nestedId) {
+      const name = typeof specialist.name === "string" ? specialist.name : "";
+      return {
+        id: nestedId,
+        name,
+        telephone:
+          readNestedId(specialist, "telephone", "phone", "phoneNumber") ||
+          undefined,
+        phone:
+          readNestedId(specialist, "phone", "telephone", "phoneNumber") ||
+          undefined,
+        registrationNumber:
+          typeof specialist.registrationNumber === "string"
+            ? specialist.registrationNumber
+            : undefined,
+        specialistType:
+          specialist.specialistType as BackendSpecialistDetails["specialistType"],
+        presentation:
+          specialist.presentation as BackendSpecialistDetails["presentation"],
+        city: typeof specialist.city === "string" ? specialist.city : undefined,
+        state:
+          typeof specialist.state === "string" ? specialist.state : undefined,
+      };
+    }
+  }
 
-  const name = typeof specialist.name === "string" ? specialist.name : "";
+  const id = readNestedId(s, "specialistId");
+  const name = typeof s.specialistName === "string" ? s.specialistName : "";
+  if (!id || !name) return null;
+
   return {
     id,
     name,
-    telephone:
-      readNestedId(specialist, "telephone", "phone", "phoneNumber") || undefined,
-    phone:
-      readNestedId(specialist, "phone", "telephone", "phoneNumber") || undefined,
     registrationNumber:
-      typeof specialist.registrationNumber === "string"
-        ? specialist.registrationNumber
+      typeof s.registrationNumber === "string"
+        ? s.registrationNumber
         : undefined,
     specialistType:
-      specialist.specialistType as BackendSpecialistDetails["specialistType"],
-    presentation:
-      specialist.presentation as BackendSpecialistDetails["presentation"],
-    city: typeof specialist.city === "string" ? specialist.city : undefined,
-    state: typeof specialist.state === "string" ? specialist.state : undefined,
+      s.specialistType as BackendSpecialistDetails["specialistType"],
   };
 }
 
@@ -112,6 +169,47 @@ export function buildSpecialistMapFromRawSessions(
     if (embedded?.id) map.set(embedded.id, embedded);
   }
   return map;
+}
+
+function toCardBase(
+  session: BackendSession,
+  details?: BackendSpecialistDetails,
+) {
+  return {
+    sessionId: session.sessionId,
+    specialistId: session.specialistId,
+    profilePic: specialistAvatar(details),
+    specialistName: details?.name || session.specialistName || "Especialista",
+    specialistType: specialistTypeLabel(
+      details?.specialistType ?? session.specialistType,
+    ),
+    credentialCode:
+      details?.registrationNumber || session.registrationNumber || "CRP —",
+    specialistWpp: specialistWhatsApp(details),
+    sessionDate: formatSessionDatePt(session.startTime),
+    sessionTime: formatSessionTimePt(session.startTime),
+    startTimeIso: session.startTime,
+  };
+}
+
+export function mapSplitSessionsToCards(
+  futureSessions: BackendSession[],
+  historySessionsRaw: BackendSession[],
+  specialistById: Map<string, BackendSpecialistDetails>,
+): {
+  nextSessions: NextSessionCardProps[];
+  historySessions: HistorySessionCardProps[];
+} {
+  const nextSessions = futureSessions.map((session, index) => ({
+    ...toCardBase(session, specialistById.get(session.specialistId)),
+    isPriority: index === 0,
+  }));
+
+  const historySessions = historySessionsRaw.map((session) =>
+    toCardBase(session, specialistById.get(session.specialistId)),
+  );
+
+  return { nextSessions, historySessions };
 }
 
 export function mapSessionToCards(
@@ -138,18 +236,7 @@ export function mapSessionToCards(
     const isHistory =
       isPast || status === "COMPLETED" || status === "CANCELLED";
 
-    const base = {
-      sessionId: session.sessionId,
-      specialistId: session.specialistId,
-      profilePic: specialistAvatar(details),
-      specialistName: details?.name ?? "Especialista",
-      specialistType: specialistTypeLabel(details?.specialistType),
-      credentialCode: details?.registrationNumber ?? "CRP —",
-      specialistWpp: specialistWhatsApp(details),
-      sessionDate: formatSessionDatePt(session.startTime),
-      sessionTime: formatSessionTimePt(session.startTime),
-      startTimeIso: session.startTime,
-    };
+    const base = toCardBase(session, details);
 
     if (isHistory) {
       historySessions.push(base);
@@ -163,6 +250,25 @@ export function mapSessionToCards(
   }
 
   return { nextSessions, historySessions };
+}
+
+export function mapClientSessionsPayload(
+  data: unknown,
+  specialistById: Map<string, BackendSpecialistDetails>,
+): {
+  nextSessions: NextSessionCardProps[];
+  historySessions: HistorySessionCardProps[];
+} {
+  if (isClientSessionsResponse(data)) {
+    const { future, history } = extractClientSessionLists(data);
+    return mapSplitSessionsToCards(
+      future.map(normalizeSession).filter(Boolean) as BackendSession[],
+      history.map(normalizeSession).filter(Boolean) as BackendSession[],
+      specialistById,
+    );
+  }
+
+  return mapSessionToCards(parseSessionsPayload(data), specialistById);
 }
 
 export function parseSessionsPayload(data: unknown): BackendSession[] {
@@ -213,5 +319,15 @@ function normalizeSession(raw: unknown): BackendSession | null {
     startTime,
     endTime: endTime || startTime,
     status,
+    specialistName:
+      typeof s.specialistName === "string" ? s.specialistName : undefined,
+    registrationNumber:
+      typeof s.registrationNumber === "string"
+        ? s.registrationNumber
+        : undefined,
+    specialistType:
+      typeof s.specialistType === "string"
+        ? (s.specialistType as BackendSession["specialistType"])
+        : undefined,
   };
 }

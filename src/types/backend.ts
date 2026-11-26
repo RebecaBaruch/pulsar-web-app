@@ -5,15 +5,6 @@ export type SessionStatus =
   | "CANCELLED"
   | "COMPLETED";
 
-export type BackendSession = {
-  sessionId: string;
-  specialistId: string;
-  clientId: string;
-  startTime: string;
-  endTime: string;
-  status?: SessionStatus;
-};
-
 export type SpecialistType =
   | "PSICOLOGO"
   | "PSIQUIATRA"
@@ -21,6 +12,36 @@ export type SpecialistType =
   | "EDUCADOR_FISICO"
   | "NUTRICIONISTA"
   | "ASSESSOR_FINANCEIRO";
+
+export type BackendSession = {
+  sessionId: string;
+  specialistId: string;
+  clientId: string;
+  startTime: string;
+  endTime: string;
+  status?: SessionStatus;
+  specialistName?: string;
+  registrationNumber?: string;
+  specialistType?: SpecialistType;
+};
+
+/** `GET /api/clients/me/sessions` — `ClientSessionResponse`. */
+export type BackendClientSession = {
+  sessionId: string;
+  startsAt: string;
+  endsAt: string;
+  status?: SessionStatus;
+  specialistId: string;
+  specialistName?: string;
+  registrationNumber?: string;
+  specialistType?: SpecialistType;
+};
+
+/** `GET /api/clients/me/sessions` — `ClientSessionsResponse`. */
+export type BackendClientSessionsResponse = {
+  futureSessions?: BackendClientSession[];
+  history?: BackendClientSession[];
+};
 
 export type BackendSpecialistDetails = {
   id: string;

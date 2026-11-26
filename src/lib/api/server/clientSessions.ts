@@ -1,18 +1,13 @@
 import { backendFetch, readBackendError } from "./backendClient";
 import {
-  parseSessionsPayload,
-  mapSessionToCards,
   extractSessionsRawList,
   buildSpecialistMapFromRawSessions,
+  mapClientSessionsPayload,
+  parseSessionsPayload,
 } from "@/app/client-user/services/sessionMappers";
 import type { BackendSpecialistDetails } from "@/types/backend";
 
-/** Ordem de tentativa até o pulsar-api expor listagem do cliente de forma estável. */
-const SESSION_LIST_PATHS = [
-  "/api/sessions/client/me",
-  "/api/sessions/me",
-  "/api/clients/me/sessions",
-] as const;
+const CLIENT_SESSIONS_PATH = "/api/clients/me/sessions";
 
 export class ClientSessionsFetchError extends Error {
   constructor(
@@ -25,88 +20,36 @@ export class ClientSessionsFetchError extends Error {
 }
 
 export async function fetchClientSessionsFromBackend() {
-  let sawAuthFailure = false;
-  let notFoundCount = 0;
-  const backendFailures: string[] = [];
+  const res = await backendFetch(CLIENT_SESSIONS_PATH);
 
-  for (const path of SESSION_LIST_PATHS) {
-    const res = await backendFetch(path);
-
-    if (res.status === 404) {
-      notFoundCount++;
-      continue;
-    }
-    if (res.status === 401 || res.status === 403) {
-      sawAuthFailure = true;
-      continue;
-    }
-    if (!res.ok) {
-      backendFailures.push(
-        `${path}: ${res.status} ${await readBackendError(res)}`,
-      );
-      continue;
-    }
-
-    const data = await res.json();
-    const rawList = extractSessionsRawList(data);
-    const sessions = parseSessionsPayload(data);
-
-    if (sessions.length === 0 && path !== SESSION_LIST_PATHS.at(-1)) {
-      continue;
-    }
-
-    return mapSessionsToCardsResponse(sessions, rawList);
-  }
-
-  if (sawAuthFailure && notFoundCount === SESSION_LIST_PATHS.length) {
+  if (res.status === 401 || res.status === 403) {
     throw new ClientSessionsFetchError(
       "Sessão expirada ou sem permissão.",
       401,
     );
   }
 
-  if (notFoundCount === SESSION_LIST_PATHS.length) {
+  if (!res.ok) {
     throw new ClientSessionsFetchError(
-      "O servidor ainda não expõe a listagem de sessões do cliente.",
-      503,
+      (await readBackendError(res)) ||
+        "Não foi possível carregar suas sessões no servidor.",
+      res.status >= 400 && res.status < 600 ? res.status : 502,
     );
   }
 
-  if (backendFailures.length > 0) {
-    throw new ClientSessionsFetchError(
-      "Não foi possível carregar suas sessões no servidor.",
-      502,
-    );
-  }
-
-  if (sawAuthFailure) {
-    throw new ClientSessionsFetchError(
-      "Sessão expirada ou sem permissão.",
-      401,
-    );
-  }
-
-  throw new ClientSessionsFetchError(
-    "Não foi possível carregar suas sessões.",
-    503,
-  );
-}
-
-async function mapSessionsToCardsResponse(
-  sessions: ReturnType<typeof parseSessionsPayload>,
-  rawList: unknown[],
-) {
+  const data = await res.json();
+  const rawList = extractSessionsRawList(data);
+  const sessions = parseSessionsPayload(data);
   const specialistById = buildSpecialistMapFromRawSessions(rawList);
-  const missingIds = [...new Set(sessions.map((s) => s.specialistId))].filter(
-    (id) => !specialistById.has(id),
-  );
 
-  const fetched = await fetchSpecialistsMap(missingIds);
+  const ids = [...new Set(sessions.map((s) => s.specialistId))];
+  const fetched = await fetchSpecialistsMap(ids);
   for (const [id, details] of fetched) {
-    specialistById.set(id, details);
+    const existing = specialistById.get(id);
+    specialistById.set(id, existing ? { ...existing, ...details } : details);
   }
 
-  return mapSessionToCards(sessions, specialistById);
+  return mapClientSessionsPayload(data, specialistById);
 }
 
 async function fetchSpecialistsMap(

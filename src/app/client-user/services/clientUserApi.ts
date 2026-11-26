@@ -59,7 +59,7 @@ export async function patchClientProfile(form: LocalUser): Promise<LocalUser> {
 }
 
 export async function fetchClientSessions(): Promise<SessionsListResponse> {
-  const res = await fetch("/api/sessions", { cache: "no-store" });
+  const res = await fetch("/api/clients/me/sessions", { cache: "no-store" });
   if (!res.ok) {
     throw new ClientUserApiError(await parseError(res), res.status);
   }
